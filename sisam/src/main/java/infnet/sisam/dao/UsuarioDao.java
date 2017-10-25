@@ -1,5 +1,11 @@
 package infnet.sisam.dao;
 
-public class UsuarioDao {
+import infnet.sisam.model.Usuario;
+
+public class UsuarioDao extends JpaDao<Usuario> {
+
+	public UsuarioDao() {
+		super(Usuario.class);
+	}
 
 }
