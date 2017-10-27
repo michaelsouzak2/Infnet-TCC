@@ -6,12 +6,13 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import infnet.sisam.controller.HomeController;
+import infnet.sisam.dao.UsuarioDao;
 
 /**
  * lasse de configuração do módulo Web do SpringMVC.
  */
 @EnableWebMvc
-@ComponentScan(basePackageClasses= {HomeController.class})
+@ComponentScan(basePackageClasses= {HomeController.class, UsuarioDao.class})
 public class AppWebConfiguration {
 
 	/**

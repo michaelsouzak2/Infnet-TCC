@@ -1,12 +1,26 @@
 package infnet.sisam.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Usuario {
 
+	@Id
 	private Integer matricula;
 	private String senha;
 	private String email;
+
+	@OneToOne
+	@JoinColumn
 	private Perfil perfil;
-	
+
+	public Usuario() {
+		this.perfil = new Perfil();
+	}
+
 	public Perfil getPerfil() {
 		return perfil;
 	}

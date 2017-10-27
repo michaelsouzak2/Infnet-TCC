@@ -1,10 +1,15 @@
 package infnet.sisam.dao;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.transaction.annotation.Transactional;
 
 public class JpaDao<T> implements Dao<T> {
 
+	@PersistenceContext
 	protected EntityManager em;
+
 	@SuppressWarnings("rawtypes")
 	private Class clazz;
 
