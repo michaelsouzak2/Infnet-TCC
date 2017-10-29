@@ -3,11 +3,11 @@ package infnet.sisam.dao;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Repository;
 
 public class JpaDao<T> implements Dao<T> {
 
-	@PersistenceContext
+//	@PersistenceContext
 	protected EntityManager em;
 
 	@SuppressWarnings("rawtypes")

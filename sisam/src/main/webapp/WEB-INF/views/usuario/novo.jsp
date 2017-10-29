@@ -25,7 +25,7 @@
 		</div>
 		<div>
 			<label>Perfil: </label>
-			<input type="text" name="perfil.descricao" />
+			<input type="text" name="perfil.id" />
 		</div>
 		<button type="submit">Cadastrar</button>
 	</form>
