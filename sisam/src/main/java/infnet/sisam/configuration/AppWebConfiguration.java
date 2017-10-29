@@ -12,7 +12,8 @@ import infnet.sisam.dao.UsuarioDao;
  * lasse de configuração do módulo Web do SpringMVC.
  */
 @EnableWebMvc
-@ComponentScan(basePackageClasses= {HomeController.class, UsuarioDao.class})
+/*@ComponentScan(basePackageClasses= {HomeController.class, UsuarioDao.class})*/
+@ComponentScan(basePackages= "infnet.sisam")
 public class AppWebConfiguration {
 
 	/**
