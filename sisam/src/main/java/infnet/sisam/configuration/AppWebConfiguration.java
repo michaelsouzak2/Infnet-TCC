@@ -5,9 +5,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import infnet.sisam.controller.HomeController;
-import infnet.sisam.dao.UsuarioDao;
-
 /**
  * lasse de configuração do módulo Web do SpringMVC.
  */

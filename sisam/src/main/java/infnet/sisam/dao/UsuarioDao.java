@@ -1,24 +1,21 @@
 package infnet.sisam.dao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.stereotype.Repository;
 
 import infnet.sisam.model.Usuario;
 
 @Repository
-public class UsuarioDao {//extends JpaDao<Usuario> {
+public class UsuarioDao extends JpaDao<Usuario> {
 	
-	@PersistenceContext
-	protected EntityManager em;
+//	@PersistenceContext
+//	protected EntityManager em;
 	
-	public void salvar(Usuario entity) {
-		em.persist(entity);
-	}
-	
-//	public UsuarioDao() {
-//		super(Usuario.class);
+//	public void salvar(Usuario entity) {
+//		em.persist(entity);
 //	}
+	
+	public UsuarioDao() {
+		super(Usuario.class);
+	}
 
 }

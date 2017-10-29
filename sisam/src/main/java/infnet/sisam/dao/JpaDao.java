@@ -5,9 +5,10 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 
-public class JpaDao<T> implements Dao<T> {
+@Repository
+public abstract class JpaDao<T> implements Dao<T> {
 
-//	@PersistenceContext
+	@PersistenceContext
 	protected EntityManager em;
 
 	@SuppressWarnings("rawtypes")
