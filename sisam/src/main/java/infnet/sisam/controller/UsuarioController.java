@@ -8,17 +8,18 @@ import infnet.sisam.model.Usuario;
 import infnet.sisam.service.UsuarioService;
 
 @Controller
+@RequestMapping("usuario")
 public class UsuarioController {
 	
 	@Autowired
 	private UsuarioService usuarioService;
 	
-	@RequestMapping("/usuario/novo")
+	@RequestMapping("/novo")
 	public String novo() {
 		return "usuario/novo";
 	}
 	
-	@RequestMapping("/usuario/salvar")
+	@RequestMapping("/salvar")
 	public String grava(Usuario usuario) {
 		usuarioService.salvar(usuario);
 		return "usuario/ok";
