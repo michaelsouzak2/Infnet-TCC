@@ -1,16 +1,17 @@
 package infnet.sisam.model;
 
-public enum Perfil {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-	ADMINISTRADOR(1, "Administrador"), SECRETARIA(2, "Secretaria");
-
+@Entity
+public class PerfilOld {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String descricao;
-
-	private Perfil(Integer id, String descricao) {
-		this.id = id;
-		this.descricao = descricao;
-	}
 
 	public Integer getId() {
 		return id;

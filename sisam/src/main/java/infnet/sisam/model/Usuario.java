@@ -1,40 +1,39 @@
 package infnet.sisam.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Usuario {
 
 	@Id
-	private Integer matricula;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	private String nome;
 	private String senha;
 	private String email;
-
-	@OneToOne
-	@JoinColumn
 	private Perfil perfil;
 
-	public Usuario() {
-		this.perfil = new Perfil();
+	// @OneToOne
+	// @JoinColumn
+	// private PerfilOld perfil;
+
+	public Integer getId() {
+		return id;
 	}
 
-	public Perfil getPerfil() {
-		return perfil;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public void setPerfil(Perfil perfil) {
-		this.perfil = perfil;
+	public String getNome() {
+		return nome;
 	}
 
-	public int getMatricula() {
-		return matricula;
-	}
-
-	public void setMatricula(int matricula) {
-		this.matricula = matricula;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getSenha() {
@@ -51,6 +50,14 @@ public class Usuario {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Perfil getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(Perfil perfil) {
+		this.perfil = perfil;
 	}
 
 }
