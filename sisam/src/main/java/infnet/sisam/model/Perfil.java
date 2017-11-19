@@ -1,31 +1,37 @@
 package infnet.sisam.model;
 
-public enum Perfil {
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
 
-	ADMINISTRADOR(1, "Administrador"), SECRETARIA(2, "Secretaria");
+import org.springframework.security.core.GrantedAuthority;
 
-	private Integer id;
-	private String descricao;
+import infnet.sisam.enumeration.PerfilEnum;
 
-	private Perfil(Integer id, String descricao) {
-		this.id = id;
-		this.descricao = descricao;
+@Entity
+public class Perfil implements GrantedAuthority {
+
+	private static final long serialVersionUID = -5933439712613771042L;
+	
+	@Id
+	@Enumerated(EnumType.STRING)
+	private PerfilEnum nome;
+
+	public Perfil() {
 	}
 
-	public Integer getId() {
-		return id;
+	public PerfilEnum getNome() {
+		return nome;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setNome(PerfilEnum nome) {
+		this.nome = nome;
 	}
 
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	@Override
+	public String getAuthority() {
+		return this.nome.name();
 	}
 
 }
