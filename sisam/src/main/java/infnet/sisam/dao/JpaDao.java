@@ -32,13 +32,13 @@ public abstract class JpaDao<T> implements Dao<T> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public T buscar(T entity) {
-		return (T) em.find(clazz, entity);
+	public T buscar(Integer id) {
+		return (T) em.find(clazz, id);
 	}
 
 	@Override
 	public void excluir(T entity) {
-		em.remove(buscar(entity));
+		em.remove(entity);
 	}
-
+	
 }

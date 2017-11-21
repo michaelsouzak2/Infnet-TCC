@@ -2,9 +2,6 @@ package infnet.sisam.dao;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
@@ -13,9 +10,6 @@ import infnet.sisam.model.Usuario;
 
 @Repository
 public class UsuarioDao extends JpaDao<Usuario> implements UserDetailsService {
-	
-	@PersistenceContext
-	protected EntityManager em;
 	
 	public UsuarioDao() {
 		super(Usuario.class);
@@ -28,10 +22,14 @@ public class UsuarioDao extends JpaDao<Usuario> implements UserDetailsService {
 				.getResultList();
 				
 		if(usuarios.isEmpty()) {
-			throw new UsernameNotFoundException("Usuario " + email + " não foi encontrado.");
+			throw new UsernameNotFoundException("Usuário " + email + " não foi encontrado.");
 		}
 		
 		return usuarios.get(0);
 	}
-
+	
+	public List<Usuario> listar(){
+		return em.createQuery("select u from Usuario u", Usuario.class).getResultList();
+	}
+	
 }

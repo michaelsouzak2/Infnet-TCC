@@ -1,5 +1,7 @@
 package infnet.sisam.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +18,18 @@ public class UsuarioService {
 
 	public void salvar(Usuario usuario) {
 		usuarioDao.salvar(usuario);
+	}
+	
+	public List<Usuario> listar(){
+		return usuarioDao.listar();
+	}
+	
+	public void atualizar(Usuario usuario) {
+		usuarioDao.atualizar(usuario);
+	}
+	
+	public Usuario buscar(Integer id) {
+		return usuarioDao.buscar(id);
 	}
 
 }

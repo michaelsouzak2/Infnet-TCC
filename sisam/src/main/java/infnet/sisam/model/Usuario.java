@@ -1,16 +1,13 @@
 package infnet.sisam.model;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,12 +19,33 @@ public class Usuario implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	@Column(unique = true)
 	private String email;
 	private String nome;
 	private String senha;
+	// @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	// private List<Permissao> permissoes = new ArrayList<>();
+	private Permissao permissao = new Permissao();
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-	private List<Perfil> perfis = new ArrayList<Perfil>();
+	public Usuario() {
+	}
+
+	public Usuario(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Usuario(String email) {
+		this.email = email;
+	}
 
 	public String getEmail() {
 		return email;
@@ -53,17 +71,17 @@ public class Usuario implements UserDetails {
 		this.senha = senha;
 	}
 
-	public List<Perfil> getPerfis() {
-		return perfis;
+	public Permissao getPermissao() {
+		return permissao;
 	}
 
-	public void setPerfis(List<Perfil> perfis) {
-		this.perfis = perfis;
+	public void setPermissao(Permissao permissao) {
+		this.permissao = permissao;
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.perfis;
+		return Arrays.asList(this.permissao);
 	}
 
 	@Override
