@@ -2,12 +2,22 @@ package infnet.sisam.enumeration;
 
 public enum PermissaoEnum {
 
-	ROLE_ADMINISTRADOR("ADMINISTRADOR"), ROLE_SECRETARIA("SECRETARIA");
+	ROLE_ADMINISTRADOR(1, "ADMINISTRADOR"), ROLE_SECRETARIA(2, "SECRETARIA");
 
+	private Integer id;
 	private String descricao;
 
-	private PermissaoEnum(String descricao) {
+	private PermissaoEnum(Integer id, String descricao) {
+		this.id = id;
 		this.descricao = descricao;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getDescricao() {

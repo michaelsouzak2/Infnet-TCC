@@ -22,14 +22,17 @@ public class UsuarioController {
 	private UsuarioService usuarioService;
 	
 	@RequestMapping("/novo")
-	public String novo() {
-		return "usuario/novo";
+	public ModelAndView novo() {
+		ModelAndView modelAndView = new ModelAndView("usuarios/novo");
+		modelAndView.addObject("permissoes", PermissaoEnum.values());
+		return modelAndView;
 	}
 	
 	@RequestMapping("/salvar")
-	public String grava(Usuario usuario) {
+	public ModelAndView gravar(Usuario usuario, RedirectAttributes redirectAttributes) {
 		usuarioService.salvar(usuario);
-		return "usuario/ok";
+		redirectAttributes.addFlashAttribute("sucesso", "Novo usuário incluído.");
+		return new ModelAndView("redirect:/usuarios");
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
@@ -41,8 +44,8 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping("/atualizar")
-	public ModelAndView atualizar(Usuario usuario, RedirectAttributes redirectAttributes) {
-		usuarioService.atualizar(usuario);
+	public ModelAndView atualizar(Usuario usuario, String newPassword, RedirectAttributes redirectAttributes) {
+		usuarioService.atualizar(usuario, newPassword);
 		redirectAttributes.addFlashAttribute("sucesso", "Atualização bem sucedida");
 		return new ModelAndView("redirect:/usuarios");
 	}
@@ -52,7 +55,7 @@ public class UsuarioController {
 		ModelAndView modelAndView = new ModelAndView("usuarios/detalhe");
 		Usuario usuario = usuarioService.buscar(id);
 		modelAndView.addObject("usuario", usuario);
-		modelAndView.addObject("permissoesDiponiveis", PermissaoEnum.values());
+		modelAndView.addObject("permissoes", PermissaoEnum.values());
 		return modelAndView;
 	}
 }

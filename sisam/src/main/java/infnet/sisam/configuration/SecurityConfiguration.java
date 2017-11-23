@@ -5,7 +5,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import infnet.sisam.dao.UsuarioDao;
 import infnet.sisam.enumeration.PermissaoEnum;
@@ -16,12 +16,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UsuarioDao usuarioDao;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
 				.antMatchers("/resources/**").permitAll()
-				.antMatchers("/").hasRole(PermissaoEnum.ROLE_ADMINISTRADOR.getDescricao())
+				.antMatchers("/usuarios/**").hasRole(PermissaoEnum.ROLE_ADMINISTRADOR.getDescricao())
 				.anyRequest()
 				.authenticated()
 			.and()
@@ -39,7 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(usuarioDao)
-			.passwordEncoder(new BCryptPasswordEncoder());
+			.passwordEncoder(passwordEncoder);
 	}
 
 }

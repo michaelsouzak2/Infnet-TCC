@@ -13,7 +13,13 @@
 					<div class="alert alert-success" role="alert">${sucesso}</div>
 				</c:if>
 				
-				<h3>Usuários do SISAM</h3>
+				<div class="page-header">
+					<h3>Usuários do SISAM
+						<a href="${s:mvcUrl('UC#novo').build()}" class="btn btn-info pull-right">Novo</a>
+					</h3>
+				</div>
+				
+				
 				<table class="table table-striped table-hover">
 					<thead>
 						<tr>

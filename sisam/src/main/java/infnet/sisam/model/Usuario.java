@@ -5,9 +5,11 @@ import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,8 +26,7 @@ public class Usuario implements UserDetails {
 	private String email;
 	private String nome;
 	private String senha;
-	// @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-	// private List<Permissao> permissoes = new ArrayList<>();
+	@OneToOne(fetch = FetchType.EAGER)
 	private Permissao permissao = new Permissao();
 
 	public Usuario() {
