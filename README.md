@@ -18,7 +18,7 @@ MySQL:
 
 insert into permissao (nome) values ('ROLE_ADMINISTRADOR');
 
-insert into usuario (email, nome, senha, permissao) values (
+insert into usuario (email, nome, senha, permissao_id) values (
 'adm@infnet.edu.br', 'Administrador', '$2a$10$lt7pS7Kxxe5JfP.vjLNSyOXP11eHgh7RoPxo5fvvbMCZkCUss2DGu', 1);
 
 
