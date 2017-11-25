@@ -16,8 +16,9 @@ Inclua a aplicação em um conteiner web, de preferência o Apache Tomcat 8.5. A
 
 MySQL:
 
-insert into permissao (1, nome) values ('ROLE_ADMINISTRADOR');
-insert into permissao (2, nome) values ('ROLE_SECRETARIA');
+insert into permissao (id, nome) values (1, 'ROLE_ADMINISTRADOR');
+
+insert into permissao (id, nome) values (2, 'ROLE_SECRETARIA');
 
 insert into usuario (email, nome, senha, permissao_id) values (
 'adm@infnet.edu.br', 'Administrador', '$2a$10$lt7pS7Kxxe5JfP.vjLNSyOXP11eHgh7RoPxo5fvvbMCZkCUss2DGu', 1);
