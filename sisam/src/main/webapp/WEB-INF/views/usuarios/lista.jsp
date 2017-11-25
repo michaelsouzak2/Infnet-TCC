@@ -42,7 +42,11 @@
 									</a>
 								</td>
 								<td class="text-center">
-									<i class="fa fa-trash-o" aria-hidden="true"></i>
+									<form:form action="${s:mvcUrl('UC#remover').arg(0, usuario.id).build()}">
+										<button type="submit">
+											<i class="fa fa-trash-o" aria-hidden="true"></i>
+										</button>
+									</form:form>
 								</td>
 							</tr>
 						</c:forEach>

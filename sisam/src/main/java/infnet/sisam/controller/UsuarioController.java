@@ -58,4 +58,11 @@ public class UsuarioController {
 		modelAndView.addObject("permissoes", PermissaoEnum.values());
 		return modelAndView;
 	}
+	
+	@RequestMapping("/remover")
+	public ModelAndView remover(Integer id) {
+		usuarioService.remover(id);
+		return new ModelAndView("redirect:/usuarios");
+	}
+	
 }

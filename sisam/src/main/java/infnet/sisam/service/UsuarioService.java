@@ -40,7 +40,11 @@ public class UsuarioService {
 	public Usuario buscar(Integer id) {
 		return usuarioDao.buscar(id);
 	}
-
+	
+	public void remover(Integer id) {
+		usuarioDao.excluir(usuarioDao.buscar(id));
+	}
+	
 	private void codificarPassword(Usuario usuario) {
 		usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
 	}
