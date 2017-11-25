@@ -3,7 +3,7 @@ Sistema de Avaliação de Módulo(SISAM)
 Trabalho de conclusão de curso da pós-graduação em Engenharia de Software com Java.
 Tecnologias usadas: Spring MVC, Spring Security, JPA, Hibernate, Maven, Bootstrap e MySQL.
 
-## Configurações:	
+### Configurações:	
 Em JPAConfiguration, alterar de update para create a propriedade hibernate.hbm2ddl.auto.
 Senha criptografada com BCrypt. Equivale à 123456.
 
