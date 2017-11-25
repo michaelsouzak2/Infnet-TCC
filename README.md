@@ -15,6 +15,7 @@ use sisam;
 Inclua a aplicação em um conteiner web, de preferência o Apache Tomcat 8.5. Após a primeira execução da aplicação, faça:
 
 MySQL:
+
 insert into permissao (nome) values ('ROLE_ADMINISTRADOR');
 
 insert into usuario (email, nome, senha, permissao) values (
