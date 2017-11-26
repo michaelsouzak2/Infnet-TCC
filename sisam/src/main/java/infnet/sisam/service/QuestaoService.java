@@ -8,7 +8,7 @@ import infnet.sisam.model.Questao;
 public class QuestaoService {
 
 	public void salvar(Questao questao) {
-		questaoDao.salvar(questao);
+//		questaoDao.salvar(questao);
 	}
 	
 }
