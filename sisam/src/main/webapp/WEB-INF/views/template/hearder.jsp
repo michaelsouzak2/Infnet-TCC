@@ -24,6 +24,9 @@
 						<li>
 							<a href="${s:mvcUrl('TC#listar').build()} ">Tópicos</a>
 						</li>
+						<li>
+							<a href="${s:mvcUrl('QC#listar').build()} ">Questões</a>
+						</li>
 					</security:authorize>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
