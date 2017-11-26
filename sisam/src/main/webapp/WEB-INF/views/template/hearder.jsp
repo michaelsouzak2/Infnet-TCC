@@ -11,7 +11,7 @@
 		<div class="container">
 			<div class="navbar-header">
 			   <security:authorize access="isAuthenticated()">
-			    	<a class="navbar-brand" href="#">Home</a>
+			    	<a class="navbar-brand" href="${s:mvcUrl('HC#index').build()}">Home</a>
 			    </security:authorize>
 		   </div>
 			
@@ -20,6 +20,9 @@
 					<security:authorize access="hasRole('ROLE_ADMINISTRADOR')">
 						<li>
 							<a href="${s:mvcUrl('UC#listar').build()} ">Usuários</a>
+						</li>
+						<li>
+							<a href="${s:mvcUrl('TC#listar').build()} ">Tópicos</a>
 						</li>
 					</security:authorize>
 				</ul>

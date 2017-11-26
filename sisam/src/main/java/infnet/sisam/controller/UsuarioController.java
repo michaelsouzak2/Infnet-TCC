@@ -44,8 +44,8 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping("/atualizar")
-	public ModelAndView atualizar(Usuario usuario, String newPassword, RedirectAttributes redirectAttributes) {
-		usuarioService.atualizar(usuario, newPassword);
+	public ModelAndView atualizar(Usuario usuario, String oldPassword, RedirectAttributes redirectAttributes) {
+		usuarioService.atualizar(usuario, oldPassword);
 		redirectAttributes.addFlashAttribute("sucesso", "Atualização bem sucedida");
 		return new ModelAndView("redirect:/usuarios");
 	}
@@ -59,9 +59,10 @@ public class UsuarioController {
 		return modelAndView;
 	}
 	
-	@RequestMapping("/remover")
-	public ModelAndView remover(Integer id) {
+	@RequestMapping("/remover/{id}")
+	public ModelAndView remover(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
 		usuarioService.remover(id);
+		redirectAttributes.addFlashAttribute("sucesso", "Remoção bem sucedida.");
 		return new ModelAndView("redirect:/usuarios");
 	}
 	

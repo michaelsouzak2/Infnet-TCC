@@ -29,9 +29,12 @@ public class UsuarioService {
 		return usuarioDao.listar();
 	}
 
-	public void atualizar(Usuario usuario, String newPassword) {
-		if(!newPassword.equals(usuario.getSenha())) {
-			usuario.setSenha(newPassword);
+	public void atualizar(Usuario usuario, String oldPassword) {
+		
+		//TODO MARRETA
+		oldPassword = oldPassword.substring(1);
+		
+		if(!oldPassword.equals(usuario.getSenha())) {
 			codificarPassword(usuario);
 		}
 		usuarioDao.atualizar(usuario);
