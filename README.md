@@ -1,15 +1,26 @@
-### Infnet-TCC
-Sistema de Avaliação de Módulo - TCC da pós-graduação em Engenharia de Software com Java.
+## Infnet-TCC
+Sistema de Avaliação de Módulo(SISAM) 
+Trabalho de conclusão de curso da pós-graduação em Engenharia de Software com Java.
 Tecnologias usadas: Spring MVC, Spring Security, JPA, Hibernate, Maven, Bootstrap e MySQL.
 
-## Configurações
-JPAConfiguration: No método dataSource, mude a senha do banco e a estratégia do hibernate de update para create.
+### Configurações:	
+Em JPAConfiguration, alterar de update para create a propriedade hibernate.hbm2ddl.auto.
+Senha criptografada com BCrypt. Equivale à 123456.
 
-## SQL:
+MySQL:
+drop database sisam;
 create database sisam;
 use sisam;
 
-Levante o servidor, vincule o projeto ao servidor e execute a aplicação. 
-Em seguida, abre o terminal do MySQL e insira os comandos para incluir o usuário base:
+Inclua a aplicação em um conteiner web, de preferência o Apache Tomcat 8.5. Após a primeira execução da aplicação, faça:
 
-insert into permissao(nome) values ('ROLE_ADMINISTRADOR');
+MySQL:
+
+insert into permissao (id, nome) values (1, 'ROLE_ADMINISTRADOR');
+
+insert into permissao (id, nome) values (2, 'ROLE_SECRETARIA');
+
+insert into usuario (email, nome, senha, permissao_id) values (
+'adm@infnet.edu.br', 'Administrador', '$2a$10$lt7pS7Kxxe5JfP.vjLNSyOXP11eHgh7RoPxo5fvvbMCZkCUss2DGu', 1);
+
+
