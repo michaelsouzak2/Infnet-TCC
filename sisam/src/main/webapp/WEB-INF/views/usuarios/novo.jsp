@@ -8,6 +8,11 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
+			
+				<div class="page-header">
+					<h3>Novo Usuário</h3>
+				</div>
+			
 				<form:form action="${s:mvcUrl('UC#gravar').build()}" method="POST">
 					<div class="form-group">
 						<label for="email">E-mail:</label>

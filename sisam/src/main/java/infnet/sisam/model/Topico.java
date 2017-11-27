@@ -1,9 +1,14 @@
 package infnet.sisam.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Topico {
@@ -12,7 +17,10 @@ public class Topico {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String descricao;
-
+	
+	@OneToMany(mappedBy="topico", fetch=FetchType.EAGER)
+	private List<Questao> questoes = new ArrayList<Questao>();
+	
 	public Integer getId() {
 		return id;
 	}
@@ -29,4 +37,12 @@ public class Topico {
 		this.descricao = descricao;
 	}
 
+	public List<Questao> getQuestoes() {
+		return questoes;
+	}
+
+	public void setQuestoes(List<Questao> questoes) {
+		this.questoes = questoes;
+	}
+	
 }
