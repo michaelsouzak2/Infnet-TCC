@@ -1,6 +1,7 @@
 package infnet.sisam.model;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -19,7 +20,7 @@ public class Questionario {
 	private Integer id;
 	private String descricao;
 	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
-	private List<Questao> questoes = new ArrayList<>();
+	private List<Questao> questoes = new LinkedList<>();
 
 	public Integer getId() {
 		return id;
@@ -36,11 +37,11 @@ public class Questionario {
 	public void setQuestoes(List<Questao> questoes) {
 		this.questoes = questoes;
 	}
-
+	
 	public String getDescricao() {
 		return descricao;
 	}
-
+	
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}

@@ -22,7 +22,7 @@
 							
 								<div class="checkbox">
 								    <label>
-							     		<input type="checkbox" name="questoes[${questao.id}].id" value="${questao.id}" /> ${questao.pergunta}
+							     		<input type="checkbox" name="questoes[${questao.id - 1}].id" value="${questao.id}" /> ${questao.pergunta}
 								    </label>
 								</div>
 									
