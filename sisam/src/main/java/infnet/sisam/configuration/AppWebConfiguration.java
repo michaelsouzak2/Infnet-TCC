@@ -36,8 +36,6 @@ import com.google.common.cache.CacheBuilder;
 
 @EnableWebMvc
 @ComponentScan(basePackages = "infnet.sisam")
-// @SpringBootApplication
-// @EnableJms
 public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 
 	@Bean
@@ -120,8 +118,8 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	public MailSender mailSender() {
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 		mailSender.setHost("smtp.gmail.com");
-		mailSender.setUsername("xxx@gmail.com");
-		mailSender.setPassword("xxx");
+		mailSender.setUsername("avaliacaoinfnettc@gmail.com");
+		mailSender.setPassword("avaliacao2017");
 		mailSender.setPort(587);
 
 		Properties mailProperties = new Properties();

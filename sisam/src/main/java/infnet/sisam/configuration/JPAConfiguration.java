@@ -40,8 +40,6 @@ public class JPAConfiguration {
 	@Profile("dev")
 	public Properties aditionalProperties() {
 		Properties props = new Properties();
-//		props.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-//		props.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 		props.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 		props.put("hibernate.show_sql", true);
 		props.put("hibernate.format_sql", true);
