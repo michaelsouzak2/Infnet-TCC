@@ -24,9 +24,10 @@
 	
 		<%@ include file="/WEB-INF/views/template/footer.jsp" %>
 				
-		<jsp:invoke fragment="extraScripts" />
-		
 		<script src="/sisam/resources/js/jquery-3.2.1.min.js"></script>
 	    <script src="/sisam/resources/js/bootstrap.min.js"></script>
+
+		<jsp:invoke fragment="extraScripts" />
+
 	</body>
 </html>

@@ -8,7 +8,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<h4>Edição de usuário</h4>
+				<h3>Edição de usuário</h3>
 				<form:form action="${s:mvcUrl('UC#atualizar').build()}" method="POST" commandName="usuario">
 					<input type="hidden" name="id" value="${usuario.id}" />
 					<input type="hidden" name="oldPassword" value="${usuario.senha}" />

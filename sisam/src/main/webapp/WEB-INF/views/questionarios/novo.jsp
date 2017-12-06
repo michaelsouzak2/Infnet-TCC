@@ -5,39 +5,40 @@
 
 <page:template titulo="Novo questionário">
 	
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
+	<jsp:attribute name="extraScripts">
+		<script type="text/javascript" src="/sisam/resources/js/app/questionario.js"></script>
+	</jsp:attribute>
+	
+	<jsp:body>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="page-header">
+						<h3>Novo Questionário</h3>
+					</div>
 				
-				<div class="page-header">
-					<h3>Novo Questionário</h3>
+					<form:form id="form-novo-questionario" action="${s:mvcUrl('QAC#salvar').build()}" method="POST">
+						<div class="form-group">
+							<label for="grupoQuestoes">Grupo de questões:</label>
+							<div class="checkbox">
+								<c:forEach items="${gruposQuestoes}" var="grupo" varStatus="status">
+									<label>
+										<input type="checkbox" name="gruposQuestoes[${status.index}].id" value="${grupo.id}" />${grupo.descricao}
+									</label><br />
+								</c:forEach>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="descricao">Descrição:</label>
+							<input type="text" name="descricao" id="descricao" class="form-control" />
+						</div>
+						
+						<button type="submit" class="btn btn-primary">Salvar</button>
+					</form:form>
 				</div>
-			
-				<form:form action="${s:mvcUrl('QAC#salvar').build()}" method="POST">
-					<div class="form-group">
-						
-						<c:forEach items="${topicos}" var="topico">
-							<label>${topico.descricao}</label>
-							<c:forEach items="${topico.questoes}" var="questao">
-							
-								<div class="checkbox">
-								    <label>
-							     		<input type="checkbox" name="questoes[${questao.id - 1}].id" value="${questao.id}" /> ${questao.pergunta}
-								    </label>
-								</div>
-									
-							</c:forEach>
-						</c:forEach>
-						
-					</div>
-					<div class="form-group">
-						<label for="descricao">Descrição:</label>
-						<input type="text" name="descricao" id="descricao" class="form-control" />
-					</div>
-					<button type="submit" class="btn btn-primary">Salvar</button>
-				</form:form>
 			</div>
 		</div>
-	</div>
-
+	</jsp:body>
+	
 </page:template>

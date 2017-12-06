@@ -17,8 +17,8 @@ public class Questao {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade  = CascadeType.MERGE)
-	private Topico topico;
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	private GrupoQuestoes grupoQuestoes;
 
 	private String pergunta;
 
@@ -41,20 +41,20 @@ public class Questao {
 		this.opcao = opcao;
 	}
 
-	public Topico getTopico() {
-		return topico;
-	}
-
-	public void setTopico(Topico topico) {
-		this.topico = topico;
-	}
-
 	public String getPergunta() {
 		return pergunta;
 	}
 
 	public void setPergunta(String pergunta) {
 		this.pergunta = pergunta;
+	}
+
+	public GrupoQuestoes getGrupoQuestoes() {
+		return grupoQuestoes;
+	}
+
+	public void setGrupoQuestoes(GrupoQuestoes grupoQuestoes) {
+		this.grupoQuestoes = grupoQuestoes;
 	}
 
 }

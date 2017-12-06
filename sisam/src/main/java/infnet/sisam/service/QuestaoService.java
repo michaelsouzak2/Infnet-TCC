@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import infnet.sisam.dao.QuestaoDao;
 import infnet.sisam.model.Questao;
-import infnet.sisam.model.Topico;
+import infnet.sisam.model.GrupoQuestoes;
 
 @Service
 @Transactional
@@ -37,8 +37,8 @@ public class QuestaoService {
 		questaoDao.excluir(questaoDao.buscar(id));
 	}
 
-	public List<Questao> listarPorTopico(Topico topico) {
-		return questaoDao.listarPorTopico(topico);
+	public List<Questao> listarPorGrupoQuestoes(GrupoQuestoes grupoQuestoes) {
+		return questaoDao.listarPorGrupoQuestoes(grupoQuestoes);
 	}
 
 }

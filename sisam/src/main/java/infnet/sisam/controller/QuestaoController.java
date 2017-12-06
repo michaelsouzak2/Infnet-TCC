@@ -11,9 +11,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import infnet.sisam.model.Questao;
-import infnet.sisam.model.Topico;
+import infnet.sisam.model.GrupoQuestoes;
 import infnet.sisam.service.QuestaoService;
-import infnet.sisam.service.TopicoService;
+import infnet.sisam.service.GrupoQuestoesService;
 
 @Controller
 @RequestMapping("/questoes")
@@ -23,13 +23,13 @@ public class QuestaoController {
 	private QuestaoService questaoService;
 	
 	@Autowired
-	private TopicoService topicoService;
+	private GrupoQuestoesService grupoQuestoesService;
 
 	@RequestMapping("/novo")
 	public ModelAndView novo() {
 		ModelAndView modelAndView = new ModelAndView("questoes/novo");
-		List<Topico> topicos = topicoService.listar();
-		modelAndView.addObject("topicos", topicos);
+		List<GrupoQuestoes> gruposQuestoes = grupoQuestoesService.listar();
+		modelAndView.addObject("gruposQuestoes", gruposQuestoes);
 		return modelAndView;
 	}
 
@@ -43,31 +43,31 @@ public class QuestaoController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView listar() {
 		List<Questao> questoes = questaoService.listar();
-		List<Topico> topicos = topicoService.listar();
+		List<GrupoQuestoes> gruposQuestoes = grupoQuestoesService.listar();
 		ModelAndView modelAndView = new ModelAndView("questoes/lista");
 		modelAndView.addObject("questoes", questoes);
-		modelAndView.addObject("topicos", topicos);
+		modelAndView.addObject("gruposQuestoes", gruposQuestoes);
 		return modelAndView;
 	}
 	
-	@RequestMapping("/listarPorTopico")
-	public ModelAndView listarPorTopico(Topico topico, RedirectAttributes redirectAttributes) {
-		List<Questao> questoes = questaoService.listarPorTopico(topico);
-		List<Topico> topicos = topicoService.listar();
+	@RequestMapping("/listarPorGrupoQuestoes")
+	public ModelAndView listarPorGrupoQuestoes(GrupoQuestoes grupoQuestoes, RedirectAttributes redirectAttributes) {
+		List<Questao> questoes = questaoService.listarPorGrupoQuestoes(grupoQuestoes);
+		List<GrupoQuestoes> gruposQuestoes = grupoQuestoesService.listar();
 		ModelAndView modelAndView = new ModelAndView("questoes/lista");
 		modelAndView.addObject("questoes", questoes);
-		modelAndView.addObject("topicos", topicos);
-		redirectAttributes.addFlashAttribute("topico", topico);
+		modelAndView.addObject("gruposQuestoes", gruposQuestoes);
+		redirectAttributes.addFlashAttribute("grupoQuestoes", grupoQuestoes);
 		return modelAndView;
 	}
 	
 	@RequestMapping("/buscar/{id}")
 	public ModelAndView buscar(@PathVariable Integer id) {
 		Questao questao = questaoService.buscar(id);
-		List<Topico> topicos = topicoService.listar();
+		List<GrupoQuestoes> gruposQuestoes = grupoQuestoesService.listar();
 		ModelAndView modelAndView = new ModelAndView("questoes/detalhe");
 		modelAndView.addObject("questao", questao);
-		modelAndView.addObject("topicos", topicos);
+		modelAndView.addObject("gruposQuestoes", gruposQuestoes);
 		return modelAndView;
 	}
 

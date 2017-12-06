@@ -32,12 +32,12 @@
 							<tr>
 								<td>${questionario.descricao}</td>
 								<td class="text-center">
-									<a href="#">
+									<a href="${s:mvcUrl('QAC#buscar').arg(0, questionario.id).build()}">
 										<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 									</a>
 								</td>
 								<td class="text-center">
-									<a href="#">
+									<a href="${s:mvcUrl('QAC#remover').arg(0, questionario.id).build()}">
 										<i class="fa fa-trash-o" aria-hidden="true"></i>
 									</a>
 								</td>

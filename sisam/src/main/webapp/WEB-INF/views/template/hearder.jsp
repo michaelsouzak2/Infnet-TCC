@@ -22,7 +22,7 @@
 							<a href="${s:mvcUrl('UC#listar').build()} ">Usuários</a>
 						</li>
 						<li>
-							<a href="${s:mvcUrl('TC#listar').build()} ">Tópicos</a>
+							<a href="${s:mvcUrl('GQC#listar').build()} ">Grupos de questões</a>
 						</li>
 						<li>
 							<a href="${s:mvcUrl('QC#listar').build()} ">Questões</a>

@@ -15,10 +15,10 @@
 				
 				<form:form action="${s:mvcUrl('QC#salvar').build()}" method="POST">
 					<div class="form-group">
-						<label for="topico">Tópico:</label>
-						<select name="topico.id" id="topico" class="form-control">
-							<c:forEach items="${topicos}" var="topico">
-								<option value="${topico.id}">${topico.descricao}</option>
+						<label for="grupoQuestoes">Tópico:</label>
+						<select name="grupoQuestoes.id" id="grupoQuestoes" class="form-control">
+							<c:forEach items="${gruposQuestoes}" var="grupo">
+								<option value="${grupo.id}">${grupo.descricao}</option>
 							</c:forEach>
 						</select>
 					</div>

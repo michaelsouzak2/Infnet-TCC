@@ -9,7 +9,7 @@
 			<div class="col-sm-4 col-sm-offset-4">
 				
 				<div class="panel panel-default">
-					<div class="panel-heading">Login</div>
+					<div class="panel-heading"><strong>Login</strong></div>
 				  	<div class="panel-body">
 						<form:form servletRelativeAction="/login" method="POST">
 							<div class="form-group">

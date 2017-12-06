@@ -11,14 +11,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Topico {
+public class GrupoQuestoes {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String descricao;
 	
-	@OneToMany(mappedBy="topico", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="grupoQuestoes", fetch=FetchType.EAGER)
 	private List<Questao> questoes = new ArrayList<Questao>();
 	
 	public Integer getId() {

@@ -10,7 +10,12 @@
 			<div class="col-md-12">
 				
 				<c:if test="${not empty sucesso}">	
-					<div class="alert alert-success" role="alert">${sucesso}</div>
+					<div class="alert alert-success alert-dismissable" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						${sucesso}
+					</div>
 				</c:if>
 				
 				<div class="page-header">
@@ -19,17 +24,17 @@
 					</h3>
 				</div>
 				
-				<form:form action="${s:mvcUrl('QC#listarPorTopico').build()}" cssClass="form-inline" method="POST" commandName="topico">
+				<form:form action="${s:mvcUrl('QC#listarPorGrupoQuestoes').build()}" cssClass="form-inline" method="POST" commandName="grupoQuestoes">
 					<div class="form-group">
-						<label for="topico">Filtrar por tópico: </label>
-						<select name="id" id="topico" class="form-control">
-							<c:forEach items="${topicos}" var="t">
+						<label for="grupoQuestoes">Filtrar por grupo de questões: </label>
+						<select name="id" id="grupoQuestoes" class="form-control">
+							<c:forEach items="${gruposQuestoes}" var="grupo">
 								<c:choose>
-									<c:when test="${topico.id == t.id}">
-										<option value="${t.id}" selected="selected">${t.descricao}</option>
+									<c:when test="${grupoQuestoes.id == grupo.id}">
+										<option value="${grupo.id}" selected="selected">${grupo.descricao}</option>
 									</c:when>
 									<c:otherwise>
-										<option value="${t.id}">${t.descricao}</option>
+										<option value="${grupo.id}">${grupo.descricao}</option>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>

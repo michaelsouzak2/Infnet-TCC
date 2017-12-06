@@ -8,13 +8,13 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<h4>Editar questão</h4>
+				<h3>Editar questão</h3>
 				<form:form action="${s:mvcUrl('QC#atualizar').build()}" method="POST" commandName="questao">
 					<input type="hidden" name="id" value="${questao.id}" />
 					<div class="form-group">
 						<label>Tópico:</label>
-						<form:select path="topico.id" cssClass="form-control">
-							<form:options items="${topicos}" itemValue="id" itemLabel="descricao" />
+						<form:select path="grupoQuestoes.id" cssClass="form-control">
+							<form:options items="${gruposQuestoes}" itemValue="id" itemLabel="descricao" />
 						</form:select>
 					</div>
 					<div class="form-group">

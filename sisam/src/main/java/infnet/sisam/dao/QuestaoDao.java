@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import infnet.sisam.model.Questao;
-import infnet.sisam.model.Topico;
+import infnet.sisam.model.GrupoQuestoes;
 
 @Repository
 public class QuestaoDao extends JpaDao<Questao> {
@@ -18,9 +18,9 @@ public class QuestaoDao extends JpaDao<Questao> {
 		return em.createQuery("select q from Questao q", Questao.class).getResultList();
 	}
 
-	public List<Questao> listarPorTopico(Topico topico) {
-		return em.createQuery("select q from Questao q where q.topico = :topico", Questao.class)
-				.setParameter("topico", topico)
+	public List<Questao> listarPorGrupoQuestoes(GrupoQuestoes grupoQuestoes) {
+		return em.createQuery("select q from Questao q where q.grupoQuestoes = :grupoQuestoes", Questao.class)
+				.setParameter("grupoQuestoes", grupoQuestoes)
 				.getResultList();
 	}
 
