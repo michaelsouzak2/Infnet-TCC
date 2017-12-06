@@ -36,6 +36,8 @@ import com.google.common.cache.CacheBuilder;
 
 @EnableWebMvc
 @ComponentScan(basePackages = "infnet.sisam")
+// @SpringBootApplication
+// @EnableJms
 public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 
 	@Bean
@@ -108,12 +110,12 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	public LocaleResolver localeResolver() {
 		return new CookieLocaleResolver();
 	}
-	
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Bean
 	public MailSender mailSender() {
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
@@ -131,4 +133,8 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 
 	}
 
+	// @Bean
+	// public Queue queue() {
+	// return new ActiveMQQueue("emailQueue");
+	// }
 }

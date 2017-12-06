@@ -30,7 +30,7 @@ public class ServletSpringMVC extends AbstractAnnotationConfigDispatcherServletI
 	protected Filter[] getServletFilters() {
 		CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
 		encodingFilter.setEncoding("ISO-8859-1");
-		return new Filter[] {encodingFilter};
+		return new Filter[]{encodingFilter};
 	}
 	
 	@Override
