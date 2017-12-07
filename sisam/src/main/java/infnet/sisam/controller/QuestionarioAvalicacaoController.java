@@ -25,6 +25,9 @@ public class QuestionarioAvalicacaoController {
 	@Autowired
 	private QuestionarioService questionarioService;
 
+	@Autowired
+	private GrupoQuestoesService grupoQUestoesService;
+
 	@RequestMapping("/novo")
 	public ModelAndView novo() {		
 		ModelAndView modelAndView = new ModelAndView("questionarios/novo");
@@ -51,8 +54,10 @@ public class QuestionarioAvalicacaoController {
 	@RequestMapping("/buscar/{id}")
 	public ModelAndView buscar(@PathVariable Integer id) {
 		ModelAndView modelAndView = new ModelAndView("questionarios/detalhe");
-		Questionario questionario = questionarioService.buscar(id);
+		Questionario questionario = questionarioService.buscarPorId(id);
+		List<GrupoQuestoes> grupoQuestoes = grupoQUestoesService.listar();
 		modelAndView.addObject("questionario", questionario);
+		modelAndView.addObject("gruposQuestoes", grupoQuestoes);
 		return modelAndView;
 	}
 	

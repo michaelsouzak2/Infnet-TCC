@@ -31,7 +31,11 @@ public class QuestionarioService {
 	public Questionario buscar(Integer id) {
 		return questionarioDao.buscar(id);
 	}
-
+	
+	public Questionario buscarPorId(Integer id) {
+		return questionarioDao.buscarPorId(id);
+	}
+	
 	public void atualizar(Questionario questionario) {
 		questionarioDao.atualizar(questionario);
 	}
