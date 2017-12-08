@@ -18,17 +18,25 @@
 					</div>
 				
 					<form:form id="form-novo-questionario" action="${s:mvcUrl('QAC#salvar').build()}" method="POST">
+
+						<div id="grupos-selecionados"></div>
+						
 						<div class="form-group">
 							<label for="grupoQuestoes">Grupo de questões:</label>
 							<div class="checkbox">
 								<c:forEach items="${gruposQuestoes}" var="grupo" varStatus="status">
 									<label>
-										<input type="checkbox" name="gruposQuestoes[${status.index}].id" value="${grupo.id}" />${grupo.descricao}
+										<input type="checkbox" data-chk-grupo value="${grupo.id}" />${grupo.descricao}
 									</label><br />
 								</c:forEach>
 							</div>
 						</div>
 						
+						<div class="form-group">
+							<label for="descricao">Sigla:</label>
+							<input type="text" name="sigla" id="sigla" class="form-control" />
+						</div>
+												
 						<div class="form-group">
 							<label for="descricao">Descrição:</label>
 							<input type="text" name="descricao" id="descricao" class="form-control" />

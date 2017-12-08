@@ -3,7 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="page" %>
 
-<page:template titulo="Questionários">
+<page:template titulo="Avaliações">
 	
 	<div class="container">
 		<div class="row">
@@ -19,32 +19,38 @@
 				</c:if>
 				
 				<div class="page-header">
-					<h3>Questionários cadastrados
-						<a href="${s:mvcUrl('QAC#novo').build()}" class="btn btn-info pull-right">Novo</a>
+					<h3>Avaliações cadastradas
+						<a href="#" class="btn btn-info pull-right">Novo</a>
 					</h3>
 				</div>
 				
 				<table class="table table-striped table-hover">
 					<thead>
 						<tr>
-							<th>Sigla</th>
-							<th>Descrição</th>
+							<th>Id</th>
+							<th>Turma</th>
+							<th>data de inicio</th>
+							<th>Data fim</th>
+							<th>Questionário</th>
 							<th class="text-center">Editar</th>
-							<th class="text-center">Remover</th>
+							<th class="text-center">Excluir</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${questionarios}" var="questionario">
+						<c:forEach items="${avaliacoes}" var="avaliacao">
 							<tr>
-								<td>${questionario.sigla}</td>
-								<td>${questionario.descricao}</td>
+								<td>${avaliacao.id}</td>
+								<td>${avaliacao.turma}</td>
+								<td>${avaliacao.dataInicio}</td>
+								<td>${avaliacao.dataFim}</td>
+								<td>${avaliacao.questionario.sigla}</td>
 								<td class="text-center">
-									<a href="${s:mvcUrl('QAC#buscar').arg(0, questionario.id).build()}">
+									<a href="#">
 										<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 									</a>
 								</td>
 								<td class="text-center">
-									<a href="${s:mvcUrl('QAC#remover').arg(0, questionario.id).build()}">
+									<a href="#">
 										<i class="fa fa-trash-o" aria-hidden="true"></i>
 									</a>
 								</td>
@@ -56,4 +62,5 @@
 			</div>
 		</div>
 	</div>
+	
 </page:template>

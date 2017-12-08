@@ -1,14 +1,20 @@
 package infnet.sisam.model;
 
-import java.util.Date;
+import java.util.Calendar;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Avaliacao {
@@ -16,22 +22,29 @@ public class Avaliacao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(name = "objetivo")
-	private String objetivo;
-	@Column(name = "data_inicio")
-	private Date dataInicio;
-	@Column(name = "data_fim")
-	private Date dataFim;
-	@Column(name = "texto_email")
-	private String textoEmail;
-	@OneToMany(fetch = FetchType.EAGER)
-	private Turma turma;
-	@OneToMany(fetch = FetchType.EAGER)
-	private Questionario questionario;
-	@OneToMany
-	private Usuario administrador;
 
-	// getters e setters
+	@JoinColumn(unique = true)
+	@OneToOne(fetch = FetchType.EAGER)
+	private Turma turma;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Questionario questionario;
+
+	@Lob
+	private String objetivo;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat
+	private Calendar dataInicio;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat
+	private Calendar dataFim;
+
+	private String textoEmail;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Usuario administrador;
 
 	public Integer getId() {
 		return id;
@@ -49,19 +62,19 @@ public class Avaliacao {
 		this.objetivo = objetivo;
 	}
 
-	public Date getDataInicio() {
+	public Calendar getDataInicio() {
 		return dataInicio;
 	}
 
-	public void setDataInicio(Date dataInicio) {
+	public void setDataInicio(Calendar dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 
-	public Date getDataFim() {
+	public Calendar getDataFim() {
 		return dataFim;
 	}
 
-	public void setDataFim(Date dataFim) {
+	public void setDataFim(Calendar dataFim) {
 		this.dataFim = dataFim;
 	}
 

@@ -19,7 +19,7 @@
 				<ul class="nav navbar-nav">
 					<security:authorize access="hasRole('ROLE_ADMINISTRADOR')">
 						<li>
-							<a href="${s:mvcUrl('UC#listar').build()} ">Usuários</a>
+							<a href="${s:mvcUrl('AC#listar').build()} ">Avaliações</a>
 						</li>
 						<li>
 							<a href="${s:mvcUrl('GQC#listar').build()} ">Grupos de questões</a>
@@ -29,6 +29,9 @@
 						</li>
 						<li>
 							<a href="${s:mvcUrl('QAC#listar').build()} ">Questonários</a>
+						</li>
+						<li>
+							<a href="${s:mvcUrl('UC#listar').build()} ">Usuários</a>
 						</li>
 					</security:authorize>
 				</ul>

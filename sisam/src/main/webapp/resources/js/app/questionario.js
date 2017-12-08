@@ -9,7 +9,7 @@ $(document).ready(function(){
 		$('[data-chk-grupo]').filter('[value='+ $(this).val() +']').prop('checked', true);
 	});
 	
-	$('#form-altera-questionario').submit(function(){
+	$('#form-novo-questionario, #form-altera-questionario').submit(function(){
 		$(this).find('[data-chk-grupo]').each(function(){
 			var $clicked = $(this);
 			if($clicked.is(':checked')){

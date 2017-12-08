@@ -40,6 +40,11 @@
 						</div>
 						
 						<div class="form-group">
+							<label for="sigla">Sigla:</label>
+							<input type="text"  id="sigla" class="form-control" name="sigla" value="${questionario.sigla}"  />
+						</div>
+												
+						<div class="form-group">
 							<label for="descricao">Descrição:</label>
 							<input type="text" id="descricao" class="form-control" name="descricao" value="${questionario.descricao}" />
 						</div>
