@@ -15,7 +15,7 @@ public class EmailSender {
 	@Autowired
 	private MailSender sender;
 
-	@Scheduled(cron = "* */5 * * * *", zone = "America/Sao_Paulo")
+	@Scheduled(cron = "* * */5 * * *", zone = "America/Sao_Paulo")
 	public void init() {
 		SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		System.out.println("Teste schedule:" + sdfDate.format(new Date()));
