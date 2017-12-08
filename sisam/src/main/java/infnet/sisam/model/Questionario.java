@@ -18,7 +18,7 @@ public class Questionario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String descricao;
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@ManyToMany(fetch = FetchType.EAGER)
 	private List<GrupoQuestoes> gruposQuestoes = new ArrayList<>();
 
 	public Integer getId() {
