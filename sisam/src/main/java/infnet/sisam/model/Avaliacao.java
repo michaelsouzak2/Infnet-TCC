@@ -2,7 +2,6 @@ package infnet.sisam.model;
 
 import java.util.Calendar;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,7 +27,7 @@ public class Avaliacao {
 	@OneToOne(fetch = FetchType.EAGER)
 	private Turma turma;
 
-	@OneToMany(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Questionario questionario;
 
 	@Lob
@@ -43,7 +41,6 @@ public class Avaliacao {
 	@DateTimeFormat
 	private Calendar dataFim;
 
-	@Column(name = "texto_email")
 	private String textoEmail;
 
 	@ManyToOne(fetch = FetchType.EAGER)

@@ -10,7 +10,12 @@
 			<div class="col-md-12">
 				
 				<c:if test="${not empty sucesso}">	
-					<div class="alert alert-success" role="alert">${sucesso}</div>
+					<div class="alert alert-success alert-dismissable" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						${sucesso}
+					</div>
 				</c:if>
 				
 				<div class="page-header">
@@ -22,6 +27,7 @@
 				<table class="table table-striped table-hover">
 					<thead>
 						<tr>
+							<th>Sigla</th>
 							<th>Descrição</th>
 							<th class="text-center">Editar</th>
 							<th class="text-center">Remover</th>
@@ -30,6 +36,7 @@
 					<tbody>
 						<c:forEach items="${questionarios}" var="questionario">
 							<tr>
+								<td>${questionario.sigla}</td>
 								<td>${questionario.descricao}</td>
 								<td class="text-center">
 									<a href="${s:mvcUrl('QAC#buscar').arg(0, questionario.id).build()}">
