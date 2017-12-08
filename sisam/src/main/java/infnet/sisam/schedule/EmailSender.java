@@ -23,7 +23,7 @@ public class EmailSender {
 	@Autowired
 	private AvaliacaoDao avaliacaoDao;
 
-	@Scheduled(cron = "0 0/5 14-15 * * ?", zone = "America/Sao_Paulo")
+	@Scheduled(cron = "0 0/5 18-23 * * ?", zone = "America/Sao_Paulo")
 	public void init() {
 		SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		System.out.println("Scheduler acionado às :" + sdfDate.format(new Date()));
