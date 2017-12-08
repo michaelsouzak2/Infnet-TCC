@@ -16,6 +16,7 @@ public class Questionario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	private String sigla;
 	private String descricao;
 	@ManyToMany(fetch = FetchType.EAGER)
 	private List<GrupoQuestoes> gruposQuestoes = new ArrayList<>();
@@ -44,4 +45,12 @@ public class Questionario {
 		this.gruposQuestoes = gruposQuestoes;
 	}
 
+	public String getSigla() {
+		return sigla;
+	}
+
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
+	}
+	
 }
