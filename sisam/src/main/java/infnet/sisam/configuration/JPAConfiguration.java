@@ -43,7 +43,7 @@ public class JPAConfiguration {
 		props.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 		props.put("hibernate.show_sql", true);
 		props.put("hibernate.format_sql", true);
-		props.put("hibernate.hbm2ddl.auto", "update");
+		props.put("hibernate.hbm2ddl.auto", "create");
 
 		return props;
 	}

@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -43,8 +42,8 @@ public class Avaliacao {
 	@DateTimeFormat
 	private Calendar dataFim;
 
-	@OneToOne
-	private Convite convite;
+//	@OneToOne
+//	private Convite convite;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Usuario administrador;
@@ -81,13 +80,13 @@ public class Avaliacao {
 		this.dataFim = dataFim;
 	}
 
-	public Convite getConvite() {
-		return convite;
-	}
-
-	public void setConvite(Convite convite) {
-		this.convite = convite;
-	}
+//	public Convite getConvite() {
+//		return convite;
+//	}
+//
+//	public void setConvite(Convite convite) {
+//		this.convite = convite;
+//	}
 
 	public List<Turma> getTurmas() {
 		return turmas;

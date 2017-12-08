@@ -28,7 +28,7 @@
 							<a href="${s:mvcUrl('QC#listar').build()} ">Questões</a>
 						</li>
 						<li>
-							<a href="${s:mvcUrl('QAC#listar').build()} ">Questonários</a>
+							<a href="${s:mvcUrl('QAC#listar').build()} ">Questionários</a>
 						</li>
 						<li>
 							<a href="${s:mvcUrl('UC#listar').build()} ">Usuários</a>
