@@ -11,8 +11,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import infnet.sisam.dao.AvaliacaoDao;
+import infnet.sisam.helper.Constantes;
 import infnet.sisam.model.Aluno;
 import infnet.sisam.model.Avaliacao;
+import infnet.sisam.model.Turma;
 
 @Component
 public class EmailSender {
@@ -40,11 +42,10 @@ public class EmailSender {
 	private void verificaAlunosParaSeremNotificados(Date sysdate, List<Avaliacao> avaliacoes) {
 		for (Avaliacao avaliacao : avaliacoes) {
 			if (!avaliacao.getDataInicio().before(sysdate)) {
-				if (avaliacao.getTurma() != null) {
-					List<Aluno> alunosParticipantes = avaliacao.getTurma().getAlunos();
-					envioNotificacao(avaliacao, alunosParticipantes);
+				if (!avaliacao.getTurmas().isEmpty()) {
+					verificaTurmaParaNotificacao(avaliacao);
 				} else {
-					System.out.println("Não existe turma para a avaliação: " + avaliacao.getId());
+					System.out.println("Não existem turmas para a avaliação: " + avaliacao.getId());
 				}
 			} else {
 				System.out.println("Avaliação " + avaliacao.getId() + " ainda não deve ser executada.");
@@ -52,13 +53,20 @@ public class EmailSender {
 		}
 	}
 
+	private void verificaTurmaParaNotificacao(Avaliacao avaliacao) {
+		for (Turma turma : avaliacao.getTurmas()) {
+			List<Aluno> alunosParticipantes = turma.getAlunos();
+			envioNotificacao(avaliacao, alunosParticipantes);
+		}
+	}
+
 	private void envioNotificacao(Avaliacao avaliacao, List<Aluno> alunosParticipantes) {
 		for (Aluno aluno : alunosParticipantes) {
 			System.out.println("Email enviado para o aluno: " + aluno.getNome());
 			SimpleMailMessage s = new SimpleMailMessage();
-			s.setFrom("avaliacaoinfnettc@gmail.com");
+			s.setFrom(Constantes.EMAIL_FROM);
 			s.setTo(aluno.getEmail());
-			s.setText(avaliacao.getTextoEmail());
+			s.setText("Olá," + aluno.getNome() + "\n Vc recebeu um email para poder iniciar sua avaliação.");
 			try {
 				sender.send(s);
 			} catch (Exception e) {

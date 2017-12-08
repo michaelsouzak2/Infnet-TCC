@@ -27,7 +27,7 @@ public class Avaliacao {
 
 	@JoinColumn(unique = true)
 	@OneToMany(fetch = FetchType.EAGER)
-	private List<Turma> turma;
+	private List<Turma> turmas;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Questionario questionario;
@@ -89,12 +89,12 @@ public class Avaliacao {
 		this.convite = convite;
 	}
 
-	public List<Turma> getTurma() {
-		return turma;
+	public List<Turma> getTurmas() {
+		return turmas;
 	}
 
-	public void setTurma(List<Turma> turma) {
-		this.turma = turma;
+	public void setTurmas(List<Turma> turma) {
+		this.turmas = turma;
 	}
 
 	public Questionario getQuestionario() {

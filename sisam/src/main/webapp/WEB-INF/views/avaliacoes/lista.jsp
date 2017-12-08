@@ -30,7 +30,6 @@
 					<thead>
 						<tr>
 							<th>Id</th>
-							<th>Turma</th>
 							<th>data de inicio</th>
 							<th>Data fim</th>
 							<th>Questionário</th>
@@ -42,7 +41,6 @@
 						<c:forEach items="${avaliacoes}" var="avaliacao">
 							<tr>
 								<td>${avaliacao.id}</td>
-								<td>${avaliacao.turma.id}</td>
 								<td><fmt:formatDate pattern="dd/MM/yyyy"
 										value="${avaliacao.dataInicio.time}" /></td>
 								<td><fmt:formatDate pattern="dd/MM/yyyy"
