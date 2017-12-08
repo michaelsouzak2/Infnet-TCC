@@ -10,7 +10,7 @@ import infnet.sisam.model.Usuario;
 
 @Repository
 public class UsuarioDao extends JpaDao<Usuario> implements UserDetailsService {
-	
+
 	public UsuarioDao() {
 		super(Usuario.class);
 	}
@@ -18,18 +18,13 @@ public class UsuarioDao extends JpaDao<Usuario> implements UserDetailsService {
 	@Override
 	public Usuario loadUserByUsername(String email) throws UsernameNotFoundException {
 		List<Usuario> usuarios = em.createQuery("select u from Usuario u where u.email = :email", Usuario.class)
-				.setParameter("email", email)
-				.getResultList();
-				
-		if(usuarios.isEmpty()) {
+				.setParameter("email", email).getResultList();
+
+		if (usuarios.isEmpty()) {
 			throw new UsernameNotFoundException("Usuário " + email + " não foi encontrado.");
 		}
-		
+
 		return usuarios.get(0);
 	}
-	
-	public List<Usuario> listar(){
-		return em.createQuery("select u from Usuario u", Usuario.class).getResultList();
-	}
-	
+
 }

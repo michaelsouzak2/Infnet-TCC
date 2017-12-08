@@ -1,5 +1,7 @@
 package infnet.sisam.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -36,9 +38,14 @@ public abstract class JpaDao<T> implements Dao<T> {
 		return (T) em.find(clazz, id);
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<T> findAll() {
+		return em.createQuery("from " + clazz.getName()).getResultList();
+	}
+
 	@Override
 	public void excluir(T entity) {
 		em.remove(entity);
 	}
-	
+
 }

@@ -21,7 +21,7 @@ public class GrupoQuestoesService {
 	}
 	
 	public List<GrupoQuestoes> listar(){
-		return grupoQuestoesDao.listar();
+		return grupoQuestoesDao.findAll();
 	}
 
 	public GrupoQuestoes buscar(Integer id) {

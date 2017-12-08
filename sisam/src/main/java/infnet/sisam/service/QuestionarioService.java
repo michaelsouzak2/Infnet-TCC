@@ -21,7 +21,7 @@ public class QuestionarioService {
 	}
 
 	public List<Questionario> lista() {
-		return questionarioDao.listar();
+		return questionarioDao.findAll();
 	}
 
 	public void remover(Integer id) {

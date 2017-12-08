@@ -26,7 +26,7 @@ public class UsuarioService {
 	}
 
 	public List<Usuario> listar() {
-		return usuarioDao.listar();
+		return usuarioDao.findAll();
 	}
 
 	public void atualizar(Usuario usuario, String oldPassword) {

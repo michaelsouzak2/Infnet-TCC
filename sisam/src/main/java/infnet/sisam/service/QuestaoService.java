@@ -22,7 +22,7 @@ public class QuestaoService {
 	}
 
 	public List<Questao> listar() {
-		return questaoDao.listar();
+		return questaoDao.findAll();
 	}
 
 	public Questao buscar(Integer id) {
