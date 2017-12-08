@@ -10,10 +10,10 @@
 			<div class="col-md-12">
 				
 				<div class="page-header">
-					<h3>Nova questão</h3>
+					<h3>Nova avaliação</h3>
 				</div>
 				
-				<form:form action="${s:mvcUrl('QC#salvar').build()}" method="POST">
+				<form:form action="${s:mvcUrl('AC#salvar').build()}" method="POST">
 					<div class="form-group">
 						<label for="grupoQuestoes">Grupo de questões:</label>
 						<select name="grupoQuestoes.id" id="grupoQuestoes" class="form-control">

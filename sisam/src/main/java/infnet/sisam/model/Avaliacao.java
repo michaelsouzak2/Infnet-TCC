@@ -1,6 +1,7 @@
 package infnet.sisam.model;
 
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,8 +26,8 @@ public class Avaliacao {
 	private Integer id;
 
 	@JoinColumn(unique = true)
-	@OneToOne(fetch = FetchType.EAGER)
-	private Turma turma;
+	@OneToMany(fetch = FetchType.EAGER)
+	private List<Turma> turma;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Questionario questionario;
@@ -41,7 +43,8 @@ public class Avaliacao {
 	@DateTimeFormat
 	private Calendar dataFim;
 
-	private String textoEmail;
+	@OneToOne
+	private Convite convite;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Usuario administrador;
@@ -78,19 +81,19 @@ public class Avaliacao {
 		this.dataFim = dataFim;
 	}
 
-	public String getTextoEmail() {
-		return textoEmail;
+	public Convite getConvite() {
+		return convite;
 	}
 
-	public void setTextoEmail(String textoEmail) {
-		this.textoEmail = textoEmail;
+	public void setConvite(Convite convite) {
+		this.convite = convite;
 	}
 
-	public Turma getTurma() {
+	public List<Turma> getTurma() {
 		return turma;
 	}
 
-	public void setTurma(Turma turma) {
+	public void setTurma(List<Turma> turma) {
 		this.turma = turma;
 	}
 
