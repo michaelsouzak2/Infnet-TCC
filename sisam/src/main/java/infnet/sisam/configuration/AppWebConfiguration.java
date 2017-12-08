@@ -108,18 +108,18 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	public LocaleResolver localeResolver() {
 		return new CookieLocaleResolver();
 	}
-	
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Bean
 	public MailSender mailSender() {
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 		mailSender.setHost("smtp.gmail.com");
-		mailSender.setUsername("xxx@gmail.com");
-		mailSender.setPassword("xxx");
+		mailSender.setUsername("avaliacaoinfnettc@gmail.com");
+		mailSender.setPassword("avaliacao2017");
 		mailSender.setPort(587);
 
 		Properties mailProperties = new Properties();
@@ -131,4 +131,8 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 
 	}
 
+	// @Bean
+	// public Queue queue() {
+	// return new ActiveMQQueue("emailQueue");
+	// }
 }
