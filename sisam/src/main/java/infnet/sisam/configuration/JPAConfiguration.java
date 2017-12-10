@@ -43,7 +43,7 @@ public class JPAConfiguration {
 		props.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 		props.put("hibernate.show_sql", true);
 		props.put("hibernate.format_sql", true);
-		props.put("hibernate.hbm2ddl.auto", "create");
+		props.put("hibernate.hbm2ddl.auto", "update");
 
 		return props;
 	}
@@ -53,7 +53,7 @@ public class JPAConfiguration {
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setUsername("root");
-		// dataSource.setPassword("123456");
+		 dataSource.setPassword("ms1002");
 		dataSource.setUrl("jdbc:mysql://localhost:3306/sisam");
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 

@@ -19,5 +19,9 @@ public class AvaliacaoService {
 	public List<Avaliacao> listar(){
 		return avaliacaoDao.findAll();
 	}
+
+	public void salvar(Avaliacao avaliacao) {
+		avaliacaoDao.salvar(avaliacao);
+	}
 	
 }

@@ -8,10 +8,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -24,7 +24,6 @@ public class Avaliacao {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@JoinColumn(unique = true)
 	@OneToMany(fetch = FetchType.EAGER)
 	private List<Turma> turmas;
 
@@ -42,8 +41,8 @@ public class Avaliacao {
 	@DateTimeFormat
 	private Calendar dataFim;
 
-//	@OneToOne
-//	private Convite convite;
+	@OneToOne
+	private Convite convite;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Usuario administrador;

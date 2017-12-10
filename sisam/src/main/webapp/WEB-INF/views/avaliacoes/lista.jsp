@@ -22,7 +22,7 @@
 
 				<div class="page-header">
 					<h3>
-						Avaliações cadastradas <a href="#" class="btn btn-info pull-right">Novo</a>
+						Avaliações cadastradas <a href="${s:mvcUrl('AC#novo').build()}" class="btn btn-info pull-right">Novo</a>
 					</h3>
 				</div>
 
