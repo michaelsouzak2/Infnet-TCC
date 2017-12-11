@@ -40,8 +40,8 @@ public class Avaliacao {
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat
 	private Calendar dataFim;
-
-	@OneToOne
+	
+	@OneToOne(fetch = FetchType.EAGER)
 	private Convite convite;
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -79,13 +79,13 @@ public class Avaliacao {
 		this.dataFim = dataFim;
 	}
 
-//	public Convite getConvite() {
-//		return convite;
-//	}
-//
-//	public void setConvite(Convite convite) {
-//		this.convite = convite;
-//	}
+	public Convite getConvite() {
+		return convite;
+	}
+
+	public void setConvite(Convite convite) {
+		this.convite = convite;
+	}
 
 	public List<Turma> getTurmas() {
 		return turmas;

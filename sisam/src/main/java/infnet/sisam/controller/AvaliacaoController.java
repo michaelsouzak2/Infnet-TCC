@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import infnet.sisam.model.Avaliacao;
 import infnet.sisam.model.Questionario;
 import infnet.sisam.model.Turma;
+import infnet.sisam.model.Usuario;
 import infnet.sisam.service.AvaliacaoService;
 import infnet.sisam.service.QuestionarioService;
 
@@ -56,6 +59,10 @@ public class AvaliacaoController {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView salvar(Avaliacao avaliacao, RedirectAttributes redirectAttributes) {
+		
+		Usuario usuarioLogado = (Usuario)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		avaliacao.setAdministrador(usuarioLogado);
+		
 		avaliacaoService.salvar(avaliacao);
 		redirectAttributes.addAttribute("sucesso", "Avaliação cadastrada com sucesso");
 		return new ModelAndView("redirect:/avaliacoes");

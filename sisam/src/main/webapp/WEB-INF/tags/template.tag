@@ -9,11 +9,12 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		
-		<link rel="icon" href="resources/imagens/favicon.png" type="image/png">
+		<link rel="icon" href="/sisam/resources/imagens/favicon.png" type="image/png">
 		
 		<link href="/sisam/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	    <link href="/sisam/resources/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
 	    <link href="/sisam/resources/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	    <link href="/sisam/resources/css/app/sisam.css" rel="stylesheet" type="text/css">
 	
 		<title>${titulo} - SISAM</title>
 	</head>
@@ -26,6 +27,7 @@
 				
 		<script src="/sisam/resources/js/jquery-3.2.1.min.js"></script>
 	    <script src="/sisam/resources/js/bootstrap.min.js"></script>
+	    <script src="/sisam/resources/js/jquery.mask.min.js"></script>
 
 		<jsp:invoke fragment="extraScripts" />
 

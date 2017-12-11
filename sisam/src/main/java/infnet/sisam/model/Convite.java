@@ -12,9 +12,7 @@ public class Convite {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
 	private String titulo;
-
 	@Lob
 	private String mensagem;
 
