@@ -3,6 +3,7 @@ package infnet.sisam.model;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -41,7 +42,7 @@ public class Avaliacao {
 	@DateTimeFormat
 	private Calendar dataFim;
 	
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private Convite convite;
 
 	@ManyToOne(fetch = FetchType.EAGER)
