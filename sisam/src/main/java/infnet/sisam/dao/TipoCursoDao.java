@@ -2,8 +2,11 @@ package infnet.sisam.dao;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import infnet.sisam.model.TipoCurso;
 
+@Repository
 public class TipoCursoDao extends JpaDao<TipoCurso>{
 
 	public TipoCursoDao() {
