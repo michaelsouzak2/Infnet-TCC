@@ -9,8 +9,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -18,6 +20,9 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+@NamedQuery(name = "Avaliacao.buscaAvaliacaoPendente", query = "SELECT av FROM Avaliacao av "
+		+ "JOIN FETCH av.questionario q JOIN FETCH av.turmas t LEFT JOIN t.alunos a WHERE "
+		+ " av.dataInicio<=sysdate()")
 @Entity
 public class Avaliacao {
 
@@ -25,10 +30,11 @@ public class Avaliacao {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany
+	@JoinColumn(name = "avaliacao_id")
 	private List<Turma> turmas;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	private Questionario questionario;
 
 	@Lob
@@ -41,8 +47,8 @@ public class Avaliacao {
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat
 	private Calendar dataFim;
-	
-	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
+
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Convite convite;
 
 	@ManyToOne(fetch = FetchType.EAGER)

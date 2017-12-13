@@ -14,6 +14,7 @@ import infnet.sisam.dao.AvaliacaoDao;
 import infnet.sisam.helper.Constantes;
 import infnet.sisam.model.Aluno;
 import infnet.sisam.model.Avaliacao;
+import infnet.sisam.model.Convite;
 import infnet.sisam.model.Turma;
 
 @Component
@@ -25,53 +26,45 @@ public class EmailSender {
 	@Autowired
 	private AvaliacaoDao avaliacaoDao;
 
-	@Scheduled(cron = "0 0/5 18-23 * * ?", zone = "America/Sao_Paulo")
+	@SuppressWarnings("unchecked")
+	@Scheduled(cron = "0 0/5 * * * ?", zone = "America/Sao_Paulo")
 	public void init() {
 		SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		System.out.println("Scheduler acionado às :" + sdfDate.format(new Date()));
-		Date sysdate = new Date();
-		List<Avaliacao> avaliacoes = avaliacaoDao.findAll();
+		List<Avaliacao> avaliacoes = avaliacaoDao.getEm().createNamedQuery("Avaliacao.buscaAvaliacaoPendente")
+				.getResultList();
 		if (!avaliacoes.isEmpty()) {
-			verificaAlunosParaSeremNotificados(sysdate, avaliacoes);
+			verificaAlunosParaSeremNotificados(avaliacoes);
 		} else {
 			System.out.println("Não existem avaliações para envio de notificaão.");
 		}
 
 	}
 
-	private void verificaAlunosParaSeremNotificados(Date sysdate, List<Avaliacao> avaliacoes) {
+	private void verificaAlunosParaSeremNotificados(List<Avaliacao> avaliacoes) {
 		for (Avaliacao avaliacao : avaliacoes) {
-			if (!avaliacao.getDataInicio().before(sysdate)) {
-				if (!avaliacao.getTurmas().isEmpty()) {
-					verificaTurmaParaNotificacao(avaliacao);
-				} else {
-					System.out.println("Não existem turmas para a avaliação: " + avaliacao.getId());
+			if (!avaliacao.getTurmas().isEmpty()) {
+				for (Turma turma : avaliacao.getTurmas()) {
+					for (Aluno aluno : turma.getAlunos()) {
+						envioNotificacao(aluno, avaliacao.getConvite());
+					}
 				}
-			} else {
-				System.out.println("Avaliação " + avaliacao.getId() + " ainda não deve ser executada.");
 			}
 		}
 	}
 
-	private void verificaTurmaParaNotificacao(Avaliacao avaliacao) {
-		for (Turma turma : avaliacao.getTurmas()) {
-			List<Aluno> alunosParticipantes = turma.getAlunos();
-			envioNotificacao(avaliacao, alunosParticipantes);
-		}
-	}
-
-	private void envioNotificacao(Avaliacao avaliacao, List<Aluno> alunosParticipantes) {
-		for (Aluno aluno : alunosParticipantes) {
-			System.out.println("Email enviado para o aluno: " + aluno.getNome());
-			SimpleMailMessage s = new SimpleMailMessage();
-			s.setFrom(Constantes.EMAIL_FROM);
-			s.setTo(aluno.getEmail());
-			s.setText("Olá," + aluno.getNome() + "\n Vc recebeu um email para poder iniciar sua avaliação.");
-			try {
-				sender.send(s);
-			} catch (Exception e) {
-				System.out.println("Ocorreu um erro ao enviar email para: " + aluno.getEmail());
-			}
+	private void envioNotificacao(Aluno aluno, Convite convite) {
+		System.out.println("Email enviado para o aluno: " + aluno.getNome());
+		SimpleMailMessage s = new SimpleMailMessage();
+		s.setFrom(Constantes.EMAIL_FROM);
+		s.setTo(aluno.getEmail());
+		s.setSubject(convite.getTitulo());
+		s.setText("Olá," + aluno.getNome() + "\n" + convite.getMensagem());
+		try {
+			sender.send(s);
+			System.out.println("Email enviado!");
+		} catch (Exception e) {
+			System.out.println("Ocorreu um erro ao enviar email para: " + aluno.getEmail());
 		}
 	}
 }

@@ -48,4 +48,12 @@ public abstract class JpaDao<T> implements Dao<T> {
 		em.remove(entity);
 	}
 
+	public EntityManager getEm() {
+		return em;
+	}
+
+	public void setEm(EntityManager em) {
+		this.em = em;
+	}
+	
 }
