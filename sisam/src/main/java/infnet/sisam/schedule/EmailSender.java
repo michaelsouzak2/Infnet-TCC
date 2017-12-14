@@ -38,7 +38,6 @@ public class EmailSender {
 		} else {
 			System.out.println("Não existem avaliações para envio de notificaão.");
 		}
-
 	}
 
 	private void verificaAlunosParaSeremNotificados(List<Avaliacao> avaliacoes) {
@@ -54,7 +53,6 @@ public class EmailSender {
 	}
 
 	private void envioNotificacao(Aluno aluno, Convite convite) {
-		System.out.println("Email enviado para o aluno: " + aluno.getNome());
 		SimpleMailMessage s = new SimpleMailMessage();
 		s.setFrom(Constantes.EMAIL_FROM);
 		s.setTo(aluno.getEmail());
@@ -62,9 +60,10 @@ public class EmailSender {
 		s.setText("Olá," + aluno.getNome() + "\n" + convite.getMensagem());
 		try {
 			sender.send(s);
-			System.out.println("Email enviado!");
+			System.out.println("Email enviado para o aluno: " + aluno.getNome());
 		} catch (Exception e) {
 			System.out.println("Ocorreu um erro ao enviar email para: " + aluno.getEmail());
+			System.out.println("Erro ao enviar email:\n " + e.getStackTrace());
 		}
 	}
 }
