@@ -16,13 +16,13 @@ $(document).ready(function(){
 	});
 	
 	$('#form-nova-avaliacao').submit(function(){
-		var $form = $('#form-nova-avaliacao');
+		var $form = $('#form-nova-avaliacao');ui/i18n/datepicker-pt-BR.js
 		$('#turmas-selecionadas').find('span').each(function(i,value){
 			var id = value.getAttribute('data-turma-id');
 			$form.append("<input type='hidden' name='turmas["+i+"].id' value="+id+" />");
 		});
 	});
-
+	
 });
 
 function removeTurma(id){

@@ -6,5 +6,5 @@ $(document).ready(function(){
 });
 
 function maskInput(){
-	$('[data-date]').mask("00/00/0000", {placeholder: "  /  /    "});
+	$('[data-datepicker]').mask("00/00/0000", {placeholder: "  /  /    "});
 }
