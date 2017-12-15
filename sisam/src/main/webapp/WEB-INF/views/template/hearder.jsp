@@ -38,7 +38,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					 <security:authorize access="isAuthenticated()">
 						<li>
-							<a href="#">${usuario.nome}</a>
+							<a href="${s:mvcUrl('UC#buscar').arg(0,usuario.id).build()}">${usuario.nome}</a>
 						</li>
 						<li>
 						<form:form action="/sisam/logout" method="post" class="navbar-form">
