@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -40,6 +41,9 @@ public class Turma {
 
 	@Transient
 	private Modulo modulo;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Avaliacao avaliacao;
 
 	public Integer getId() {
 		return id;
@@ -95,6 +99,14 @@ public class Turma {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public Avaliacao getAvaliacao() {
+		return avaliacao;
+	}
+
+	public void setAvaliacao(Avaliacao avaliacao) {
+		this.avaliacao = avaliacao;
 	}
 
 }

@@ -60,6 +60,7 @@ public class AvaliacaoController {
 	public ModelAndView salvar(Avaliacao avaliacao, RedirectAttributes redirectAttributes) {
 		Usuario administrador = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		avaliacao.setAdministrador(administrador);
+		//TODO SALVAR TURMA
 		avaliacaoService.salvar(avaliacao);
 		redirectAttributes.addAttribute("sucesso", "Avaliação cadastrada com sucesso");
 		return new ModelAndView("redirect:/avaliacoes");

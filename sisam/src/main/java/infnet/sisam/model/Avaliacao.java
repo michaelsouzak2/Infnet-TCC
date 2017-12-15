@@ -9,7 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
@@ -30,8 +29,8 @@ public class Avaliacao {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@OneToMany
-	@JoinColumn(name = "avaliacao_id")
+	@OneToMany(mappedBy="avaliacao")
+	//@JoinColumn(name = "avaliacao_id")
 	private List<Turma> turmas;
 
 	@ManyToOne
