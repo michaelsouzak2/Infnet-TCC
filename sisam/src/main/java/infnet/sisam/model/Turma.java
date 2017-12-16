@@ -1,5 +1,7 @@
 package infnet.sisam.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -25,11 +27,11 @@ public class Turma {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat
-	private Date dataInicio;
+	private Calendar dataInicio;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat
-	private Date dataFim;
+	private Calendar dataFim;
 
 	private String descricao;
 
@@ -53,19 +55,19 @@ public class Turma {
 		this.id = id;
 	}
 
-	public Date getDataInicio() {
+	public Calendar getDataInicio() {
 		return dataInicio;
 	}
 
-	public void setDataInicio(Date dataInicio) {
+	public void setDataInicio(Calendar dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 
-	public Date getDataFim() {
+	public Calendar getDataFim() {
 		return dataFim;
 	}
 
-	public void setDataFim(Date dataFim) {
+	public void setDataFim(Calendar dataFim) {
 		this.dataFim = dataFim;
 	}
 
@@ -109,4 +111,10 @@ public class Turma {
 		this.avaliacao = avaliacao;
 	}
 
+	public String retData(int i) {
+		Date cData = (i==0) ? this.dataInicio.getTime():this.dataFim.getTime();
+		SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+		return fmt.format(cData);
+	}
+	
 }
