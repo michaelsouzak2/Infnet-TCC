@@ -28,9 +28,7 @@ public class BlocoController {
 	@RequestMapping("/novo")
 	public ModelAndView novo() {
 		ModelAndView modelAndView = new ModelAndView("blocos/novo");
-		List<Bloco> blocos = blocoService.listar();
 		List<Curso> cursos = cursoService.listar();
-		modelAndView.addObject("bloco", blocos);
 		modelAndView.addObject("cursos", cursos);
 		return modelAndView;
 	}
@@ -45,10 +43,8 @@ public class BlocoController {
 	@RequestMapping(method=RequestMethod.GET)
 	public ModelAndView listar() {
 		List<Bloco> blocos = blocoService.listar();
-		List<Curso> cursos = cursoService.listar();
 		ModelAndView modelAndView = new ModelAndView("blocos/lista");
 		modelAndView.addObject("blocos", blocos);
-		modelAndView.addObject("cursos", cursos);
 		return modelAndView;
 	}
 	
