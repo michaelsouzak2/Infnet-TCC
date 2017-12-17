@@ -40,6 +40,9 @@ public class Turma {
 
 	@ManyToOne(fetch=FetchType.EAGER)
 	private Modulo modulo;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Avaliacao avaliacao;
 
 	public Integer getId() {
 		return id;
