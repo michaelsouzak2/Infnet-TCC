@@ -27,32 +27,34 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 		+ "JOIN FETCH av.questionario q JOIN FETCH av.turmas t LEFT JOIN t.alunos a WHERE "
 		+ " av.dataInicio<=sysdate()")
 @Entity
-@Table(name="avaliacao")
+@Table(name = "avaliacao")
 public class Avaliacao {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@OneToMany(mappedBy="avaliacao")
+	@OneToMany(mappedBy = "avaliacao")
 	@JsonIgnore
-	//@JoinColumn(name = "avaliacao_id")
 	private List<Turma> turmas;
 
 	@ManyToOne
 	private Questionario questionario;
+
+	@OneToMany
+	private List<Aluno> alunos;
 
 	@Lob
 	private String objetivo;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat
-	@Column(name="data_inicio")
+	@Column(name = "data_inicio")
 	private Calendar dataInicio;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat
-	@Column(name="data_fim")
+	@Column(name = "data_fim")
 	private Calendar dataFim;
 
 	@OneToOne(cascade = CascadeType.ALL)
@@ -67,6 +69,30 @@ public class Avaliacao {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public List<Turma> getTurmas() {
+		return turmas;
+	}
+
+	public void setTurmas(List<Turma> turmas) {
+		this.turmas = turmas;
+	}
+
+	public Questionario getQuestionario() {
+		return questionario;
+	}
+
+	public void setQuestionario(Questionario questionario) {
+		this.questionario = questionario;
+	}
+
+	public List<Aluno> getAlunos() {
+		return alunos;
+	}
+
+	public void setAlunos(List<Aluno> alunos) {
+		this.alunos = alunos;
 	}
 
 	public String getObjetivo() {
@@ -101,22 +127,6 @@ public class Avaliacao {
 		this.convite = convite;
 	}
 
-	public List<Turma> getTurmas() {
-		return turmas;
-	}
-
-	public void setTurmas(List<Turma> turma) {
-		this.turmas = turma;
-	}
-
-	public Questionario getQuestionario() {
-		return questionario;
-	}
-
-	public void setQuestionario(Questionario questionario) {
-		this.questionario = questionario;
-	}
-
 	public Usuario getAdministrador() {
 		return administrador;
 	}
@@ -124,5 +134,5 @@ public class Avaliacao {
 	public void setAdministrador(Usuario administrador) {
 		this.administrador = administrador;
 	}
-	
+
 }

@@ -1,6 +1,5 @@
 package infnet.sisam.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import infnet.sisam.model.Avaliacao;
 import infnet.sisam.model.Questionario;
-import infnet.sisam.model.Turma;
 import infnet.sisam.model.Usuario;
 import infnet.sisam.service.AvaliacaoService;
 import infnet.sisam.service.QuestionarioService;
@@ -24,7 +22,7 @@ import infnet.sisam.service.TurmaService;
 @Controller
 @RequestMapping("/avaliacoes")
 public class AvaliacaoController {
-	
+
 	@Autowired
 	private AvaliacaoService avaliacaoService;
 	@Autowired
@@ -47,19 +45,8 @@ public class AvaliacaoController {
 		ModelAndView modelAndView = new ModelAndView("avaliacoes/novo");
 		List<Questionario> questionarios = questionarioService.lista();
 		modelAndView.addObject("questionarios", questionarios);
-		modelAndView.addObject("turmas", buildTurmas());
+		modelAndView.addObject("turmas", turmaService.listar());
 		return modelAndView;
-	}
-
-	private List<Turma> buildTurmas() {
-		List<Turma> turmas = new ArrayList<Turma>();
-		for (int i = 1; i <= 10; i++) {
-			Turma turma = new Turma();
-			turma.setId(i);
-			turma.setDescricao("Turma " + i);
-			turmas.add(turma);
-		}
-		return turmaService.listar();
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -100,6 +87,15 @@ public class AvaliacaoController {
 		avaliacaoService.remover(id);
 		redirectAttributes.addFlashAttribute("sucesso", "Avaliação removida com sucesso.");
 		return new ModelAndView("redirect:/avaliacoes");
+	}
+
+	@RequestMapping("/responder/{avaliacaoId}")
+	public ModelAndView responderAvaliacao() {
+		ModelAndView modelAndView = new ModelAndView("questionarios/respostas/lista");
+		List<Questionario> questionarios = questionarioService.lista();
+		modelAndView.addObject("questionarios", questionarios);
+		modelAndView.addObject("turmas", turmaService.listar());
+		return modelAndView;
 	}
 
 }
