@@ -24,7 +24,7 @@ import infnet.sisam.service.TurmaService;
 @Controller
 @RequestMapping("/avaliacoes")
 public class AvaliacaoController {
-
+//
 	@Autowired
 	private AvaliacaoService avaliacaoService;
 
@@ -80,7 +80,7 @@ public class AvaliacaoController {
 	
 	@RequestMapping("/buscar/{id}")
 	public ModelAndView buscar(@PathVariable Integer id) {
-		ModelAndView modelAndView = new ModelAndView("avaliacoes/detalhe1");
+		ModelAndView modelAndView = new ModelAndView("avaliacoes/detalhe");
 		Avaliacao avaliacao = avaliacaoService.buscar(id);
 		List<Questionario> questionarios = questionarioService.lista();
 		modelAndView.addObject("avaliacao", avaliacao)
