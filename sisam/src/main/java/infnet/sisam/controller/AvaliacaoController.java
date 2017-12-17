@@ -24,19 +24,16 @@ import infnet.sisam.service.TurmaService;
 @Controller
 @RequestMapping("/avaliacoes")
 public class AvaliacaoController {
-//
+	
 	@Autowired
 	private AvaliacaoService avaliacaoService;
-
 	@Autowired
 	private QuestionarioService questionarioService;
-	
 	@Autowired
 	private TurmaService turmaService;
-	
 	@Autowired
 	private FormattingConversionService mvcConversionService;
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView listar() {
 		List<Avaliacao> avaliacoes = avaliacaoService.listar();
@@ -53,8 +50,8 @@ public class AvaliacaoController {
 		modelAndView.addObject("turmas", buildTurmas());
 		return modelAndView;
 	}
-	
-	private List<Turma> buildTurmas(){
+
+	private List<Turma> buildTurmas() {
 		List<Turma> turmas = new ArrayList<Turma>();
 		for (int i = 1; i <= 10; i++) {
 			Turma turma = new Turma();
@@ -62,41 +59,42 @@ public class AvaliacaoController {
 			turma.setDescricao("Turma " + i);
 			turmas.add(turma);
 		}
-		return turmas;
+		return turmaService.listar();
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView salvar(@AuthenticationPrincipal Usuario usuario, Avaliacao avaliacao, RedirectAttributes redirectAttributes) {
+	public ModelAndView salvar(@AuthenticationPrincipal Usuario usuario, Avaliacao avaliacao,
+			RedirectAttributes redirectAttributes) {
 		avaliacao.setAdministrador(usuario);
 		/*
-		 * Para cada turma selecionada, obter via rest todas as informações, como alunos e seus e-mails.
-		 * Em seguida, persistir na base de dados. 
-		 * */
-//		avaliacao.getTurmas().forEach(turma->turmaService.salvar(turma));
+		 * Para cada turma selecionada, obter via rest todas as informações, como alunos
+		 * e seus e-mails. Em seguida, persistir na base de dados.
+		 */
+		// avaliacao.getTurmas().forEach(turma->turmaService.salvar(turma));
 		avaliacaoService.salvar(avaliacao);
 		redirectAttributes.addAttribute("sucesso", "Avaliação cadastrada com sucesso");
 		return new ModelAndView("redirect:/avaliacoes");
 	}
-	
+
 	@RequestMapping("/buscar/{id}")
 	public ModelAndView buscar(@PathVariable Integer id) {
 		ModelAndView modelAndView = new ModelAndView("avaliacoes/detalhe");
 		Avaliacao avaliacao = avaliacaoService.buscar(id);
 		List<Questionario> questionarios = questionarioService.lista();
 		modelAndView.addObject("avaliacao", avaliacao)
-					.addObject("dataInicio", mvcConversionService.convert(avaliacao.getDataInicio(), String.class))
-					.addObject("dataFim", mvcConversionService.convert(avaliacao.getDataFim(), String.class))
-					.addObject("questionarios", questionarios);
+				.addObject("dataInicio", mvcConversionService.convert(avaliacao.getDataInicio(), String.class))
+				.addObject("dataFim", mvcConversionService.convert(avaliacao.getDataFim(), String.class))
+				.addObject("questionarios", questionarios);
 		return modelAndView;
 	}
-	
+
 	@RequestMapping("/atualizar")
 	public ModelAndView atualizar(Avaliacao avaliacao, RedirectAttributes redirectAttributes) {
 		avaliacaoService.atualizar(avaliacao);
 		redirectAttributes.addFlashAttribute("sucesso", "Avaliação atualizada com sucesso.");
 		return new ModelAndView("redirect:/avaliacoes");
 	}
-	
+
 	@RequestMapping("/remover/{id}")
 	public ModelAndView remover(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
 		avaliacaoService.remover(id);
