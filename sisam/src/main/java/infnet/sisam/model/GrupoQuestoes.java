@@ -8,18 +8,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "grupo_questoes")
 public class GrupoQuestoes {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String descricao;
-	
-	@OneToMany(mappedBy="grupoQuestoes")
+
+	@OneToMany(mappedBy = "grupoQuestoes")
 	private List<Questao> questoes = new ArrayList<Questao>();
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -43,5 +45,5 @@ public class GrupoQuestoes {
 	public void setQuestoes(List<Questao> questoes) {
 		this.questoes = questoes;
 	}
-	
+
 }

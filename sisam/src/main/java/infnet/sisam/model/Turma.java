@@ -3,6 +3,7 @@ package infnet.sisam.model;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,12 +11,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
+@Table(name="turma")
 public class Turma {
 	
 	@Id
@@ -24,10 +27,12 @@ public class Turma {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat
+	@Column(name="data_inicio")
 	private Calendar dataInicio;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat
+	@Column(name="data_fim")
 	private Calendar dataFim;
 
 	private String descricao;

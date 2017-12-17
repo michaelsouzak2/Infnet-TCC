@@ -9,21 +9,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "questao")
 public class Questao {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-	private GrupoQuestoes grupoQuestoes;
-
 	private String pergunta;
 
 	@Enumerated(EnumType.STRING)
 	private Likert opcao;
+
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	private GrupoQuestoes grupoQuestoes;
 
 	public Integer getId() {
 		return id;
@@ -33,20 +35,20 @@ public class Questao {
 		this.id = id;
 	}
 
-	public Likert getOpcao() {
-		return opcao;
-	}
-
-	public void setOpcao(Likert opcao) {
-		this.opcao = opcao;
-	}
-
 	public String getPergunta() {
 		return pergunta;
 	}
 
 	public void setPergunta(String pergunta) {
 		this.pergunta = pergunta;
+	}
+
+	public Likert getOpcao() {
+		return opcao;
+	}
+
+	public void setOpcao(Likert opcao) {
+		this.opcao = opcao;
 	}
 
 	public GrupoQuestoes getGrupoQuestoes() {

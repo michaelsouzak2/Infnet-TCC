@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -25,6 +27,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 		+ "JOIN FETCH av.questionario q JOIN FETCH av.turmas t LEFT JOIN t.alunos a WHERE "
 		+ " av.dataInicio<=sysdate()")
 @Entity
+@Table(name="avaliacao")
 public class Avaliacao {
 
 	@Id
@@ -44,10 +47,12 @@ public class Avaliacao {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat
+	@Column(name="data_inicio")
 	private Calendar dataInicio;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat
+	@Column(name="data_fim")
 	private Calendar dataFim;
 
 	@OneToOne(cascade = CascadeType.ALL)

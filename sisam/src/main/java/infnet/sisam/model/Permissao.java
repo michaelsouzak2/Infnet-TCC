@@ -4,12 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 
 import infnet.sisam.enumeration.PermissaoEnum;
 
 @Entity
+@Table(name="permissao")
 public class Permissao implements GrantedAuthority {
 
 	private static final long serialVersionUID = -405335995759771078L;
