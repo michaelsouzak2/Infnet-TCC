@@ -33,6 +33,7 @@
 						<tr>
 							<th>Descrição</th>
 							<th>Professor</th>
+							<th>Modulo</th>
 							<th>Data de início</th>
 							<th>Data de término</th>
 							<th class="text-center">Editar</th>
@@ -44,6 +45,7 @@
 							<tr>
 								<td>${turma.descricao}</td>
 								<td>${turma.professor.nome}</td>
+								<td>${turma.modulo.nome}</td>
 								<td><fmt:formatDate pattern="dd/MM/yyyy"
 										value="${turma.dataInicio.time}" /></td>
 								<td><fmt:formatDate pattern="dd/MM/yyyy"
