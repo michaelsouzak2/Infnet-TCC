@@ -1,8 +1,6 @@
 package infnet.sisam.model;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -12,15 +10,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Turma {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -35,17 +32,14 @@ public class Turma {
 
 	private String descricao;
 
-	@OneToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	private Professor professor;
 
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "turma")
 	private List<Aluno> alunos;
 
-	@Transient
+	@ManyToOne(fetch=FetchType.EAGER)
 	private Modulo modulo;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Avaliacao avaliacao;
 
 	public Integer getId() {
 		return id;
@@ -103,18 +97,4 @@ public class Turma {
 		this.descricao = descricao;
 	}
 
-	public Avaliacao getAvaliacao() {
-		return avaliacao;
-	}
-
-	public void setAvaliacao(Avaliacao avaliacao) {
-		this.avaliacao = avaliacao;
-	}
-
-	public String retData(int i) {
-		Date cData = (i==0) ? this.dataInicio.getTime():this.dataFim.getTime();
-		SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
-		return fmt.format(cData);
-	}
-	
 }

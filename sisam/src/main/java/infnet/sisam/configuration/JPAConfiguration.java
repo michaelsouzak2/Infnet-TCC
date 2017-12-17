@@ -53,7 +53,7 @@ public class JPAConfiguration {
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setUsername("root");
-		dataSource.setPassword("1234");
+		dataSource.setPassword("ms1002");
 		dataSource.setUrl("jdbc:mysql://localhost:3306/sisam");
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 

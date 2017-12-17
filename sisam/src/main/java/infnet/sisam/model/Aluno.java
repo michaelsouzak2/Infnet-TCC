@@ -1,10 +1,11 @@
 package infnet.sisam.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Aluno {
@@ -16,7 +17,7 @@ public class Aluno {
 	private String email;
 	private String sexo;
 	
-	@OneToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	private Turma turma;
 
 	public Integer getId() {
