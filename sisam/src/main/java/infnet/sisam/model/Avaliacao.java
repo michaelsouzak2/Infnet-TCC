@@ -19,6 +19,8 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @NamedQuery(name = "Avaliacao.buscaAvaliacaoPendente", query = "SELECT av FROM Avaliacao av "
 		+ "JOIN FETCH av.questionario q JOIN FETCH av.turmas t LEFT JOIN t.alunos a WHERE "
 		+ " av.dataInicio<=sysdate()")
@@ -30,6 +32,7 @@ public class Avaliacao {
 	private Integer id;
 
 	@OneToMany(mappedBy="avaliacao")
+	@JsonIgnore
 	//@JoinColumn(name = "avaliacao_id")
 	private List<Turma> turmas;
 

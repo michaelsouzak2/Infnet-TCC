@@ -44,7 +44,7 @@ public class Turma {
 	@Transient
 	private Modulo modulo;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Avaliacao avaliacao;
 
 	public Integer getId() {
@@ -112,9 +112,9 @@ public class Turma {
 	}
 
 	public String retData(int i) {
-		Date cData = (i==0) ? this.dataInicio.getTime():this.dataFim.getTime();
+		Date cData = (i == 0) ? this.dataInicio.getTime() : this.dataFim.getTime();
 		SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
 		return fmt.format(cData);
 	}
-	
+
 }

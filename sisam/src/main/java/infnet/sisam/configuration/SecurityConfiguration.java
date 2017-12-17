@@ -24,6 +24,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http
 			.authorizeRequests()
 				.antMatchers("/resources/**").permitAll()
+				.antMatchers("/turmas/rest").permitAll()
 				.antMatchers("/usuarios/**").hasRole(PermissaoEnum.ROLE_ADMINISTRADOR.getDescricao())
 				.anyRequest()
 				.authenticated()

@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Aluno {
 	@Id
@@ -15,8 +17,8 @@ public class Aluno {
 	private String nome;
 	private String email;
 	private String sexo;
-	
 	@OneToOne
+	@JsonIgnore
 	private Turma turma;
 
 	public Integer getId() {

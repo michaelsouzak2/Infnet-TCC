@@ -63,7 +63,7 @@ public class EmailSender {
 			System.out.println("Email enviado para o aluno: " + aluno.getNome());
 		} catch (Exception e) {
 			System.out.println("Ocorreu um erro ao enviar email para: " + aluno.getEmail());
-			System.out.println("Erro ao enviar email:\n " + e.getStackTrace());
+			System.out.println("Erro ao enviar email:\n " + e.getMessage());
 		}
 	}
 }

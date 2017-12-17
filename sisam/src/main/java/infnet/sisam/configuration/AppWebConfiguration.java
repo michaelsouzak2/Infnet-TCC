@@ -133,8 +133,4 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 
 	}
 
-	// @Bean
-	// public Queue queue() {
-	// return new ActiveMQQueue("emailQueue");
-	// }
 }
