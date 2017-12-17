@@ -9,6 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.support.FormattingConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import infnet.sisam.model.Modulo;
 import infnet.sisam.model.Professor;
 import infnet.sisam.model.Turma;
+import infnet.sisam.service.ModuloService;
 import infnet.sisam.service.ProfessorService;
 import infnet.sisam.service.TurmaService;
 
@@ -33,6 +36,13 @@ public class TurmaController {
 	@Autowired
 	private ProfessorService professorService;
 
+	@Autowired
+	private ModuloService moduloService;
+	
+	@Autowired
+	private FormattingConversionService mvcConversionService;
+
+	
 	@GET
 	@Path("/turmas/rest")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -49,9 +59,11 @@ public class TurmaController {
 	public ModelAndView novo() {
 		List<Turma> turmas = turmaService.listar();
 		List<Professor> professores = professorService.listar();
+		List<Modulo> modulos = moduloService.listar();
 		ModelAndView modelAndView = new ModelAndView("turmas/novo");
 		modelAndView.addObject("turmas", turmas);
 		modelAndView.addObject("professores", professores);
+		modelAndView.addObject("modulos",modulos);
 		return modelAndView;
 	}
 
@@ -82,8 +94,12 @@ public class TurmaController {
 		ModelAndView modelAndView = new ModelAndView("turmas/detalhe");
 		Turma turma = turmaService.buscar(id);
 		List<Professor> professores = professorService.listar();
-		modelAndView.addObject("turma", turma);
+		List<Modulo> modulos = moduloService.listar();
+		modelAndView.addObject("turma", turma)
+		.addObject("dataInicio", mvcConversionService.convert(turma.getDataInicio(), String.class))
+		.addObject("dataFim", mvcConversionService.convert(turma.getDataFim(), String.class));
 		modelAndView.addObject("professores", professores);
+		modelAndView.addObject("modulos",modulos);
 		return modelAndView;
 	}
 

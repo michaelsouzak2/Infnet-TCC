@@ -31,6 +31,14 @@
 							</c:forEach>
 						</select>
 					</div>
+					<div class="form-group">
+						<label>Modulo:</label> <select name="modulo.id"
+							class="form-control">
+							<c:forEach items="${modulos}" var="modulo">
+								<option value="${modulo.id}">${modulo.nome}</option>
+							</c:forEach>
+						</select>
+					</div>
 						<div class="form-group">
 							<div class="row">
 								<div class="col-lg-6">
