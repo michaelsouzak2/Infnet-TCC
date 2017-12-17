@@ -41,17 +41,15 @@
 						<c:forEach items="${avaliacoes}" var="avaliacao">
 							<tr>
 								<td>${avaliacao.id}</td>
-								<td><fmt:formatDate pattern="dd/MM/yyyy"
-										value="${avaliacao.dataInicio.time}" /></td>
-								<td><fmt:formatDate pattern="dd/MM/yyyy"
-										value="${avaliacao.dataFim.time}" /></td>
+								<td><fmt:formatDate pattern="dd/MM/yyyy" value="${avaliacao.dataInicio.time}" /></td>
+								<td><fmt:formatDate pattern="dd/MM/yyyy" value="${avaliacao.dataFim.time}" /></td>
 								<td>${avaliacao.questionario.sigla}</td>
-								<td class="text-center"><a href="#"> <i
-										class="fa fa-pencil-square-o" aria-hidden="true"></i>
-								</a></td>
-								<td class="text-center"><a href="#"> <i
-										class="fa fa-trash-o" aria-hidden="true"></i>
-								</a></td>
+								<td class="text-center">
+									<a href="${s:mvcUrl('AC#buscar').arg(0, avaliacao.id).build()}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+								</td>
+								<td class="text-center">
+									<a href="${s:mvcUrl('AC#remover').arg(0, avaliacao.id).build()}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>

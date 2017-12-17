@@ -16,12 +16,24 @@ public class AvaliacaoService {
 	@Autowired
 	private AvaliacaoDao avaliacaoDao;
 
-	public List<Avaliacao> listar(){
+	public List<Avaliacao> listar() {
 		return avaliacaoDao.findAll();
 	}
 
 	public void salvar(Avaliacao avaliacao) {
 		avaliacaoDao.salvar(avaliacao);
 	}
-	
+
+	public Avaliacao buscar(Integer id) {
+		return avaliacaoDao.buscar(id);
+	}
+
+	public void atualizar(Avaliacao avaliacao) {
+		avaliacaoDao.atualizar(avaliacao);
+	}
+
+	public void remover(Integer id) {
+		avaliacaoDao.excluir(avaliacaoDao.buscar(id));
+	}
+
 }

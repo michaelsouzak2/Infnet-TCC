@@ -47,7 +47,7 @@ public class Avaliacao {
 	@DateTimeFormat
 	private Calendar dataFim;
 
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.ALL)
 	private Convite convite;
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -116,5 +116,5 @@ public class Avaliacao {
 	public void setAdministrador(Usuario administrador) {
 		this.administrador = administrador;
 	}
-
+	
 }
