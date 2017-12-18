@@ -1,6 +1,7 @@
 package infnet.sisam.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -10,7 +11,7 @@ import infnet.sisam.model.Usuario;
 import infnet.sisam.service.PermissaoService;
 import infnet.sisam.service.UsuarioService;
 
-@RequestMapping
+@Controller
 public class CargaBDController {
 
 	@Autowired
@@ -24,19 +25,19 @@ public class CargaBDController {
 	public String cargaInicialBD() {
 		
 		Permissao roleAdmin = new Permissao();
-		roleAdmin.setId(1);
+		roleAdmin.setId(4);
 		roleAdmin.setNome(PermissaoEnum.ROLE_ADMINISTRADOR);
-		permissaoService.salvar(roleAdmin);
+		/*permissaoService.salvar(roleAdmin);
 		
 		Permissao roleSec = new Permissao();
-		roleSec.setId(2);
+		roleSec.setId(5);
 		roleSec.setNome(PermissaoEnum.ROLE_SECRETARIA);
 		permissaoService.salvar(roleSec);
 		
 		Permissao roleAluno = new Permissao();
-		roleAluno.setId(1);
+		roleAluno.setId(6);
 		roleAluno.setNome(PermissaoEnum.ROLE_ALUNO);
-		permissaoService.salvar(roleAluno);
+		permissaoService.salvar(roleAluno);*/
 		
 		
 		Usuario usuario = new Usuario();
