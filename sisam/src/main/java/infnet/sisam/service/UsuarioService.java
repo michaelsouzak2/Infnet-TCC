@@ -19,7 +19,7 @@ public class UsuarioService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	public void salvar(Usuario usuario) {
 		codificarPassword(usuario);
 		usuarioDao.salvar(usuario);
@@ -30,24 +30,39 @@ public class UsuarioService {
 	}
 
 	public void atualizar(Usuario usuario, String oldPassword) {
-		
-		//TODO MARRETA
+
+		// TODO MARRETA
 		oldPassword = oldPassword.substring(1);
-		
-		if(!oldPassword.equals(usuario.getSenha())) {
+
+		if (!oldPassword.equals(usuario.getSenha())) {
 			codificarPassword(usuario);
 		}
+		atualizarUsuario(usuario);
+	}
+
+	public void atualizarUsuario(Usuario usuario) {
+		codificarPassword(usuario);
 		usuarioDao.atualizar(usuario);
+	}
+
+	public Usuario loadUserByUsername(String email) {
+		List<Usuario> usus = usuarioDao.buscaUsuarioPorEmail(email);
+		if (usus.isEmpty()) {
+			return null;
+		} else {
+			return usus.get(0);
+		}
+
 	}
 
 	public Usuario buscar(Integer id) {
 		return usuarioDao.buscar(id);
 	}
-	
+
 	public void remover(Integer id) {
 		usuarioDao.excluir(usuarioDao.buscar(id));
 	}
-	
+
 	private void codificarPassword(Usuario usuario) {
 		usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
 	}

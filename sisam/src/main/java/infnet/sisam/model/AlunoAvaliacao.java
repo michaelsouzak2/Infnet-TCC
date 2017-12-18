@@ -1,5 +1,6 @@
 package infnet.sisam.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +21,9 @@ public class AlunoAvaliacao {
 
 	@ManyToOne
 	private Aluno aluno;
+
+	@Column(name = "avaliacao_respondida")
+	private Boolean avaliacao_respondida;
 
 	public Integer getId() {
 		return id;
@@ -43,6 +47,14 @@ public class AlunoAvaliacao {
 
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
+	}
+
+	public Boolean getAvaliacao_respondida() {
+		return avaliacao_respondida;
+	}
+
+	public void setAvaliacao_respondida(Boolean avaliacao_respondida) {
+		this.avaliacao_respondida = avaliacao_respondida;
 	}
 
 }

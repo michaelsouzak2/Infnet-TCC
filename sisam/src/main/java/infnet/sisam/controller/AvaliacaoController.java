@@ -96,8 +96,10 @@ public class AvaliacaoController {
 		return new ModelAndView("redirect:/avaliacoes");
 	}
 
-	@RequestMapping("/responder/{avaliacaoId}")
-	public ModelAndView responderAvaliacao(@PathVariable Integer avaliacaoId, RedirectAttributes redirectAttributes) {
+	@RequestMapping("/responder/{avaliacaoId}/{alunoId}")
+	public ModelAndView responderAvaliacao(@PathVariable Integer avaliacaoId, @PathVariable Integer alunoId,
+			RedirectAttributes redirectAttributes) {
+		// verificar antes se o aluno pode responder a avaliação ou se j á respondeu
 		Avaliacao av = avaliacaoService.buscar(avaliacaoId);
 		List<Questao> questoes = new ArrayList<Questao>();
 		for (GrupoQuestoes grupo : av.getQuestionario().getGruposQuestoes()) {
