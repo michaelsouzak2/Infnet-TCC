@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import infnet.sisam.enumeration.PermissaoEnum;
 import infnet.sisam.model.TipoCurso;
 import infnet.sisam.service.TipoCursoService;
 

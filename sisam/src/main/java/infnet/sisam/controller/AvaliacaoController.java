@@ -14,12 +14,14 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import infnet.sisam.model.Aluno;
+import infnet.sisam.model.AlunoAvaliacao;
 import infnet.sisam.model.Avaliacao;
 import infnet.sisam.model.GrupoQuestoes;
 import infnet.sisam.model.Likert;
 import infnet.sisam.model.Questao;
 import infnet.sisam.model.Questionario;
 import infnet.sisam.model.Usuario;
+import infnet.sisam.service.AlunoAvaliacaoService;
 import infnet.sisam.service.AlunoService;
 import infnet.sisam.service.AvaliacaoService;
 import infnet.sisam.service.QuestionarioService;
@@ -37,6 +39,8 @@ public class AvaliacaoController {
 	private TurmaService turmaService;
 	@Autowired
 	private AlunoService alunoService;
+	@Autowired
+	private AlunoAvaliacaoService alunoAvaliacaoService;
 	@Autowired
 	private FormattingConversionService mvcConversionService;
 
@@ -106,15 +110,20 @@ public class AvaliacaoController {
 		// verificar se avaliação ainda está ativa
 		// verificar antes se o aluno pode responder a avaliação ou se j á respondeu
 		ModelAndView modelAndView = new ModelAndView("respostas/lista");
-		boolean isPermite = verificaAcessoAluno();
+		Aluno aluno = alunoService.buscar(alunoId);
+		Avaliacao avaliacao = avaliacaoService.buscar(avaliacaoId);
+		AlunoAvaliacao alunoAvaliacao = null;
+		boolean isPermite = verificaAcessoAluno(aluno, avaliacao, alunoAvaliacao);
 		if (isPermite) {
-			Avaliacao av = avaliacaoService.buscar(avaliacaoId);
 			List<Questao> questoes = new ArrayList<Questao>();
-			for (GrupoQuestoes grupo : av.getQuestionario().getGruposQuestoes()) {
+			for (GrupoQuestoes grupo : avaliacao.getQuestionario().getGruposQuestoes()) {
 				questoes = grupo.getQuestoes();
 			}
 			modelAndView.addObject("questoes", questoes);
 			modelAndView.addObject("opcoes", Likert.values());
+			modelAndView.addObject("idAvaliacao", avaliacaoId);
+			modelAndView.addObject("idAluno", alunoId);
+			modelAndView.addObject("alunoAvaliacao", alunoAvaliacao);
 		} else {
 			modelAndView.addObject("isPermite", false);
 		}
@@ -122,21 +131,40 @@ public class AvaliacaoController {
 	}
 
 	@SuppressWarnings("unchecked")
-	private boolean verificaAcessoAluno() {
+	private boolean verificaAcessoAluno(Aluno aluno, Avaliacao avaliacao, AlunoAvaliacao alunoAvaliacao) {
 		List<Aluno> alunoPermitido = alunoService.getAlunoDao().getEm()
-				.createNamedQuery("Aluno.verificaAcessoAvaliacao").getResultList();
+				.createNamedQuery("Aluno.verificaAcessoAvaliacao").setParameter("idAluno", aluno.getId())
+				.getResultList();
 		if (alunoPermitido.isEmpty()) {
 			return false;
 		} else {
-			return true;
+			alunoAvaliacao = obterAlunoAvaliacao(aluno.getId(), avaliacao.getId());
+			if (alunoAvaliacao != null) {
+				return !alunoAvaliacao.getAvaliacaoRespondida();
+			} else {
+				alunoAvaliacao = new AlunoAvaliacao();
+				alunoAvaliacao.setAluno(aluno);
+				alunoAvaliacao.setAvaliacao(avaliacao);
+				alunoAvaliacao.setAvaliacaoRespondida(false);
+				alunoAvaliacaoService.salvar(alunoAvaliacao);
+				return true;
+			}
 		}
 	}
 
 	@RequestMapping("/finalizar")
-	public ModelAndView finalizar(Avaliacao avaliacao, RedirectAttributes redirectAttributes) {
-		// avaliacaoService.atualizar(avaliacao);
+	public ModelAndView finalizar(AlunoAvaliacao alunoAvaliacao, Integer idAluno, Integer idAvaliacao,
+			RedirectAttributes redirectAttributes) {
+		alunoAvaliacaoService.finalizarAlunoAvaliacao(alunoAvaliacao);
 		redirectAttributes.addFlashAttribute("sucesso", "Avaliação respondida com sucesso.");
 		return new ModelAndView("redirect:/respostas/resumo");
+	}
+
+	private AlunoAvaliacao obterAlunoAvaliacao(Integer idAluno, Integer idAvaliacao) {
+		AlunoAvaliacao alunoAvaliacao = (AlunoAvaliacao) alunoAvaliacaoService.getAlunoAvaliacaoDao().getEm()
+				.createNamedQuery("AlunoAvaliacao.buscaAlunoAvaliacao").setParameter("idAluno", idAluno)
+				.setParameter("idAvaliacao", idAvaliacao).getSingleResult();
+		return alunoAvaliacao;
 	}
 
 }

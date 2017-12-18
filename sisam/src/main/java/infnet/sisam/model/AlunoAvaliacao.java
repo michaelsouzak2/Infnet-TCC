@@ -6,8 +6,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+@NamedQuery(name = "AlunoAvaliacao.buscaAlunoAvaliacao", query = "SELECT aa FROM AlunoAvaliacao aa "
+		+ "WHERE  aa.avaliacao.id=:idAvaliacao AND aa.aluno.id=idAluno")
 @Entity
 @Table(name = "aluno_avaliacao")
 public class AlunoAvaliacao {
@@ -23,7 +26,7 @@ public class AlunoAvaliacao {
 	private Aluno aluno;
 
 	@Column(name = "avaliacao_respondida")
-	private Boolean avaliacao_respondida;
+	private Boolean avaliacaoRespondida;
 
 	public Integer getId() {
 		return id;
@@ -49,12 +52,12 @@ public class AlunoAvaliacao {
 		this.aluno = aluno;
 	}
 
-	public Boolean getAvaliacao_respondida() {
-		return avaliacao_respondida;
+	public Boolean getAvaliacaoRespondida() {
+		return avaliacaoRespondida;
 	}
 
-	public void setAvaliacao_respondida(Boolean avaliacao_respondida) {
-		this.avaliacao_respondida = avaliacao_respondida;
+	public void setAvaliacaoRespondida(Boolean avaliacao_respondida) {
+		this.avaliacaoRespondida = avaliacao_respondida;
 	}
 
 }

@@ -1,8 +1,5 @@
 package infnet.sisam.service;
 
-import static infnet.sisam.helper.Constantes.PATH_TURMAS;
-import static infnet.sisam.helper.Constantes.URI_REST_INFNET;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
