@@ -6,10 +6,8 @@
 <page:template titulo="Nova questão">
 
 	<jsp:attribute name="extraScripts">
-		<script type="text/javascript"
-			src="/sisam/resources/js/app/avaliacao.js"></script>
-	 	<script type="text/javascript"
-			src="/sisam/resources/js/app/datepicker.js"></script>
+		<script type="text/javascript" src="/sisam/resources/js/app/avaliacao.js"></script>
+	 	<script type="text/javascript" src="/sisam/resources/js/app/datepicker.js"></script>
 	 	<script type="text/javascript" src="/sisam/resources/js/app/mask.js"></script>
 	</jsp:attribute>
 
@@ -38,20 +36,18 @@
 							<div class="row">
 								<div class="col-lg-6">
 									<label for="dataInicio">Data de início:</label>
-									<input type="text" data-datepicker="from" name="dataInicio"
-										id="dataInicio" class="form-control" />
+									<input type="text" data-datepicker="from" name="dataInicio" id="dataInicio" class="form-control" />
 								</div>
 								<div class="col-lg-6">
 									<label for="dataFim">Data fim:</label>
-									<input type="text" data-datepicker="to" name="dataFim"
-										id="dataFim" class="form-control" />
+									<input type="text" data-datepicker="to" name="dataFim" id="dataFim" class="form-control" />
 								</div>
 							</div>
 						</div>
 						
 						<div class="form-group">
 							<label for="turmas">Turmas:</label>
-							<select name="turma.id" id="turma" class="form-control">
+							<select id="turmas" class="form-control">
 								<option value="0">Selecione</option>
 								<c:forEach items="${turmas}" var="turma">
 									<option value="${turma.id}">${turma.descricao}</option>
