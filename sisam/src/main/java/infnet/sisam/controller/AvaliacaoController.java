@@ -62,17 +62,8 @@ public class AvaliacaoController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView salvar(@AuthenticationPrincipal Usuario usuario, Avaliacao avaliacao,
-			RedirectAttributes redirectAttributes) {
+	public ModelAndView salvar(@AuthenticationPrincipal Usuario usuario, Avaliacao avaliacao, RedirectAttributes redirectAttributes) {
 		avaliacao.setAdministrador(usuario);
-		// aqui deverá gravar a associativa alunoAvaliacao, pegando os alunos da turma
-		// selecionada no front
-
-		/*
-		 * Para cada turma selecionada, obter via rest todas as informações, como alunos
-		 * e seus e-mails. Em seguida, persistir na base de dados.
-		 */
-		// avaliacao.getTurmas().forEach(turma->turmaService.salvar(turma));
 		avaliacaoService.salvar(avaliacao);
 		redirectAttributes.addAttribute("sucesso", "Avaliação cadastrada com sucesso");
 		return new ModelAndView("redirect:/avaliacoes");

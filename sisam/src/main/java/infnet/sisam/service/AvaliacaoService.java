@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import infnet.sisam.dao.AlunoDao;
 import infnet.sisam.dao.AvaliacaoDao;
 import infnet.sisam.model.Aluno;
 import infnet.sisam.model.Avaliacao;
@@ -21,7 +22,7 @@ public class AvaliacaoService {
 	private TurmaService turmaService;
 	
 	@Autowired
-	private AlunoService alunoService;
+	private AlunoDao alunoDao;
 	
 	public List<Avaliacao> listar() {
 		return avaliacaoDao.findAll();
@@ -30,17 +31,18 @@ public class AvaliacaoService {
 	public void salvar(Avaliacao avaliacao) {
 		
 		avaliacaoDao.salvar(avaliacao);
-
+		
 		avaliacao.getTurmas().forEach(turma->{
-			turma = turmaService.buscar(turma.getId());
-			turma.setAvaliacao(buscar(avaliacao.getId()));
+			turma = turmaService.buscar(turma.getId());//obtém turma com alunos
+			turma.setAvaliacao(avaliacao);
 			turmaService.salvar(turma);
 			
-			Aluno aluno = new Aluno();
-			aluno.setTurma(turmaService.buscar(turma.getId()));
-			alunoService.salvar(aluno);
+			List<Aluno> alunos = turma.getAlunos();
+			for (Aluno aluno : alunos) {
+				aluno.setTurma(turma);
+				alunoDao.salvar(aluno);
+			}
 		});
-		
 		
 	}
 

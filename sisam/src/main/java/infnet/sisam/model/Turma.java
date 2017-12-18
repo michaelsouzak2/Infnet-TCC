@@ -7,8 +7,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -23,7 +21,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Turma {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -38,17 +35,25 @@ public class Turma {
 
 	private String descricao;
 
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Professor professor;
 
-	@OneToMany(mappedBy = "turma", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "turma")
 	private List<Aluno> alunos;
 
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Modulo modulo;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Avaliacao avaliacao;
+
+	public Turma() {
+
+	}
+
+	public Turma(Integer id) {
+		this.id = id;
+	}
 
 	public Integer getId() {
 		return id;

@@ -34,7 +34,7 @@ public class Avaliacao {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@OneToMany(mappedBy = "avaliacao", cascade = CascadeType.MERGE)
+	@OneToMany(mappedBy = "avaliacao")
 	@JsonIgnore
 	private List<Turma> turmas;
 
