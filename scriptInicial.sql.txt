@@ -1,0 +1,75 @@
+insert into permissao (id, nome) values (1, 'ROLE_ADMINISTRADOR');
+
+insert into permissao (id, nome) values (2, 'ROLE_SECRETARIA');
+
+insert into permissao (id, nome) values (3, 'ROLE_ALUNO');
+
+insert into usuario (email, nome, senha, permissao_id) values ( 'adm@infnet.edu.br', 'Administrador', '$2a$10$lt7pS7Kxxe5JfP.vjLNSyOXP11eHgh7RoPxo5fvvbMCZkCUss2DGu', 1);
+
+
+INSERT INTO `sisam`.`convite`
+(`id`,
+`mensagem`,
+`titulo`)
+VALUES
+(1,
+'Vc está participando da avaliação semestral de seu curso!',
+'Avaliação Semestral');
+INSERT INTO `sisam`.`questionario`
+(`id`,
+`descricao`,
+`sigla`)
+VALUES
+(1,
+'Questionário 1',
+'Q1');
+INSERT INTO `sisam`.`avaliacao`
+(`id`,
+`data_fim`,
+`data_inicio`,
+`objetivo`,
+`administrador_id`,
+`questionario_id`,
+`convite_id`)
+VALUES
+(1,
+null,
+'2017-01-01',
+'Avaliação semestral',
+1,
+1,
+1);
+INSERT INTO `sisam`.`professor`
+(`id`,
+`matricula`,
+`nome`)
+VALUES
+(1,
+1,
+'Bill gates');
+INSERT INTO `sisam`.`turma`
+(`id`,
+`data_fim`,
+`data_inicio`,
+`avaliacao_id`,
+`professor_id`
+)
+VALUES
+(1,
+null,
+'2017-01-01',
+1,1);
+INSERT INTO `sisam`.`aluno`
+(`id`,
+`email`,
+`matricula`,
+`nome`,
+`sexo`,
+`turma_id`)
+VALUES
+(1,
+'raffamz@gmail.com',
+1,
+'Rafael Souza',
+'M',
+1);

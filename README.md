@@ -20,7 +20,8 @@ insert into permissao (id, nome) values (1, 'ROLE_ADMINISTRADOR');
 
 insert into permissao (id, nome) values (2, 'ROLE_SECRETARIA');
 
-insert into usuario (email, nome, senha, permissao_id) values (
-'adm@infnet.edu.br', 'Administrador', '$2a$10$lt7pS7Kxxe5JfP.vjLNSyOXP11eHgh7RoPxo5fvvbMCZkCUss2DGu', 1);
+insert into permissao (id, nome) values (3, 'ROLE_ALUNO');
+
+insert into usuario (email, nome, senha, permissao_id) values ( 'adm@infnet.edu.br', 'Administrador', '$2a$10$lt7pS7Kxxe5JfP.vjLNSyOXP11eHgh7RoPxo5fvvbMCZkCUss2DGu', 1);
 
 
