@@ -65,6 +65,7 @@ public class EmailSender {
 
 	private void envioNotificacao(Aluno aluno, Integer idAvaliacao, Convite convite) {
 		String linkAvaliacao = "http://localhost:8080/sisam/avaliacoes/responder/" + idAvaliacao + "/" + aluno.getId();
+		String tratamentoAluno = aluno.getSexo().equals("M") ? "Prezado " : "Prezada ";
 		try {
 			Usuario usuario = criarUsuarioAluno(aluno);
 			if (usuario != null) {
@@ -72,7 +73,7 @@ public class EmailSender {
 				s.setFrom(Constantes.EMAIL_FROM);
 				s.setTo(aluno.getEmail());
 				s.setSubject(convite.getTitulo());
-				s.setText("Olá," + aluno.getNome() + "\n" + convite.getMensagem()
+				s.setText(tratamentoAluno + aluno.getNome() + ",\n" + convite.getMensagem()
 						+ "\nSeguem seus dados de acesso para responder a avaliação\n" + "\nLink de acesso: "
 						+ linkAvaliacao + "\n" + "Login: " + aluno.getEmail() + "\n" + "Senha:" + usuario.getSenha());
 				sender.send(s);

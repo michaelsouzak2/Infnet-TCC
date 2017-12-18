@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import infnet.sisam.model.Aluno;
 import infnet.sisam.model.Avaliacao;
 import infnet.sisam.model.GrupoQuestoes;
 import infnet.sisam.model.Likert;
 import infnet.sisam.model.Questao;
 import infnet.sisam.model.Questionario;
 import infnet.sisam.model.Usuario;
+import infnet.sisam.service.AlunoService;
 import infnet.sisam.service.AvaliacaoService;
 import infnet.sisam.service.QuestionarioService;
 import infnet.sisam.service.TurmaService;
@@ -33,6 +35,8 @@ public class AvaliacaoController {
 	private QuestionarioService questionarioService;
 	@Autowired
 	private TurmaService turmaService;
+	@Autowired
+	private AlunoService alunoService;
 	@Autowired
 	private FormattingConversionService mvcConversionService;
 
@@ -99,16 +103,33 @@ public class AvaliacaoController {
 	@RequestMapping("/responder/{avaliacaoId}/{alunoId}")
 	public ModelAndView responderAvaliacao(@PathVariable Integer avaliacaoId, @PathVariable Integer alunoId,
 			RedirectAttributes redirectAttributes) {
+		// verificar se avaliação ainda está ativa
 		// verificar antes se o aluno pode responder a avaliação ou se j á respondeu
-		Avaliacao av = avaliacaoService.buscar(avaliacaoId);
-		List<Questao> questoes = new ArrayList<Questao>();
-		for (GrupoQuestoes grupo : av.getQuestionario().getGruposQuestoes()) {
-			questoes = grupo.getQuestoes();
-		}
 		ModelAndView modelAndView = new ModelAndView("respostas/lista");
-		modelAndView.addObject("questoes", questoes);
-		modelAndView.addObject("opcoes", Likert.values());
+		boolean isPermite = verificaAcessoAluno();
+		if (isPermite) {
+			Avaliacao av = avaliacaoService.buscar(avaliacaoId);
+			List<Questao> questoes = new ArrayList<Questao>();
+			for (GrupoQuestoes grupo : av.getQuestionario().getGruposQuestoes()) {
+				questoes = grupo.getQuestoes();
+			}
+			modelAndView.addObject("questoes", questoes);
+			modelAndView.addObject("opcoes", Likert.values());
+		} else {
+			modelAndView.addObject("isPermite", false);
+		}
 		return modelAndView;
+	}
+
+	@SuppressWarnings("unchecked")
+	private boolean verificaAcessoAluno() {
+		List<Aluno> alunoPermitido = alunoService.getAlunoDao().getEm()
+				.createNamedQuery("Aluno.verificaAcessoAvaliacao").getResultList();
+		if (alunoPermitido.isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	@RequestMapping("/finalizar")

@@ -33,7 +33,7 @@ public class QuestionarioService {
 	}
 	
 	public Questionario buscarPorId(Integer id) {
-		return questionarioDao.buscarPorId(id);
+		return questionarioDao.buscar(id);
 	}
 	
 	public void atualizar(Questionario questionario) {

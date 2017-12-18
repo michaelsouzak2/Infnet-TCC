@@ -10,11 +10,5 @@ public class QuestionarioDao extends JpaDao<Questionario> {
 	public QuestionarioDao() {
 		super(Questionario.class);
 	}
-	
-	public Questionario buscarPorId(Integer id) {
-		return em.createQuery("select q from Questionario q where q.id = :id", Questionario.class)
-				.setParameter("id", id)
-				.getSingleResult();
-	}
 
 }

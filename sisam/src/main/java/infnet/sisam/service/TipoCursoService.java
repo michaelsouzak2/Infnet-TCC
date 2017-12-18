@@ -21,20 +21,20 @@ public class TipoCursoService {
 	}
 
 	public List<TipoCurso> listar() {
-		return tipoCursoDao.listar();
+		return tipoCursoDao.findAll();
 	}
 
 	public void atualizar(TipoCurso tipoCurso) {
-		
+
 		tipoCursoDao.atualizar(tipoCurso);
 	}
 
 	public TipoCurso buscar(Integer id) {
 		return tipoCursoDao.buscar(id);
 	}
-	
+
 	public void remover(Integer id) {
 		tipoCursoDao.excluir(tipoCursoDao.buscar(id));
 	}
-	
+
 }

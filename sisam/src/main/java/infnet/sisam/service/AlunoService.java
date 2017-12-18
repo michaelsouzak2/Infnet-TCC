@@ -25,16 +25,24 @@ public class AlunoService {
 	}
 
 	public void atualizar(Aluno aluno) {
-	
+
 		alunoDao.atualizar(aluno);
 	}
 
 	public Aluno buscar(Integer id) {
 		return alunoDao.buscar(id);
 	}
-	
+
 	public void remover(Integer id) {
 		alunoDao.excluir(alunoDao.buscar(id));
+	}
+
+	public AlunoDao getAlunoDao() {
+		return alunoDao;
+	}
+
+	public void setAlunoDao(AlunoDao alunoDao) {
+		this.alunoDao = alunoDao;
 	}
 
 }
