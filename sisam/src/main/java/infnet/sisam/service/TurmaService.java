@@ -10,6 +10,8 @@ import org.springframework.web.client.RestTemplate;
 import infnet.sisam.dao.TurmaDao;
 import infnet.sisam.model.Turma;
 
+import static infnet.sisam.helper.Constantes.*;
+
 @Service
 @Transactional
 public class TurmaService {
@@ -25,8 +27,8 @@ public class TurmaService {
 
 	@SuppressWarnings("unchecked")
 	public List<Turma> listar() {
-//		return restTemplate.getForObject(URI_REST_INFNET.concat(PATH_TURMAS), List.class);
-		return restTemplate.getForObject("http://www.mocky.io/v2/5a372d332f00000b23127b46", List.class);
+		return restTemplate.getForObject(URI_REST_INFNET.concat(PATH_TURMAS), List.class);
+//		return restTemplate.getForObject("http://www.mocky.io/v2/5a372d332f00000b23127b46", List.class);
 	}
 
 	public void atualizar(Turma turma) {
@@ -35,7 +37,7 @@ public class TurmaService {
 	}
 
 	public Turma buscar(Integer id) {
-		return turmaDao.buscar(id);
+		return restTemplate.getForObject(URI_REST_INFNET.concat(PATH_TURMAS).concat("/").concat(id.toString()), Turma.class);
 	}
 
 	public void remover(Integer id) {
