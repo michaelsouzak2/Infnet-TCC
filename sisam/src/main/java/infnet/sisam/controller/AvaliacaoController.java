@@ -1,5 +1,6 @@
 package infnet.sisam.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import infnet.sisam.model.Avaliacao;
+import infnet.sisam.model.GrupoQuestoes;
+import infnet.sisam.model.Likert;
+import infnet.sisam.model.Questao;
 import infnet.sisam.model.Questionario;
 import infnet.sisam.model.Usuario;
 import infnet.sisam.service.AvaliacaoService;
@@ -93,12 +97,23 @@ public class AvaliacaoController {
 	}
 
 	@RequestMapping("/responder/{avaliacaoId}")
-	public ModelAndView responderAvaliacao() {
-		ModelAndView modelAndView = new ModelAndView("questionarios/respostas/lista");
-		List<Questionario> questionarios = questionarioService.lista();
-		modelAndView.addObject("questionarios", questionarios);
-		modelAndView.addObject("turmas", turmaService.listar());
+	public ModelAndView responderAvaliacao(@PathVariable Integer avaliacaoId, RedirectAttributes redirectAttributes) {
+		Avaliacao av = avaliacaoService.buscar(avaliacaoId);
+		List<Questao> questoes = new ArrayList<Questao>();
+		for (GrupoQuestoes grupo : av.getQuestionario().getGruposQuestoes()) {
+			questoes = grupo.getQuestoes();
+		}
+		ModelAndView modelAndView = new ModelAndView("respostas/lista");
+		modelAndView.addObject("questoes", questoes);
+		modelAndView.addObject("opcoes", Likert.values());
 		return modelAndView;
+	}
+
+	@RequestMapping("/finalizar")
+	public ModelAndView finalizar(Avaliacao avaliacao, RedirectAttributes redirectAttributes) {
+		// avaliacaoService.atualizar(avaliacao);
+		redirectAttributes.addFlashAttribute("sucesso", "Avaliação respondida com sucesso.");
+		return new ModelAndView("redirect:/respostas/resumo");
 	}
 
 }
