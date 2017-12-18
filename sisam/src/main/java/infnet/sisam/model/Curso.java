@@ -1,5 +1,6 @@
 package infnet.sisam.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,7 +19,7 @@ public class Curso {
 
 	private String nome;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	private TipoCurso tipoCurso;
 
 	public TipoCurso getTipoCurso() {

@@ -1,5 +1,6 @@
 package infnet.sisam.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,7 +17,7 @@ public class Modulo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private Bloco bloco;
 
 	private String nome;

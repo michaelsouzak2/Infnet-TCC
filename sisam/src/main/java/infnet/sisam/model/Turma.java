@@ -3,6 +3,7 @@ package infnet.sisam.model;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,13 +38,13 @@ public class Turma {
 
 	private String descricao;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private Professor professor;
 
 	@OneToMany(mappedBy = "turma", fetch = FetchType.EAGER)
 	private List<Aluno> alunos;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private Modulo modulo;
 
 	@ManyToOne
@@ -103,6 +104,14 @@ public class Turma {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public Avaliacao getAvaliacao() {
+		return avaliacao;
+	}
+
+	public void setAvaliacao(Avaliacao avaliacao) {
+		this.avaliacao = avaliacao;
 	}
 
 }
