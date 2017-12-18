@@ -18,35 +18,35 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="turma")
+@Table(name = "turma")
 public class Turma {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat
-	@Column(name="data_inicio")
+	@Column(name = "data_inicio")
 	private Calendar dataInicio;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat
-	@Column(name="data_fim")
+	@Column(name = "data_fim")
 	private Calendar dataFim;
 
 	private String descricao;
 
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne
 	private Professor professor;
 
-	@OneToMany(mappedBy = "turma")
+	@OneToMany(mappedBy = "turma", fetch = FetchType.EAGER)
 	private List<Aluno> alunos;
 
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne
 	private Modulo modulo;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
+
+	@ManyToOne
 	private Avaliacao avaliacao;
 
 	public Integer getId() {

@@ -53,6 +53,9 @@ public class AvaliacaoController {
 	public ModelAndView salvar(@AuthenticationPrincipal Usuario usuario, Avaliacao avaliacao,
 			RedirectAttributes redirectAttributes) {
 		avaliacao.setAdministrador(usuario);
+		// aqui deverá gravar a associativa alunoAvaliacao, pegando os alunos da turma
+		// selecionada no front
+
 		/*
 		 * Para cada turma selecionada, obter via rest todas as informações, como alunos
 		 * e seus e-mails. Em seguida, persistir na base de dados.

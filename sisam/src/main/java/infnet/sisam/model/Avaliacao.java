@@ -34,15 +34,12 @@ public class Avaliacao {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@OneToMany(mappedBy = "avaliacao")
+	@OneToMany(mappedBy = "avaliacao", cascade = CascadeType.MERGE)
 	@JsonIgnore
 	private List<Turma> turmas;
 
 	@ManyToOne
 	private Questionario questionario;
-
-	@OneToMany
-	private List<Aluno> alunos;
 
 	@Lob
 	private String objetivo;
@@ -85,14 +82,6 @@ public class Avaliacao {
 
 	public void setQuestionario(Questionario questionario) {
 		this.questionario = questionario;
-	}
-
-	public List<Aluno> getAlunos() {
-		return alunos;
-	}
-
-	public void setAlunos(List<Aluno> alunos) {
-		this.alunos = alunos;
 	}
 
 	public String getObjetivo() {
