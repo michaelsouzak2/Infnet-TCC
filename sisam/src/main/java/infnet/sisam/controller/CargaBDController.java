@@ -20,7 +20,7 @@ public class CargaBDController {
 	private PermissaoService permissaoService;
 	
 	@ResponseBody
-	@RequestMapping("/executarcargaInicial")
+	@RequestMapping("/executarcargainicial")
 	public String cargaInicialBD() {
 		
 		Permissao roleAdmin = new Permissao();

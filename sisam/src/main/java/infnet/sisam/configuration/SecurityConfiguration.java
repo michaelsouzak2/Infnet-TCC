@@ -27,7 +27,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/turmas/rest").permitAll()
 				.antMatchers("/usuarios/**").hasRole(PermissaoEnum.ROLE_ADMINISTRADOR.getDescricao())
 				.antMatchers("/avaliacoes/responder/**").hasRole(PermissaoEnum.ROLE_ALUNO.getDescricao())
-				.antMatchers("/executarcargaInicial").permitAll()
+				.antMatchers("/executarcargainicial").permitAll()
 				.anyRequest()
 				.authenticated()
 			.and()
