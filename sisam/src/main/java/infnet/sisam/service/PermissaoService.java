@@ -15,7 +15,11 @@ public class PermissaoService {
 
 	@Autowired
 	private PermissaoDao permissaoDao;
-
+	
+	public void salvar(Permissao permissao) {
+		permissaoDao.salvar(permissao);
+	}
+	
 	public List<Permissao> listar() {
 		return permissaoDao.findAll();
 	}
