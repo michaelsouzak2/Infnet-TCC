@@ -2,8 +2,6 @@ package infnet.sisam.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import infnet.sisam.enumeration.PermissaoEnum;
 import infnet.sisam.model.Permissao;
@@ -24,8 +22,8 @@ public class CargaBancoDadosController {
 	 * Executar apenas no primeiro acesso ao sistema em produção.
 	 * Este path não deve ser divulgado.
 	 */
-	@ResponseBody
-	@RequestMapping("/executarcargainicial")
+//	@ResponseBody
+//	@RequestMapping("/executarcargainicial")
 	public String cargaInicialBD() {
 		
 		Permissao roleAdmin = new Permissao();

@@ -8,6 +8,8 @@ import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import infnet.sisam.helper.Constantes;
+
 public class ServletSpringMVC extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
@@ -36,11 +38,15 @@ public class ServletSpringMVC extends AbstractAnnotationConfigDispatcherServletI
 		return new Filter[]{encodingFilter};
 	}
 	
+	/**
+	 * DESENVOLVIMENTO: Constantes.DEVELOPEMENT_NAME
+	 * PRODUÇÃO: Constantes.PRODUCTION_NAME
+	 */
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		super.onStartup(servletContext);
 		servletContext.addListener(RequestContextListener.class);
-		servletContext.setInitParameter("spring.profiles.active", "dev");
+		servletContext.setInitParameter("spring.profiles.active", Constantes.DEVELOPEMENT_NAME);
 	}
 	
 }
