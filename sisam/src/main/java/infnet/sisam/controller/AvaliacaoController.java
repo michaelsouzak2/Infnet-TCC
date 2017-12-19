@@ -3,6 +3,8 @@ package infnet.sisam.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.support.FormattingConversionService;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
@@ -62,7 +64,8 @@ public class AvaliacaoController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView salvar(@AuthenticationPrincipal Usuario usuario, Avaliacao avaliacao, RedirectAttributes redirectAttributes) {
+	public ModelAndView salvar(@AuthenticationPrincipal Usuario usuario, Avaliacao avaliacao,
+			RedirectAttributes redirectAttributes) {
 		avaliacao.setAdministrador(usuario);
 		avaliacaoService.salvar(avaliacao);
 		redirectAttributes.addAttribute("sucesso", "Avaliação cadastrada com sucesso");
@@ -107,6 +110,7 @@ public class AvaliacaoController {
 		boolean isPermite = verificaAcessoAluno(aluno, avaliacao, alunoAvaliacao);
 		if (isPermite) {
 			List<Questao> questoes = new ArrayList<Questao>();
+			modelAndView.addObject("isPermite", isPermite);
 			for (GrupoQuestoes grupo : avaliacao.getQuestionario().getGruposQuestoes()) {
 				questoes = grupo.getQuestoes();
 			}
@@ -115,8 +119,6 @@ public class AvaliacaoController {
 			modelAndView.addObject("idAvaliacao", avaliacaoId);
 			modelAndView.addObject("idAluno", alunoId);
 			modelAndView.addObject("alunoAvaliacao", alunoAvaliacao);
-		} else {
-			modelAndView.addObject("isPermite", false);
 		}
 		return modelAndView;
 	}
@@ -152,10 +154,14 @@ public class AvaliacaoController {
 	}
 
 	private AlunoAvaliacao obterAlunoAvaliacao(Integer idAluno, Integer idAvaliacao) {
-		AlunoAvaliacao alunoAvaliacao = (AlunoAvaliacao) alunoAvaliacaoService.getAlunoAvaliacaoDao().getEm()
-				.createNamedQuery("AlunoAvaliacao.buscaAlunoAvaliacao").setParameter("idAluno", idAluno)
-				.setParameter("idAvaliacao", idAvaliacao).getSingleResult();
-		return alunoAvaliacao;
+		try {
+			AlunoAvaliacao alunoAvaliacao = (AlunoAvaliacao) alunoAvaliacaoService.getAlunoAvaliacaoDao().getEm()
+					.createNamedQuery("AlunoAvaliacao.buscaAlunoAvaliacao").setParameter("idAluno", idAluno)
+					.setParameter("idAvaliacao", idAvaliacao).getSingleResult();
+			return alunoAvaliacao;
+		} catch (NoResultException nre) {
+			return null;
+		}
 	}
 
 }

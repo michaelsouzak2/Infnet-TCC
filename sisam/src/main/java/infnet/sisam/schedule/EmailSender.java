@@ -88,7 +88,6 @@ public class EmailSender {
 	}
 
 	private Usuario criarUsuarioAluno(Aluno aluno) {
-
 		Usuario usuario = usuarioService.loadUserByUsername(aluno.getEmail());
 		Permissao permissao = permissaoService.buscar(3);
 		if (permissao != null) {

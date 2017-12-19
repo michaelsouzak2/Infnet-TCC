@@ -10,7 +10,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @NamedQuery(name = "AlunoAvaliacao.buscaAlunoAvaliacao", query = "SELECT aa FROM AlunoAvaliacao aa "
-		+ "WHERE  aa.avaliacao.id=:idAvaliacao AND aa.aluno.id=idAluno")
+		+ "WHERE  aa.avaliacao.id=:idAvaliacao AND aa.aluno.id=:idAluno")
 @Entity
 @Table(name = "aluno_avaliacao")
 public class AlunoAvaliacao {
