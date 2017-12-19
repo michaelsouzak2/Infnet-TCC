@@ -20,6 +20,10 @@ public class CargaBancoDadosController {
 	@Autowired
 	private PermissaoService permissaoService;
 	
+	/**
+	 * Executar apenas no primeiro acesso ao sistema em produção.
+	 * Este path não deve ser divulgado.
+	 */
 	@ResponseBody
 	@RequestMapping("/executarcargainicial")
 	public String cargaInicialBD() {

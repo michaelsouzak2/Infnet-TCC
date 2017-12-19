@@ -6,7 +6,8 @@
 <page:template titulo="Nova Turma">
 
 	<jsp:attribute name="extraScripts">
-	 	<script type="text/javascript" src="/sisam/resources/js/app/datepicker.js"></script>
+		<c:url value="/" var="contextPath" />
+	 	<script type="text/javascript" src="${contextPath}resources/js/app/datepicker.js"></script>
 	</jsp:attribute>
 
 	<jsp:body>

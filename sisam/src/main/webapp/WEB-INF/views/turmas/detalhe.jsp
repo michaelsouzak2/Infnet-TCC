@@ -6,10 +6,10 @@
 <page:template titulo="Editar Turma">
 
 	<jsp:attribute name="extraScripts">
-		<script type="text/javascript" src="/sisam/resources/js/app/avaliacao.js"></script>
-	 	<script type="text/javascript"
-			src="/sisam/resources/js/app/datepicker.js"></script>
-		<script type="text/javascript" src="/sisam/resources/js/app/mask.js"></script>
+		<c:url value="/" var="contextPath" />
+		<script type="text/javascript" src="${contextPath}resources/js/app/avaliacao.js"></script>
+	 	<script type="text/javascript" src="${contextPath}resources/js/app/datepicker.js"></script>
+		<script type="text/javascript" src="${contextPath}resources/js/app/mask.js"></script>
 	</jsp:attribute>
 
 	<jsp:body>

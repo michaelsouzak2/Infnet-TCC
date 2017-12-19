@@ -6,7 +6,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 	<security:authentication property="principal" var="usuario" />
-								
+	<c:url value="/" var="contextPath" />
+		
 	<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
@@ -41,7 +42,7 @@
 							<a href="${s:mvcUrl('UC#buscar').arg(0,usuario.id).build()}">${usuario.nome}</a>
 						</li>
 						<li>
-						<form:form action="/sisam/logout" method="post" class="navbar-form">
+						<form:form action="${context}logout" method="post" class="navbar-form">
 							<button type="submit" class="btn btn-link">
 								<i class="fa fa-sign-out" aria-hidden="true"></i>
 							</button>

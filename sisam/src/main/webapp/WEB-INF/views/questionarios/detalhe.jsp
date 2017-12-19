@@ -6,7 +6,8 @@
 <page:template titulo="Editar questionário">
 	
 	<jsp:attribute name="extraScripts">
-		<script type="text/javascript" src="/sisam/resources/js/app/questionario.js"></script>
+		<c:url value="/" var="contextPath" />
+		<script type="text/javascript" src="${contextPath}resources/js/app/questionario.js"></script>
 	</jsp:attribute>
 	
 	<jsp:body>

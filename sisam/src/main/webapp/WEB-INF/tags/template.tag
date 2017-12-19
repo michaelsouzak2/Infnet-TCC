@@ -9,16 +9,18 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		
-		<link rel="icon" href="/sisam/resources/images/favicon.png" type="image/png">
+		<c:url value="/" var="contextPath" />
+				
+		<link rel="icon" href="${contextPath}resources/images/favicon.png" type="image/png">
 		
-		<link href="/sisam/resources/css/jquery-ui.min.css" rel="stylesheet" type="text/css">
-		<link href="/sisam/resources/css/jquery-ui.structure.min.css" rel="stylesheet" type="text/css">
-		<link href="/sisam/resources/css/jquery-ui.theme.min.css" rel="stylesheet" type="text/css">
+		<link href="${contextPath}resources/css/jquery-ui.min.css" rel="stylesheet" type="text/css">
+		<link href="${contextPath}resources/css/jquery-ui.structure.min.css" rel="stylesheet" type="text/css">
+		<link href="${contextPath}resources/css/jquery-ui.theme.min.css" rel="stylesheet" type="text/css">
 		
-		<link href="/sisam/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-	    <link href="/sisam/resources/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-	    <link href="/sisam/resources/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	    <link href="/sisam/resources/css/app/sisam.css" rel="stylesheet" type="text/css">
+		<link href="${contextPath}resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	    <link href="${contextPath}resources/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+	    <link href="${contextPath}resources/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	    <link href="${contextPath}resources/css/app/sisam.css" rel="stylesheet" type="text/css">
 	
 		<title>${titulo} - SISAM</title>
 	</head>
@@ -29,11 +31,11 @@
 	
 		<%@ include file="/WEB-INF/views/template/footer.jsp" %>
 				
-		<script src="/sisam/resources/js/jquery-3.2.1.min.js"></script>
-	    <script src="/sisam/resources/js/bootstrap.min.js"></script>
-		<script src="/sisam/resources/js/jquery-ui.min.js"></script>
-		<script src="/sisam/resources/js/datepicker-pt-BR.js"></script>
-	    <script src="/sisam/resources/js/jquery.mask.min.js"></script>
+		<script src="${contextPath}resources/js/jquery-3.2.1.min.js"></script>
+	    <script src="${contextPath}resources/js/bootstrap.min.js"></script>
+		<script src="${contextPath}resources/js/jquery-ui.min.js"></script>
+		<script src="${contextPath}resources/js/datepicker-pt-BR.js"></script>
+	    <script src="${contextPath}resources/js/jquery.mask.min.js"></script>
 
 		<jsp:invoke fragment="extraScripts" />
 
