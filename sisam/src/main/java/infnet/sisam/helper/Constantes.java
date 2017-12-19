@@ -4,7 +4,8 @@ public interface Constantes {
 	public String EMAIL_FROM = "avaliacaoinfnettc@gmail.com";
 	
 	//REST INFNET
-	public String URI_REST_INFNET = "http://localhost:8080/servicosrest";
+	public String URI_REST_INFNET_LOCAL = "http://localhost:8080/servicosrest";
+	public String URI_REST_INFNET = "https://services-infnet.herokuapp.com/";
 	public String PATH_TURMAS = "/turmas";
 	
 	//PROFILES
