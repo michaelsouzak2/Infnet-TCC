@@ -43,7 +43,7 @@ public class CargaBancoDadosController {
 		Usuario usuario = new Usuario();
 		usuario.setEmail("adm@infnet.edu.br");
 		usuario.setNome("Administrador");
-	    usuario.setSenha("$2a$10$lt7pS7Kxxe5JfP.vjLNSyOXP11eHgh7RoPxo5fvvbMCZkCUss2DGu");
+		usuario.setSenha("123456");
 		usuario.setPermissao(roleAdmin);
 		usuarioService.salvar(usuario);
 		
