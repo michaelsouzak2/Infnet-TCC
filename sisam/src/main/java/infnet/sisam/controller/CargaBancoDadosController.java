@@ -12,7 +12,7 @@ import infnet.sisam.service.PermissaoService;
 import infnet.sisam.service.UsuarioService;
 
 @Controller
-public class CargaBDController {
+public class CargaBancoDadosController {
 
 	@Autowired
 	private UsuarioService usuarioService;
@@ -25,19 +25,19 @@ public class CargaBDController {
 	public String cargaInicialBD() {
 		
 		Permissao roleAdmin = new Permissao();
-		roleAdmin.setId(4);
+		roleAdmin.setId(1);
 		roleAdmin.setNome(PermissaoEnum.ROLE_ADMINISTRADOR);
-		/*permissaoService.salvar(roleAdmin);
+		permissaoService.salvar(roleAdmin);
 		
 		Permissao roleSec = new Permissao();
-		roleSec.setId(5);
+		roleSec.setId(2);
 		roleSec.setNome(PermissaoEnum.ROLE_SECRETARIA);
 		permissaoService.salvar(roleSec);
 		
 		Permissao roleAluno = new Permissao();
-		roleAluno.setId(6);
+		roleAluno.setId(3);
 		roleAluno.setNome(PermissaoEnum.ROLE_ALUNO);
-		permissaoService.salvar(roleAluno);*/
+		permissaoService.salvar(roleAluno);
 		
 		
 		Usuario usuario = new Usuario();
