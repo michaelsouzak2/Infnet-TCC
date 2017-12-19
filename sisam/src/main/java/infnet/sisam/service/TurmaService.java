@@ -38,8 +38,7 @@ public class TurmaService {
 	}
 
 	public Turma buscar(Integer id) {
-		return restTemplate.getForObject(URI_REST_INFNET.concat(PATH_TURMAS).concat("/").concat(id.toString()),
-				Turma.class);
+		return restTemplate.getForObject(URI_REST_INFNET.concat(PATH_TURMAS).concat("/").concat(id.toString()), Turma.class);
 	}
 
 	public void remover(Integer id) {

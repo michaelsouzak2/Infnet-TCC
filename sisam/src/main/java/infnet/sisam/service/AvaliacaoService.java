@@ -58,4 +58,8 @@ public class AvaliacaoService {
 		avaliacaoDao.excluir(avaliacaoDao.buscar(id));
 	}
 
+	public AvaliacaoDao getAvaliacaoDao() {
+		return avaliacaoDao;
+	}
+	
 }

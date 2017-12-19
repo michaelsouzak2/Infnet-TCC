@@ -23,9 +23,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@NamedQuery(name = "Avaliacao.buscaAvaliacaoPendente", query = "SELECT av FROM Avaliacao av "
-		+ "JOIN FETCH av.questionario q JOIN FETCH av.turmas t LEFT JOIN t.alunos a WHERE "
-		+ " av.dataInicio<=sysdate() AND (av.dataFim IS NULL OR av.dataFim>=sysdate())")
+//"WHERE av.dataInicio = CURRENT_DATE")
+
+@NamedQuery(name = "Avaliacao.buscaAvaliacaoPendente", 
+			query = "SELECT av FROM Avaliacao av " + 
+					"JOIN FETCH av.questionario q " + 
+					"JOIN FETCH av.turmas t " + 
+					"LEFT JOIN t.alunos a " + 
+					"WHERE av.dataInicio <= sysdate() AND (av.dataFim IS NULL OR av.dataFim >= sysdate())")
 @Entity
 @Table(name = "avaliacao")
 public class Avaliacao {

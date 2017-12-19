@@ -1,6 +1,7 @@
 package infnet.sisam.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -163,5 +165,15 @@ public class AvaliacaoController {
 			return null;
 		}
 	}
+	
+	/*@ResponseBody
+	@RequestMapping("/listaavaliacoespendentes")
+	public List<Avaliacao> listaAvaliacoesPendentes(){
+		List<Avaliacao> avaliacoes = avaliacaoService
+				.getAvaliacaoDao().getEm()
+				.createNamedQuery("Avaliacao.buscaAvaliacaoPendente", Avaliacao.class)
+				.getResultList();
+		return avaliacoes;
+	}*/
 
 }
