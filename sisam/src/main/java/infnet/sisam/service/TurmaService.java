@@ -25,13 +25,11 @@ public class TurmaService {
 		turmaDao.salvar(turma);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Turma> listar() {
-		return turmaDao.findAll();
-		// return restTemplate.getForObject(URI_REST_INFNET.concat(PATH_TURMAS),
-		// List.class);
-		// return
-		// restTemplate.getForObject("http://www.mocky.io/v2/5a372d332f00000b23127b46",
-		// List.class);
+		return restTemplate.getForObject(URI_REST_INFNET.concat(PATH_TURMAS), List.class);
+		//return turmaDao.findAll();
+		//return restTemplate.getForObject("http://www.mocky.io/v2/5a372d332f00000b23127b46", List.class);
 	}
 
 	public void atualizar(Turma turma) {
