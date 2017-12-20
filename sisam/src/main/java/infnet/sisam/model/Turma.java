@@ -38,7 +38,7 @@ public class Turma {
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Professor professor;
 
-	@OneToMany(mappedBy = "turma")
+	@OneToMany(mappedBy = "turma", fetch=FetchType.EAGER)
 	private List<Aluno> alunos;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

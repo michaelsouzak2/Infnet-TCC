@@ -3,7 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="page"%>
 
-<page:template titulo="Nova questão">
+<page:template titulo="Nova avaliação">
 
 	<jsp:attribute name="extraScripts">
 		<c:url value="/" var="contextPath" />
