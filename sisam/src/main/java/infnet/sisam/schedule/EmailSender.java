@@ -37,7 +37,7 @@ public class EmailSender {
 		SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		System.out.println("Scheduler acionado às :" + sdfDate.format(new Date()));
 		List<Avaliacao> avaliacoes = avaliacaoDao.getEm().createNamedQuery("Avaliacao.buscaAvaliacaoPendente")
-				.getResultList();
+				.setParameter("dataHoje", new Date()).getResultList();
 		if (!avaliacoes.isEmpty()) {
 			verificaAlunosParaSeremNotificados(avaliacoes);
 		} else {
