@@ -10,5 +10,5 @@ public interface Constantes {
 	
 	//PROFILES
 	public static final String PRODUCTION_NAME = "prod";
-	public static final String DEVELOPEMENT_NAME = "dev";
+	public static final String DEVELOPMENT_NAME = "dev";
 }
