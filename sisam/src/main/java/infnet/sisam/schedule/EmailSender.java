@@ -11,7 +11,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import infnet.sisam.dao.AvaliacaoDao;
+import infnet.sisam.dto.HashAvaliacaoRespostaDTO;
 import infnet.sisam.helper.Constantes;
+import infnet.sisam.helper.HashHelper;
 import infnet.sisam.model.Aluno;
 import infnet.sisam.model.Avaliacao;
 import infnet.sisam.model.Convite;
@@ -30,6 +32,9 @@ public class EmailSender {
 
 	@Autowired
 	private UsuarioService usuarioService;
+
+	@Autowired
+	private HashHelper helper;
 
 	@SuppressWarnings("unchecked")
 	@Scheduled(cron = "0 0/5 * * * ?", zone = "America/Sao_Paulo")
@@ -58,7 +63,12 @@ public class EmailSender {
 	}
 
 	private void envioNotificacao(Aluno aluno, Integer idAvaliacao, Convite convite) {
-		String linkAvaliacao = Constantes.URI_SERVIDOR + idAvaliacao + "/" + aluno.getId();
+		HashAvaliacaoRespostaDTO dto = new HashAvaliacaoRespostaDTO();
+		dto.setAlunoId(aluno.getId());
+		dto.setAvaliacaoId(idAvaliacao);
+		String hashId = helper.codificaBase64(dto);
+		String linkAvaliacao = Constantes.URI_SERVIDOR + hashId;
+		System.out.println(linkAvaliacao);
 		String tratamentoAluno = aluno.getSexo().equals("M") ? "Prezado " : "Prezada ";
 		try {
 			Usuario usuario = criarUsuarioAluno(aluno);

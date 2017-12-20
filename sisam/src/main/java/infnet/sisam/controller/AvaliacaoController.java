@@ -92,13 +92,13 @@ public class AvaliacaoController {
 		return new ModelAndView("redirect:/avaliacoes");
 	}
 
-	@RequestMapping("/responder/{avaliacaoId}/{alunoId}")
-	public ModelAndView responderAvaliacao(@PathVariable Integer avaliacaoId, @PathVariable Integer alunoId,
+	@RequestMapping("/responder/{hashAvaliacaoId}")
+	public ModelAndView responderAvaliacao(@PathVariable String hashAvaliacaoId,
 			RedirectAttributes redirectAttributes) {
 		// verificar se avaliação ainda está ativa
 		// verificar antes se o aluno pode responder a avaliação ou se j á respondeu
 		ModelAndView modelAndView = new ModelAndView("respostas/lista");
-		AlunoAvaliacao alunoAvaliacao = avaliacaoService.verificaAcessoAvaliacaoAluno(alunoId, avaliacaoId);
+		AlunoAvaliacao alunoAvaliacao = avaliacaoService.verificaAcessoAvaliacaoAluno(hashAvaliacaoId);
 		boolean isPermite = !alunoAvaliacao.getAvaliacaoRespondida();
 		if (isPermite) {
 			List<Questao> questoes = new ArrayList<Questao>();
@@ -108,8 +108,8 @@ public class AvaliacaoController {
 			}
 			modelAndView.addObject("questoes", questoes);
 			modelAndView.addObject("opcoes", Likert.values());
-			modelAndView.addObject("idAvaliacao", avaliacaoId);
-			modelAndView.addObject("idAluno", alunoId);
+			modelAndView.addObject("idAvaliacao", alunoAvaliacao.getAvaliacao().getId());
+			modelAndView.addObject("idAluno", alunoAvaliacao.getAluno().getId());
 			modelAndView.addObject("alunoAvaliacao", alunoAvaliacao);
 		}
 		return modelAndView;

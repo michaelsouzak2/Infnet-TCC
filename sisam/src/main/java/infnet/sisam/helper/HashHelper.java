@@ -1,9 +1,11 @@
 package infnet.sisam.helper;
 
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.stereotype.Component;
 
 import infnet.sisam.dto.HashAvaliacaoRespostaDTO;
 
+@Component
 public class HashHelper {
 
 	public HashAvaliacaoRespostaDTO decodificaBase64(String msgCodificada) {
@@ -15,12 +17,12 @@ public class HashHelper {
 		return dto;
 	}
 
-	public static String codificaBase64(HashAvaliacaoRespostaDTO dto) {
+	public String codificaBase64(HashAvaliacaoRespostaDTO dto) {
 		String msg = dto.getAvaliacaoId().toString() + ":" + dto.getAlunoId().toString();
 		return new Base64().encodeToString(msg.getBytes());
 	}
 
-	private static String decodificaBase64Decoder(String msg) {
+	private String decodificaBase64Decoder(String msg) {
 		return new String(new Base64().decode(msg));
 	}
 }

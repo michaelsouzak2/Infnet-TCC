@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import infnet.sisam.dao.AvaliacaoDao;
+import infnet.sisam.dto.HashAvaliacaoRespostaDTO;
+import infnet.sisam.helper.HashHelper;
 import infnet.sisam.model.Aluno;
 import infnet.sisam.model.AlunoAvaliacao;
 import infnet.sisam.model.Avaliacao;
@@ -28,6 +30,9 @@ public class AvaliacaoService {
 
 	@Autowired
 	private AlunoAvaliacaoService alunoAvaliacaoService;
+
+	@Autowired
+	private HashHelper helper;
 
 	public List<Avaliacao> listar() {
 		return avaliacaoDao.findAll();
@@ -63,9 +68,10 @@ public class AvaliacaoService {
 		avaliacaoDao.excluir(avaliacaoDao.buscar(id));
 	}
 
-	public AlunoAvaliacao verificaAcessoAvaliacaoAluno(Integer alunoId, Integer avaliacaoId) {
-		Aluno aluno = alunoService.buscar(alunoId);
-		Avaliacao avaliacao = buscar(avaliacaoId);
+	public AlunoAvaliacao verificaAcessoAvaliacaoAluno(String hashAvaliacaoId) {
+		HashAvaliacaoRespostaDTO dto = helper.decodificaBase64(hashAvaliacaoId);
+		Aluno aluno = alunoService.buscar(dto.getAlunoId());
+		Avaliacao avaliacao = buscar(dto.getAvaliacaoId());
 		AlunoAvaliacao alunoAvaliacao = new AlunoAvaliacao();
 		if (verificaAcessoAluno(aluno, avaliacao, alunoAvaliacao)) {
 			alunoAvaliacao = verificaAvaliacaoRespondida(aluno, avaliacao);
