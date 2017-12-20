@@ -6,9 +6,13 @@ public interface Constantes {
 	//REST INFNET
 	public String URI_REST_INFNET_LOCAL = "http://localhost:8080/servicosrest";
 	public String URI_REST_INFNET = "https://services-infnet.herokuapp.com/";
-	public String URI_SERVIDOR = "http://localhost:8080/sisam/avaliacoes/responder/";
-
 	public String PATH_TURMAS = "/turmas";
+
+	
+	public String URI_SERVER_DEV = "http://localhost:8080/sisam/";
+	public String URI_SERVER_PROD = "https://sisam-infnet.herokuapp.com/";
+	
+	public String PATH_FORM_AV = "avaliacoes/responder/";
 	
 	//PROFILES
 	public static final String PRODUCTION_NAME = "prod";

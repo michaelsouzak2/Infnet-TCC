@@ -74,6 +74,7 @@ public class UsuarioService {
 			int x = random.nextInt(9999999);
 			if (usuario != null) {
 				usuario.setSenha(String.valueOf(x));
+				codificarPassword(usuario);
 				atualizarUsuario(usuario);
 			} else {
 				usuario = new Usuario();
@@ -81,6 +82,7 @@ public class UsuarioService {
 				usuario.setNome(aluno.getNome());
 				usuario.setPermissao(permissao);
 				usuario.setSenha(String.valueOf(x));
+				codificarPassword(usuario);
 				salvar(usuario);
 			}
 			usuario.setSenha(String.valueOf(x));

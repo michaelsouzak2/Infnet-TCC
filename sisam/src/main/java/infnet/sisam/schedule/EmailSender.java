@@ -1,11 +1,10 @@
 package infnet.sisam.schedule;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.support.FormattingConversionService;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -33,14 +32,16 @@ public class EmailSender {
 
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private FormattingConversionService mvcConversionService;
 
 	@Autowired
 	private HashHelper helper;
 
 	@Scheduled(cron = "0 0/5 * * * ?", zone = "America/Sao_Paulo")
 	public void init() {
-		SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		System.out.println("Scheduler acionado às :" + sdfDate.format(new Date()));
+		System.out.println("Scheduler acionado às : ".concat(mvcConversionService.convert(Calendar.getInstance(), String.class)));
 		List<Avaliacao> avaliacoes = avaliacaoService.buscaAvaliacaoPendente(Calendar.getInstance());
 		if (!avaliacoes.isEmpty()) {
 			verificaAlunosParaSeremNotificados(avaliacoes);
@@ -60,13 +61,13 @@ public class EmailSender {
 			}
 		}
 	}
-
+	
 	private void envioNotificacao(Aluno aluno, Integer idAvaliacao, Convite convite) {
 		HashAvaliacaoRespostaDTO dto = new HashAvaliacaoRespostaDTO();
 		dto.setAlunoId(aluno.getId());
 		dto.setAvaliacaoId(idAvaliacao);
 		String hashId = helper.codificaBase64(dto);
-		String linkAvaliacao = Constantes.URI_SERVIDOR + hashId;
+		String linkAvaliacao = Constantes.URI_SERVER_DEV + hashId;
 		System.out.println(linkAvaliacao);
 		String tratamentoAluno = aluno.getSexo().equals("M") ? "Prezado " : "Prezada ";
 		try {
@@ -93,4 +94,5 @@ public class EmailSender {
 	private Usuario criarUsuarioAluno(Aluno aluno) {
 		return usuarioService.criarUsuarioParaAvaliacao(aluno);
 	}
+	
 }
