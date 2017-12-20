@@ -42,7 +42,7 @@
 							<a href="${s:mvcUrl('UC#buscar').arg(0,usuario.id).build()}">${usuario.nome}</a>
 						</li>
 						<li>
-						<form:form action="${context}logout" method="post" class="navbar-form">
+						<form:form action="logout" method="post" class="navbar-form">
 							<button type="submit" class="btn btn-link">
 								<i class="fa fa-sign-out" aria-hidden="true"></i>
 							</button>
