@@ -17,7 +17,7 @@ import infnet.sisam.model.Avaliacao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { JPAConfiguration.class, AvaliacaoDao.class})
-@ActiveProfiles("dev")
+@ActiveProfiles("dev")//Trocar para o profile de teste e configurar um DataSource de teste.
 public class AvaliacaoTest {
 	
 	@Autowired

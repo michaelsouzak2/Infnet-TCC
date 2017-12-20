@@ -1,6 +1,7 @@
 package infnet.sisam.schedule;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class EmailSender {
 	private MailSender sender;
 
 	@Autowired
-	private AvaliacaoDao avaliacaoDao;
+	private AvaliacaoDao avaliacaoService;
 
 	@Autowired
 	private UsuarioService usuarioService;
@@ -36,13 +37,11 @@ public class EmailSender {
 	@Autowired
 	private HashHelper helper;
 
-	@SuppressWarnings("unchecked")
 	@Scheduled(cron = "0 0/5 * * * ?", zone = "America/Sao_Paulo")
 	public void init() {
 		SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		System.out.println("Scheduler acionado às :" + sdfDate.format(new Date()));
-		List<Avaliacao> avaliacoes = avaliacaoDao.getEm().createNamedQuery("Avaliacao.buscaAvaliacaoPendente")
-				.setParameter("dataHoje", new Date()).getResultList();
+		List<Avaliacao> avaliacoes = avaliacaoService.buscaAvaliacaoPendente(Calendar.getInstance());
 		if (!avaliacoes.isEmpty()) {
 			verificaAlunosParaSeremNotificados(avaliacoes);
 		} else {

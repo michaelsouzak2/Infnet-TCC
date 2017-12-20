@@ -1,5 +1,6 @@
 package infnet.sisam.service;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -66,6 +67,10 @@ public class AvaliacaoService {
 
 	public void remover(Integer id) {
 		avaliacaoDao.excluir(avaliacaoDao.buscar(id));
+	}
+	
+	public List<Avaliacao> buscaAvaliacaoPendente(Calendar hoje) {
+		return avaliacaoDao.buscaAvaliacaoPendente(hoje);
 	}
 
 	public AlunoAvaliacao verificaAcessoAvaliacaoAluno(String hashAvaliacaoId) {
