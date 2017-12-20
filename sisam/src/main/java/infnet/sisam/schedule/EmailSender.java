@@ -3,7 +3,6 @@ package infnet.sisam.schedule;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
@@ -16,10 +15,8 @@ import infnet.sisam.helper.Constantes;
 import infnet.sisam.model.Aluno;
 import infnet.sisam.model.Avaliacao;
 import infnet.sisam.model.Convite;
-import infnet.sisam.model.Permissao;
 import infnet.sisam.model.Turma;
 import infnet.sisam.model.Usuario;
-import infnet.sisam.service.PermissaoService;
 import infnet.sisam.service.UsuarioService;
 
 @Component
@@ -30,9 +27,6 @@ public class EmailSender {
 
 	@Autowired
 	private AvaliacaoDao avaliacaoDao;
-
-	@Autowired
-	private PermissaoService permissaoService;
 
 	@Autowired
 	private UsuarioService usuarioService;
@@ -64,7 +58,7 @@ public class EmailSender {
 	}
 
 	private void envioNotificacao(Aluno aluno, Integer idAvaliacao, Convite convite) {
-		String linkAvaliacao = "http://localhost:8080/sisam/avaliacoes/responder/" + idAvaliacao + "/" + aluno.getId();
+		String linkAvaliacao = Constantes.URI_SERVIDOR + idAvaliacao + "/" + aluno.getId();
 		String tratamentoAluno = aluno.getSexo().equals("M") ? "Prezado " : "Prezada ";
 		try {
 			Usuario usuario = criarUsuarioAluno(aluno);
@@ -88,24 +82,6 @@ public class EmailSender {
 	}
 
 	private Usuario criarUsuarioAluno(Aluno aluno) {
-		Usuario usuario = usuarioService.loadUserByUsername(aluno.getEmail());
-		Permissao permissao = permissaoService.buscar(3);
-		if (permissao != null) {
-			Random random = new Random();
-			int x = random.nextInt(9999999);
-			if (usuario != null) {
-				usuario.setSenha(String.valueOf(x));
-				usuarioService.atualizarUsuario(usuario);
-			} else {
-				usuario = new Usuario();
-				usuario.setEmail(aluno.getEmail());
-				usuario.setNome(aluno.getNome());
-				usuario.setPermissao(permissao);
-				usuario.setSenha(String.valueOf(x));
-				usuarioService.salvar(usuario);
-			}
-			usuario.setSenha(String.valueOf(x));
-		}
-		return usuario;
+		return usuarioService.criarUsuarioParaAvaliacao(aluno);
 	}
 }

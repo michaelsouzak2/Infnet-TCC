@@ -1,6 +1,7 @@
 package infnet.sisam.service;
 
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import infnet.sisam.dao.UsuarioDao;
+import infnet.sisam.model.Aluno;
+import infnet.sisam.model.Permissao;
 import infnet.sisam.model.Usuario;
 
 @Service
@@ -16,7 +19,8 @@ public class UsuarioService {
 
 	@Autowired
 	private UsuarioDao usuarioDao;
-
+	@Autowired
+	private PermissaoService permissaoService;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
@@ -52,7 +56,6 @@ public class UsuarioService {
 		} else {
 			return usus.get(0);
 		}
-
 	}
 
 	public Usuario buscar(Integer id) {
@@ -61,6 +64,28 @@ public class UsuarioService {
 
 	public void remover(Integer id) {
 		usuarioDao.excluir(usuarioDao.buscar(id));
+	}
+
+	public Usuario criarUsuarioParaAvaliacao(Aluno aluno) {
+		Usuario usuario = loadUserByUsername(aluno.getEmail());
+		Permissao permissao = permissaoService.buscar(3);
+		if (permissao != null) {
+			Random random = new Random();
+			int x = random.nextInt(9999999);
+			if (usuario != null) {
+				usuario.setSenha(String.valueOf(x));
+				atualizarUsuario(usuario);
+			} else {
+				usuario = new Usuario();
+				usuario.setEmail(aluno.getEmail());
+				usuario.setNome(aluno.getNome());
+				usuario.setPermissao(permissao);
+				usuario.setSenha(String.valueOf(x));
+				salvar(usuario);
+			}
+			usuario.setSenha(String.valueOf(x));
+		}
+		return usuario;
 	}
 
 	private void codificarPassword(Usuario usuario) {

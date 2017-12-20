@@ -3,8 +3,6 @@ package infnet.sisam.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.NoResultException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.support.FormattingConversionService;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import infnet.sisam.model.Aluno;
 import infnet.sisam.model.AlunoAvaliacao;
 import infnet.sisam.model.Avaliacao;
 import infnet.sisam.model.GrupoQuestoes;
@@ -24,7 +21,6 @@ import infnet.sisam.model.Questao;
 import infnet.sisam.model.Questionario;
 import infnet.sisam.model.Usuario;
 import infnet.sisam.service.AlunoAvaliacaoService;
-import infnet.sisam.service.AlunoService;
 import infnet.sisam.service.AvaliacaoService;
 import infnet.sisam.service.QuestionarioService;
 import infnet.sisam.service.TurmaService;
@@ -39,8 +35,6 @@ public class AvaliacaoController {
 	private QuestionarioService questionarioService;
 	@Autowired
 	private TurmaService turmaService;
-	@Autowired
-	private AlunoService alunoService;
 	@Autowired
 	private AlunoAvaliacaoService alunoAvaliacaoService;
 	@Autowired
@@ -104,14 +98,12 @@ public class AvaliacaoController {
 		// verificar se avaliação ainda está ativa
 		// verificar antes se o aluno pode responder a avaliação ou se j á respondeu
 		ModelAndView modelAndView = new ModelAndView("respostas/lista");
-		Aluno aluno = alunoService.buscar(alunoId);
-		Avaliacao avaliacao = avaliacaoService.buscar(avaliacaoId);
-		AlunoAvaliacao alunoAvaliacao = null;
-		boolean isPermite = verificaAcessoAluno(aluno, avaliacao, alunoAvaliacao);
+		AlunoAvaliacao alunoAvaliacao = avaliacaoService.verificaAcessoAvaliacaoAluno(alunoId, avaliacaoId);
+		boolean isPermite = !alunoAvaliacao.getAvaliacaoRespondida();
 		if (isPermite) {
 			List<Questao> questoes = new ArrayList<Questao>();
 			modelAndView.addObject("isPermite", isPermite);
-			for (GrupoQuestoes grupo : avaliacao.getQuestionario().getGruposQuestoes()) {
+			for (GrupoQuestoes grupo : alunoAvaliacao.getAvaliacao().getQuestionario().getGruposQuestoes()) {
 				questoes = grupo.getQuestoes();
 			}
 			modelAndView.addObject("questoes", questoes);
@@ -123,45 +115,12 @@ public class AvaliacaoController {
 		return modelAndView;
 	}
 
-	@SuppressWarnings("unchecked")
-	private boolean verificaAcessoAluno(Aluno aluno, Avaliacao avaliacao, AlunoAvaliacao alunoAvaliacao) {
-		List<Aluno> alunoPermitido = alunoService.getAlunoDao().getEm()
-				.createNamedQuery("Aluno.verificaAcessoAvaliacao").setParameter("idAluno", aluno.getId())
-				.getResultList();
-		if (alunoPermitido.isEmpty()) {
-			return false;
-		} else {
-			alunoAvaliacao = obterAlunoAvaliacao(aluno.getId(), avaliacao.getId());
-			if (alunoAvaliacao != null) {
-				return !alunoAvaliacao.getAvaliacaoRespondida();
-			} else {
-				alunoAvaliacao = new AlunoAvaliacao();
-				alunoAvaliacao.setAluno(aluno);
-				alunoAvaliacao.setAvaliacao(avaliacao);
-				alunoAvaliacao.setAvaliacaoRespondida(false);
-				alunoAvaliacaoService.salvar(alunoAvaliacao);
-				return true;
-			}
-		}
-	}
-
 	@RequestMapping("/finalizar")
 	public ModelAndView finalizar(AlunoAvaliacao alunoAvaliacao, Integer idAluno, Integer idAvaliacao,
 			RedirectAttributes redirectAttributes) {
 		alunoAvaliacaoService.finalizarAlunoAvaliacao(alunoAvaliacao);
 		redirectAttributes.addFlashAttribute("sucesso", "Avaliação respondida com sucesso.");
 		return new ModelAndView("redirect:/respostas/resumo");
-	}
-
-	private AlunoAvaliacao obterAlunoAvaliacao(Integer idAluno, Integer idAvaliacao) {
-		try {
-			AlunoAvaliacao alunoAvaliacao = (AlunoAvaliacao) alunoAvaliacaoService.getAlunoAvaliacaoDao().getEm()
-					.createNamedQuery("AlunoAvaliacao.buscaAlunoAvaliacao").setParameter("idAluno", idAluno)
-					.setParameter("idAvaliacao", idAvaliacao).getSingleResult();
-			return alunoAvaliacao;
-		} catch (NoResultException nre) {
-			return null;
-		}
 	}
 
 }

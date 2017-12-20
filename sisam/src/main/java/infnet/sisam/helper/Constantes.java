@@ -2,12 +2,13 @@ package infnet.sisam.helper;
 
 public interface Constantes {
 	public String EMAIL_FROM = "avaliacaoinfnettc@gmail.com";
-	
-	//REST INFNET
+
+	// REST INFNET
 	public String URI_REST_INFNET = "http://localhost:8080/servicosrest";
+	public String URI_SERVIDOR = "http://localhost:8080/sisam/avaliacoes/responder/";
 	public String PATH_TURMAS = "/turmas";
-	
-	//PROFILES
+
+	// PROFILES
 	public static final String PRODUCTION_NAME = "prod";
 	public static final String DEVELOPEMENT_NAME = "dev";
 }

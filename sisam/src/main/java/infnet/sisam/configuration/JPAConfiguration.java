@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @Component
 @EnableTransactionManagement
+@Profile("dev")
 public class JPAConfiguration {
 
 	/**
@@ -37,7 +38,6 @@ public class JPAConfiguration {
 	}
 
 	@Bean
-	@Profile("dev")
 	public Properties aditionalProperties() {
 		Properties props = new Properties();
 		props.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
@@ -49,7 +49,6 @@ public class JPAConfiguration {
 	}
 
 	@Bean
-	@Profile("dev")
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setUsername("root");
