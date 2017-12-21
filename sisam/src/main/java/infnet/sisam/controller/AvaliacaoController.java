@@ -92,26 +92,33 @@ public class AvaliacaoController {
 		return new ModelAndView("redirect:/avaliacoes");
 	}
 
+	// verificar se avaliação ainda está ativa
+	// verificar antes se o aluno pode responder a avaliação ou se j á respondeu
 	@RequestMapping("/responder/{hashAvaliacaoId}")
-	public ModelAndView responderAvaliacao(@PathVariable String hashAvaliacaoId,
-			RedirectAttributes redirectAttributes) {
-		// verificar se avaliação ainda está ativa
-		// verificar antes se o aluno pode responder a avaliação ou se j á respondeu
-		ModelAndView modelAndView = new ModelAndView("respostas/lista");
+	public ModelAndView responderAvaliacao(@PathVariable String hashAvaliacaoId) {
+		
+		ModelAndView modelAndView = new ModelAndView();
+
 		AlunoAvaliacao alunoAvaliacao = avaliacaoService.verificaAcessoAvaliacaoAluno(hashAvaliacaoId);
-		boolean isPermite = !alunoAvaliacao.getAvaliacaoRespondida();
-		if (isPermite) {
+		boolean temPermissao = !alunoAvaliacao.getAvaliacaoRespondida();
+		
+		if (temPermissao) {
 			List<Questao> questoes = new ArrayList<Questao>();
-			modelAndView.addObject("isPermite", isPermite);
+			
 			for (GrupoQuestoes grupo : alunoAvaliacao.getAvaliacao().getQuestionario().getGruposQuestoes()) {
 				questoes = grupo.getQuestoes();
 			}
-			modelAndView.addObject("questoes", questoes);
-			modelAndView.addObject("opcoes", Likert.values());
-			modelAndView.addObject("idAvaliacao", alunoAvaliacao.getAvaliacao().getId());
-			modelAndView.addObject("idAluno", alunoAvaliacao.getAluno().getId());
-			modelAndView.addObject("alunoAvaliacao", alunoAvaliacao);
+			
+			modelAndView.addObject("questoes", questoes)
+						.addObject("opcoes", Likert.values())
+						.addObject("idAvaliacao", alunoAvaliacao.getAvaliacao().getId())
+						.addObject("idAluno", alunoAvaliacao.getAluno().getId())
+						.addObject("alunoAvaliacao", alunoAvaliacao)
+						.setViewName("respostas/lista");
+		} else {
+			modelAndView.setViewName("accessDenied");
 		}
+		
 		return modelAndView;
 	}
 

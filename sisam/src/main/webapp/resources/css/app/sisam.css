@@ -4,3 +4,8 @@
 .cursor-pointer{
 	cursor:pointer;
 }
+
+.access-denied{
+    color: #a94442;
+    text-align: center;
+}

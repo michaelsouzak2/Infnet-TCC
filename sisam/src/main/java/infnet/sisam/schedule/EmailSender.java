@@ -2,6 +2,7 @@ package infnet.sisam.schedule;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.support.FormattingConversionService;
@@ -17,27 +18,27 @@ import infnet.sisam.helper.HashHelper;
 import infnet.sisam.model.Aluno;
 import infnet.sisam.model.Avaliacao;
 import infnet.sisam.model.Convite;
+import infnet.sisam.model.Permissao;
 import infnet.sisam.model.Turma;
 import infnet.sisam.model.Usuario;
+import infnet.sisam.service.PermissaoService;
 import infnet.sisam.service.UsuarioService;
 
 @Component
 public class EmailSender {
 
 	@Autowired
-	private MailSender sender;
-
-	@Autowired
 	private AvaliacaoDao avaliacaoService;
-
 	@Autowired
 	private UsuarioService usuarioService;
-	
 	@Autowired
 	private FormattingConversionService mvcConversionService;
-
+	@Autowired
+	private PermissaoService permissaoService;
 	@Autowired
 	private HashHelper helper;
+	@Autowired
+	private MailSender sender;
 
 	@Scheduled(cron = "0 0/5 * * * ?", zone = "America/Sao_Paulo")
 	public void init() {
@@ -67,7 +68,8 @@ public class EmailSender {
 		dto.setAlunoId(aluno.getId());
 		dto.setAvaliacaoId(idAvaliacao);
 		String hashId = helper.codificaBase64(dto);
-		String linkAvaliacao = Constantes.URI_SERVER_DEV+Constantes.PATH_FORM_AV + hashId;
+		String linkAvaliacao = Constantes.URI_SERVER_DEV.concat(Constantes.PATH_FORM_AV).concat(hashId);
+		System.out.println(linkAvaliacao);
 		String tratamentoAluno = aluno.getSexo().equals("M") ? "Prezado " : "Prezada ";
 		try {
 			Usuario usuario = criarUsuarioAluno(aluno);
@@ -91,7 +93,22 @@ public class EmailSender {
 	}
 
 	private Usuario criarUsuarioAluno(Aluno aluno) {
-		return usuarioService.criarUsuarioParaAvaliacao(aluno);
+		
+		Usuario usuario = usuarioService.loadUserByUsername(aluno.getEmail());
+		Permissao permissao = permissaoService.buscar(3);
+		String senha = new Integer(new Random().nextInt(9999999)).toString();
+		 
+		if (usuario != null) {
+			usuario.setSenha(senha);
+			usuarioService.atualizar(usuario);
+		} else {
+			usuario = new Usuario(aluno.getEmail(), aluno.getNome(), permissao, senha);
+			usuarioService.salvar(usuario);
+		}
+		
+		usuario.setSenha(senha);
+		
+		return usuario;
 	}
 	
 }
