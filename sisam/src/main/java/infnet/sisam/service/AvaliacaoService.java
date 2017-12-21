@@ -76,7 +76,7 @@ public class AvaliacaoService {
 	public AlunoAvaliacao verificaAcessoAvaliacaoAluno(String hashAvaliacaoId) {
 		HashAvaliacaoRespostaDTO dto = helper.decodificaBase64(hashAvaliacaoId);
 		Aluno aluno = alunoService.buscar(dto.getAlunoId());
-		Avaliacao avaliacao = buscar(dto.getAvaliacaoId());
+		Avaliacao avaliacao = avaliacaoDao.buscar(dto.getAvaliacaoId());
 		AlunoAvaliacao alunoAvaliacao = new AlunoAvaliacao();
 		if (verificaAcessoAluno(aluno, avaliacao, alunoAvaliacao)) {
 			alunoAvaliacao = verificaAvaliacaoRespondida(aluno, avaliacao);

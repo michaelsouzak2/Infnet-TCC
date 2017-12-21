@@ -4,69 +4,67 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="page"%>
 
 <page:template titulo="Questionários">
-
+	
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
 
-				<c:if test="${not empty sucesso}">
-					<div class="alert alert-success alert-dismissable" role="alert">
-						<button type="button" class="close" data-dismiss="alert"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						${sucesso}
-					</div>
-				</c:if>
-				<input type="hidden" name="idAluno" value="${idAluno}" /> <input
-					type="hidden" name="idAvaliacao" value="${idAvaliacao}" /> <input
-					type="hidden" name="alunoAvaliacao" value="${alunoAvaliacao}" />
+				<input type="hidden" name="idAluno" value="${idAluno}" /> 
+				<input type="hidden" name="idAvaliacao" value="${idAvaliacao}" /> 
+				<input type="hidden" name="alunoAvaliacao" value="${alunoAvaliacao}" />
 
 				<div class="page-header">
-					<h3>Questões</h3>
+					<h3>${questionario.descricao}</h3>
 				</div>
-				<form id="form-resposta"
-					action="${s:mvcUrl('AC#finalizar').build()}" method="POST"
-					class="form-group row">
+				
+				<form id="form-resposta" action="${s:mvcUrl('AC#finalizar').build()}" method="POST" class="form-group row">
+					
 					<div class="form-group">
 						<table class="table">
 							<thead>
 								<tr>
-									<th>#</th>
-									<th></th>
+									<th colspan="2">#</th>
 									<c:forEach items="${opcoes}" var="opcao">
-										<th>${opcao.opcao}</th>
+										<th class="text-center">${opcao.opcao}</th>
 									</c:forEach>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${grupoQuestoes}" var="grupo">
-									<tr>
-										<th scope="row"></th>
-										<th>${grupo.descricao}</th>
-										<c:forEach items="${opcoes}" var="opcao">
-											<th></th>
-										</c:forEach>
-									</tr>
-									<c:forEach items="${grupo.questoes}" var="questao">
-										<tr>
-											<th scope="row">${questao.id}.</th>
-											<th style="font-weight: 300">${questao.pergunta}</th>
-											<c:forEach items="${opcoes}" var="opcao">
-												<th><label class="form-check-label"> <input
-														class="form-check-input" type="radio" name="${questao.id}"
-														id="${questao.id}" value="${questao.id}">
-												</label></th>
-											</c:forEach>
-										</tr>
+							
+								<c:forEach items="${questionario.gruposQuestoes}" var="grupo">
+									<c:forEach items="${grupo.questoes}" var="questao" varStatus="status">
+										
+										<c:choose>
+											<c:when test="${status.index == 0}">
+												<tr>
+													<td colspan="8" class="form-av-grupoquest-desc">${grupo.descricao}</td>
+												</tr>
+											</c:when>
+											<c:otherwise>
+												<tr>
+												<td scope="row">${questao.id}</td>
+												<td>${questao.pergunta}</td>
+												<c:forEach items="${opcoes}" var="opcao">
+													<td class="text-center">
+														<label class="form-check-label">
+															<input class="form-check-input cursor-pointer" type="radio" name="${questao.id}" id="${questao.id}" value="${questao.id}" />
+														</label>
+													</td>
+												</c:forEach>
+											</tr>											
+											</c:otherwise>
+										</c:choose>
+										
 									</c:forEach>
 								</c:forEach>
+								
 							</tbody>
 						</table>
 					</div>
 
 					<button type="submit" class="btn btn-primary">Finalizar</button>
 				</form>
+				
 			</div>
 		</div>
 	</div>

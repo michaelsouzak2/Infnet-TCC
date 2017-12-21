@@ -1,8 +1,5 @@
 package infnet.sisam.avaliacoes;
 
-import java.util.Calendar;
-import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,18 +14,18 @@ import infnet.sisam.model.Avaliacao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { JPAConfiguration.class, AvaliacaoDao.class})
-@ActiveProfiles("dev")//Trocar para o profile de teste e configurar um DataSource de teste.
-public class AvaliacaoTest {
-	
+@ActiveProfiles("dev")
+public class BuscaAvaliacaoTest {
+
 	@Autowired
 	private AvaliacaoDao avaliacaoDao;
 	
 	@Test
-	public void recuperaAvaliacoesPendentes() {
-
-		List<Avaliacao> avaliacoes = avaliacaoDao.buscaAvaliacaoPendente(Calendar.getInstance());
+	public void buscaAvaliacao() {
 		
-		Assert.notNull(avaliacoes);
+		Avaliacao av = avaliacaoDao.buscar(1);
+		
+		Assert.notNull(av);
 	}
-
+	
 }
