@@ -9,3 +9,8 @@
     color: #a94442;
     text-align: center;
 }
+
+.form-av-grupoquest-desc{
+	font-weight: bold; 
+	padding-top: 20px !important;
+}
