@@ -1,6 +1,5 @@
 package infnet.sisam.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import infnet.sisam.model.AlunoAvaliacao;
 import infnet.sisam.model.Avaliacao;
 import infnet.sisam.model.GrupoQuestoes;
 import infnet.sisam.model.Likert;
-import infnet.sisam.model.Questao;
 import infnet.sisam.model.Questionario;
 import infnet.sisam.model.Usuario;
 import infnet.sisam.service.AlunoAvaliacaoService;
@@ -96,29 +94,24 @@ public class AvaliacaoController {
 	// verificar antes se o aluno pode responder a avaliação ou se j á respondeu
 	@RequestMapping("/responder/{hashAvaliacaoId}")
 	public ModelAndView responderAvaliacao(@PathVariable String hashAvaliacaoId) {
-		
+
 		ModelAndView modelAndView = new ModelAndView();
 
 		AlunoAvaliacao alunoAvaliacao = avaliacaoService.verificaAcessoAvaliacaoAluno(hashAvaliacaoId);
 		boolean temPermissao = !alunoAvaliacao.getAvaliacaoRespondida();
-		
+
 		if (temPermissao) {
-			List<Questao> questoes = new ArrayList<Questao>();
-			
-			for (GrupoQuestoes grupo : alunoAvaliacao.getAvaliacao().getQuestionario().getGruposQuestoes()) {
-				questoes = grupo.getQuestoes();
-			}
-			
-			modelAndView.addObject("questoes", questoes)
-						.addObject("opcoes", Likert.values())
-						.addObject("idAvaliacao", alunoAvaliacao.getAvaliacao().getId())
-						.addObject("idAluno", alunoAvaliacao.getAluno().getId())
-						.addObject("alunoAvaliacao", alunoAvaliacao)
-						.setViewName("respostas/lista");
+			List<GrupoQuestoes> grupoQuestoes = alunoAvaliacao.getAvaliacao().getQuestionario().getGruposQuestoes();
+			System.out.println(grupoQuestoes.size());
+			modelAndView.addObject("grupoQuestoes", grupoQuestoes)
+					.addObject("opcoes", Likert.values())
+					.addObject("idAvaliacao", alunoAvaliacao.getAvaliacao().getId())
+					.addObject("idAluno", alunoAvaliacao.getAluno().getId()).addObject("alunoAvaliacao", alunoAvaliacao)
+					.setViewName("respostas/lista");
 		} else {
 			modelAndView.setViewName("accessDenied");
 		}
-		
+
 		return modelAndView;
 	}
 

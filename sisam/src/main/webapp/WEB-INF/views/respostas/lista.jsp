@@ -25,32 +25,33 @@
 				<div class="page-header">
 					<h3>Questões</h3>
 				</div>
-				<c:if test="${not isPermite}">
-					<div class="card-block">
-						<h4 class="card-title">Você não tem permissão para responder
-							esta avaliação!</h4>
-					</div>
-				</c:if>
-				<c:if test="${isPermite}">
-					<form id="form-resposta"
-						action="${s:mvcUrl('AC#finalizar').build()}" method="POST"
-						class="form-group row">
-						<div class="form-group">
-							<table class="table">
-								<thead>
+				<form id="form-resposta"
+					action="${s:mvcUrl('AC#finalizar').build()}" method="POST"
+					class="form-group row">
+					<div class="form-group">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th></th>
+									<c:forEach items="${opcoes}" var="opcao">
+										<th>${opcao.opcao}</th>
+									</c:forEach>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${grupoQuestoes}" var="grupo">
 									<tr>
-										<th>#</th>
-										<th></th>
+										<th scope="row"></th>
+										<th>${grupo.descricao}</th>
 										<c:forEach items="${opcoes}" var="opcao">
-											<th>${opcao.opcao}</th>
+											<th></th>
 										</c:forEach>
 									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${questoes}" var="questao">
+									<c:forEach items="${grupo.questoes}" var="questao">
 										<tr>
-											<th scope="row">${questao.id}</th>
-											<th>${questao.pergunta}</th>
+											<th scope="row">${questao.id}.</th>
+											<th style="font-weight: 300">${questao.pergunta}</th>
 											<c:forEach items="${opcoes}" var="opcao">
 												<th><label class="form-check-label"> <input
 														class="form-check-input" type="radio" name="${questao.id}"
@@ -59,13 +60,13 @@
 											</c:forEach>
 										</tr>
 									</c:forEach>
-								</tbody>
-							</table>
-						</div>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
 
-						<button type="submit" class="btn btn-primary">Finalizar</button>
-					</form>
-				</c:if>
+					<button type="submit" class="btn btn-primary">Finalizar</button>
+				</form>
 			</div>
 		</div>
 	</div>
