@@ -9,8 +9,6 @@
 		<div class="row">
 			<div class="col-md-12">
 
-				<input type="hidden" name="idAluno" value="${idAluno}" /> 
-				<input type="hidden" name="idAvaliacao" value="${idAvaliacao}" /> 
 				<input type="hidden" name="alunoAvaliacao" value="${alunoAvaliacao}" />
 
 				<div class="page-header">

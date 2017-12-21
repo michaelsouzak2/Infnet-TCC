@@ -20,6 +20,7 @@ import infnet.sisam.model.Usuario;
 import infnet.sisam.service.AlunoAvaliacaoService;
 import infnet.sisam.service.AvaliacaoService;
 import infnet.sisam.service.QuestionarioService;
+import infnet.sisam.service.RespostaQuestaoService;
 import infnet.sisam.service.TurmaService;
 
 @Controller
@@ -34,6 +35,8 @@ public class AvaliacaoController {
 	private TurmaService turmaService;
 	@Autowired
 	private AlunoAvaliacaoService alunoAvaliacaoService;
+	@Autowired
+	private RespostaQuestaoService respostaService;
 	@Autowired
 	private FormattingConversionService mvcConversionService;
 
@@ -93,29 +96,28 @@ public class AvaliacaoController {
 	// verificar antes se o aluno pode responder a avaliação ou se j á respondeu
 	@RequestMapping("/responder/{hashAvaliacaoId}")
 	public ModelAndView responderAvaliacao(@PathVariable String hashAvaliacaoId) {
-		
+
 		ModelAndView modelAndView = new ModelAndView();
 		AlunoAvaliacao alunoAvaliacao = avaliacaoService.verificaAcessoAvaliacaoAluno(hashAvaliacaoId);
 		boolean temPermissao = !alunoAvaliacao.getAvaliacaoRespondida();
-		
+
 		if (temPermissao) {
 			Avaliacao avaliacao = avaliacaoService.buscar(alunoAvaliacao.getAvaliacao().getId());
 			Questionario questionario = avaliacao.getQuestionario();
-			modelAndView.addObject("questionario", questionario)
-						.addObject("opcoes", Likert.values())
-						.addObject("idAvaliacao", alunoAvaliacao.getAvaliacao().getId())
-						.addObject("idAluno", alunoAvaliacao.getAluno().getId())
-						.addObject("alunoAvaliacao", alunoAvaliacao)
-						.setViewName("respostas/lista");
+			modelAndView.addObject("questionario", questionario).addObject("opcoes", Likert.values())
+					.addObject("idAvaliacao", alunoAvaliacao.getAvaliacao().getId())
+					.addObject("idAluno", alunoAvaliacao.getAluno().getId()).addObject("alunoAvaliacao", alunoAvaliacao)
+					.setViewName("respostas/lista");
 		} else {
 			modelAndView.setViewName("accessDenied");
 		}
-		
+
 		return modelAndView;
 	}
 
 	@RequestMapping("/finalizar")
-	public ModelAndView finalizar(AlunoAvaliacao alunoAvaliacao, Integer idAluno, Integer idAvaliacao, RedirectAttributes redirectAttributes) {
+	public ModelAndView finalizar(AlunoAvaliacao alunoAvaliacao, RedirectAttributes redirectAttributes) {
+		respostaService.salvaRespostas(alunoAvaliacao);
 		alunoAvaliacaoService.finalizarAlunoAvaliacao(alunoAvaliacao);
 		redirectAttributes.addFlashAttribute("sucesso", "Avaliação respondida com sucesso.");
 		return new ModelAndView("redirect:/respostas/resumo");
