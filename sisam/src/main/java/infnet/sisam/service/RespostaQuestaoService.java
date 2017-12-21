@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import infnet.sisam.dao.RespostaQuestaoDao;
-import infnet.sisam.model.AlunoAvaliacao;
+import infnet.sisam.model.Avaliacao;
 import infnet.sisam.model.RespostaQuestao;
 
 @Service
@@ -16,11 +16,15 @@ public class RespostaQuestaoService {
 
 	@Autowired
 	private RespostaQuestaoDao respostaQuestaoDao;
-
-	public void salvar(RespostaQuestao respostaQuestao) {
-		respostaQuestaoDao.salvar(respostaQuestao);
+	
+	public void salvar(RespostaQuestao respotaQuestao) {
+		respostaQuestaoDao.salvar(respotaQuestao);
 	}
-
+	
+	public List<RespostaQuestao> findByAvaliacao(Avaliacao avaliacao){
+		return respostaQuestaoDao.findByAvaliacao(avaliacao);
+	}
+	
 	public List<RespostaQuestao> listar() {
 		return respostaQuestaoDao.findAll();
 	}
@@ -29,12 +33,12 @@ public class RespostaQuestaoService {
 		return respostaQuestaoDao.buscar(id);
 	}
 
-	public void salvaRespostas(AlunoAvaliacao alunoAvaliacao) {
+	/*public void salvaRespostas(RespostaQuestao respostaQuestao) {
 		RespostaQuestao resp = new RespostaQuestao();
 		resp.setAluno(alunoAvaliacao.getAluno());
 		resp.setAvaliacao(alunoAvaliacao.getAvaliacao());
 		// resp.setQuestao(questao);
-		resp.setResposta("");
-	}
+		resp.setResposta(null);
+	}*/
 
 }

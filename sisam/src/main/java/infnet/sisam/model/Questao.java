@@ -26,6 +26,13 @@ public class Questao {
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	private GrupoQuestoes grupoQuestoes;
+	
+	public Questao() {
+	}
+	
+	public Questao(Integer id) {
+		this.id = id;
+	}
 
 	public Integer getId() {
 		return id;

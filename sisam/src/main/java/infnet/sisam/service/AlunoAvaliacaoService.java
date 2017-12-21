@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import infnet.sisam.dao.AlunoAvaliacaoDao;
+import infnet.sisam.dao.UsuarioDao;
 import infnet.sisam.model.AlunoAvaliacao;
+import infnet.sisam.model.Usuario;
 
 @Service
 @Transactional
@@ -15,6 +17,8 @@ public class AlunoAvaliacaoService {
 
 	@Autowired
 	private AlunoAvaliacaoDao alunoAvaliacaoDao;
+	/*@Autowired
+	private UsuarioDao usuarioDao;*/
 
 	public List<AlunoAvaliacao> listar() {
 		return alunoAvaliacaoDao.findAll();
@@ -35,6 +39,8 @@ public class AlunoAvaliacaoService {
 	public void finalizarAlunoAvaliacao(AlunoAvaliacao alunoAvaliacao) {
 		alunoAvaliacao.setAvaliacaoRespondida(true);
 		alunoAvaliacaoDao.atualizar(alunoAvaliacao);
+//		Usuario usuario = usuarioDao.buscaUsuarioPorEmail(alunoAvaliacao.getAluno().getEmail()).get(0);
+//		usuarioDao.excluir(usuario);
 	}
 
 	public void remover(Integer id) {

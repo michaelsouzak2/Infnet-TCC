@@ -14,3 +14,8 @@
 	font-weight: bold; 
 	padding-top: 20px !important;
 }
+
+.av-msg-respondida{
+	color: #31708f;
+    text-align: center;
+}

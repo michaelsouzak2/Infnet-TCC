@@ -24,6 +24,13 @@ public class Aluno {
 
 	// @OneToMany
 	// private List<Avaliacao> avaliacoes;
+	
+	public Aluno() {
+	}
+	
+	public Aluno(Integer id) {
+		this.id = id;
+	}
 
 	public Integer getId() {
 		return id;

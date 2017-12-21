@@ -1,6 +1,9 @@
 package infnet.sisam.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,13 +17,18 @@ public class RespostaQuestao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@OneToOne
+	
+	@OneToOne(fetch = FetchType.EAGER)
 	private Avaliacao avaliacao;
-	@OneToOne
+	
+	@OneToOne(fetch = FetchType.EAGER)
 	private Questao questao;
-	@OneToOne
+	
+	@OneToOne(fetch = FetchType.EAGER)
 	private Aluno aluno;
-	private String resposta;
+	
+	@Enumerated(EnumType.STRING)
+	private Likert resposta;
 
 	public Integer getId() {
 		return id;
@@ -46,11 +54,11 @@ public class RespostaQuestao {
 		this.questao = questao;
 	}
 
-	public String getResposta() {
+	public Likert getResposta() {
 		return resposta;
 	}
 
-	public void setResposta(String resposta) {
+	public void setResposta(Likert resposta) {
 		this.resposta = resposta;
 	}
 

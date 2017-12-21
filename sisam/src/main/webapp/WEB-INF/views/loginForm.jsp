@@ -4,7 +4,9 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="page"%>
 
 <page:template titulo="Login">
-
+	
+	<div style="padding-top: 70px;"></div>
+	
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-4 col-sm-offset-4">

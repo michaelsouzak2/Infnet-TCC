@@ -1,5 +1,6 @@
 package infnet.sisam.controller;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import infnet.sisam.model.AlunoAvaliacao;
 import infnet.sisam.model.Avaliacao;
 import infnet.sisam.model.Likert;
 import infnet.sisam.model.Questionario;
+import infnet.sisam.model.RespostaQuestao;
 import infnet.sisam.model.Usuario;
 import infnet.sisam.service.AlunoAvaliacaoService;
 import infnet.sisam.service.AvaliacaoService;
@@ -100,9 +102,14 @@ public class AvaliacaoController {
 		ModelAndView modelAndView = new ModelAndView();
 		AlunoAvaliacao alunoAvaliacao = avaliacaoService.verificaAcessoAvaliacaoAluno(hashAvaliacaoId);
 		boolean temPermissao = !alunoAvaliacao.getAvaliacaoRespondida();
+		
+		Avaliacao avaliacao = avaliacaoService.buscar(alunoAvaliacao.getAvaliacao().getId());
+		
+		if(avaliacao.getDataFim().before(Calendar.getInstance())) {
+			temPermissao = false;
+		}
 
 		if (temPermissao) {
-			Avaliacao avaliacao = avaliacaoService.buscar(alunoAvaliacao.getAvaliacao().getId());
 			Questionario questionario = avaliacao.getQuestionario();
 			modelAndView.addObject("questionario", questionario).addObject("opcoes", Likert.values())
 					.addObject("idAvaliacao", alunoAvaliacao.getAvaliacao().getId())
@@ -115,12 +122,24 @@ public class AvaliacaoController {
 		return modelAndView;
 	}
 
-	@RequestMapping("/finalizar")
-	public ModelAndView finalizar(AlunoAvaliacao alunoAvaliacao, RedirectAttributes redirectAttributes) {
-		respostaService.salvaRespostas(alunoAvaliacao);
+	@RequestMapping("/responder/finalizar")
+	public ModelAndView finalizar(AlunoAvaliacao alunoAvaliacao) {
+		
+		alunoAvaliacao.getQuestoesRespondidas().forEach(questao->{
+			RespostaQuestao respostaQuestao = new RespostaQuestao();
+			respostaQuestao.setAluno(alunoAvaliacao.getAluno());
+			respostaQuestao.setAvaliacao(alunoAvaliacao.getAvaliacao());
+			respostaQuestao.setQuestao(questao);
+			respostaQuestao.setResposta(questao.getOpcao());
+			respostaService.salvar(respostaQuestao);
+		});
 		alunoAvaliacaoService.finalizarAlunoAvaliacao(alunoAvaliacao);
-		redirectAttributes.addFlashAttribute("sucesso", "Avaliação respondida com sucesso.");
-		return new ModelAndView("redirect:/respostas/resumo");
+		return new ModelAndView("redirect:/avaliacoes/responder/finalizado");
 	}
-
+	
+	@RequestMapping("/responder/finalizado")
+	public String finalizado() {
+		return "respostas/resumo";
+	}
+	
 }

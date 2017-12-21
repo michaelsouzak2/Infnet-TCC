@@ -3,28 +3,15 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="page"%>
 
-<page:template titulo="Questionários">
+<page:template titulo="Avaliação concluída">
 
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-
-				<c:if test="${not empty sucesso}">
-					<div class="alert alert-success alert-dismissable" role="alert">
-						<button type="button" class="close" data-dismiss="alert"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						${sucesso}
-					</div>
-				</c:if>
-
-				<div class="page-header">
-					<h3>Questões</h3>
+				<div class="av-msg-respondida">
+					<h3>Obrigado por responder sua avaliação!</h3>
+					<i class="fa fa-thumbs-o-up fa-5x" aria-hidden="true"></i>
 				</div>
-				<div class="form-group">Obrigado por responder sua avaliação!
-				</div>
-
 			</div>
 		</div>
 	</div>

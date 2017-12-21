@@ -25,12 +25,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 //					"WHERE av.dataInicio = CURRENT_DATE")
 
-@NamedQuery(name = "Avaliacao.buscaAvaliacaoPendente", 
-			query = "SELECT av FROM Avaliacao av " + 
-					"JOIN FETCH av.questionario q " + 
-					"JOIN FETCH av.turmas t " + 
-					"LEFT JOIN t.alunos a " +
-					"WHERE av.dataInicio <= :dataHoje AND (av.dataFim IS NULL OR av.dataFim >= :dataHoje)")
+@NamedQuery(name = "Avaliacao.buscaAvaliacaoPendente", query = "SELECT av FROM Avaliacao av "
+		+ "JOIN FETCH av.questionario q " + "JOIN FETCH av.turmas t " + "LEFT JOIN t.alunos a "
+		+ "WHERE av.dataInicio <= :dataHoje AND (av.dataFim IS NULL OR av.dataFim >= :dataHoje)")
 @Entity
 @Table(name = "avaliacao")
 public class Avaliacao {
@@ -64,6 +61,13 @@ public class Avaliacao {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Usuario administrador;
+
+	public Avaliacao() {
+	}
+
+	public Avaliacao(Integer id) {
+		this.id = id;
+	}
 
 	public Integer getId() {
 		return id;

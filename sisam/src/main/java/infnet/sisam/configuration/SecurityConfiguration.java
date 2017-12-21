@@ -26,6 +26,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/resources/**").permitAll()
 				.antMatchers("/turmas/rest").permitAll()
 				.antMatchers("/avaliacoes/responder/**").hasRole(PermissaoEnum.ROLE_ALUNO.getDescricao())
+				.antMatchers("/relatorio/**").hasRole(PermissaoEnum.ROLE_SECRETARIA.getDescricao())
 				.antMatchers("/**").hasRole(PermissaoEnum.ROLE_ADMINISTRADOR.getDescricao())
 				.antMatchers("/executarcargainicial").permitAll()
 				.anyRequest()
@@ -40,7 +41,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.logoutSuccessUrl("/login?logout").permitAll()
 			.and()
 				.rememberMe()
-				.userDetailsService(usuarioDao);
+				.userDetailsService(usuarioDao)
+			.and()
+				.exceptionHandling().accessDeniedPage("/accessdenied");
 	}
 
 	@Override
