@@ -14,39 +14,36 @@ public class ServletSpringMVC extends AbstractAnnotationConfigDispatcherServletI
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class[] {
-				SecurityConfiguration.class, 
-				AppWebConfiguration.class, 
-				JPAConfiguration.class, 
-				JPAProductionConfiguration.class};
+		return new Class[] { SecurityConfiguration.class, AppWebConfiguration.class, JPAConfiguration.class,
+				JPAProductionConfiguration.class };
 	}
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
 		return new Class[] {};
 	}
-	
+
 	@Override
 	protected String[] getServletMappings() {
-		return new String[]{"/"};
+		return new String[] { "/" };
 	}
-	
+
 	@Override
 	protected Filter[] getServletFilters() {
 		CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
 		encodingFilter.setEncoding("ISO-8859-1");
-		return new Filter[]{encodingFilter};
+		return new Filter[] { encodingFilter };
 	}
-	
+
 	/**
-	 * DESENVOLVIMENTO: Constantes.DEVELOPEMENT_NAME
-	 * PRODUÇÃO: Constantes.PRODUCTION_NAME
+	 * DESENVOLVIMENTO: Constantes.DEVELOPEMENT_NAME PRODUÇÃO:
+	 * Constantes.PRODUCTION_NAME
 	 */
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		super.onStartup(servletContext);
 		servletContext.addListener(RequestContextListener.class);
-		servletContext.setInitParameter("spring.profiles.active", Constantes.PRODUCTION_NAME);
+		servletContext.setInitParameter("spring.profiles.active", Constantes.DEVELOPMENT_NAME);
 	}
-	
+
 }

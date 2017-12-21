@@ -36,30 +36,38 @@
 						action="${s:mvcUrl('AC#finalizar').build()}" method="POST"
 						class="form-group row">
 						<div class="form-group">
-							<c:forEach items="${questoes}" var="questao">
-								<div class="card">
-									<div class="card-block">
-										<h4 class="card-title">${questao.pergunta}</h4>
-										<br>
+							<table class="table">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th></th>
 										<c:forEach items="${opcoes}" var="opcao">
-											<div class="form-check">
-												<label class="form-check-label"> <input
-													class="form-check-input" type="radio" name="exampleRadios"
-													id="exampleRadios1" value="option1" checked>
-													${opcao.opcao }
-												</label>
-											</div>
+											<th>${opcao.opcao}</th>
 										</c:forEach>
-										<br>
-									</div>
-								</div>
-							</c:forEach>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${questoes}" var="questao">
+										<tr>
+											<th scope="row">${questao.id}</th>
+											<th>${questao.pergunta}</th>
+											<c:forEach items="${opcoes}" var="opcao">
+												<th><label class="form-check-label"> <input
+														class="form-check-input" type="radio" name="${questao.id}"
+														id="${questao.id}" value="${questao.id}">
+												</label></th>
+											</c:forEach>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
 						</div>
+
 						<button type="submit" class="btn btn-primary">Finalizar</button>
 					</form>
 				</c:if>
 			</div>
 		</div>
 	</div>
-	
+
 </page:template>

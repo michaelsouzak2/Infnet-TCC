@@ -67,8 +67,7 @@ public class EmailSender {
 		dto.setAlunoId(aluno.getId());
 		dto.setAvaliacaoId(idAvaliacao);
 		String hashId = helper.codificaBase64(dto);
-		String linkAvaliacao = Constantes.URI_SERVER_DEV + hashId;
-		System.out.println(linkAvaliacao);
+		String linkAvaliacao = Constantes.URI_SERVER_DEV+Constantes.PATH_FORM_AV + hashId;
 		String tratamentoAluno = aluno.getSexo().equals("M") ? "Prezado " : "Prezada ";
 		try {
 			Usuario usuario = criarUsuarioAluno(aluno);
