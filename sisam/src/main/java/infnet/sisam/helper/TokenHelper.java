@@ -8,7 +8,7 @@ import infnet.sisam.dto.HashAvaliacaoRespostaDTO;
 import infnet.sisam.helper.encryption.TextEncryptor;
 
 @Component
-public class EncryptorHelper {
+public class TokenHelper {
 	
 	@Qualifier("hex")
 	@Autowired

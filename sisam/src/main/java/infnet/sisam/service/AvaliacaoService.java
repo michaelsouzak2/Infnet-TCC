@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import infnet.sisam.dao.AvaliacaoDao;
 import infnet.sisam.dto.HashAvaliacaoRespostaDTO;
-import infnet.sisam.helper.EncryptorHelper;
+import infnet.sisam.helper.TokenHelper;
 import infnet.sisam.model.Aluno;
 import infnet.sisam.model.AlunoAvaliacao;
 import infnet.sisam.model.Avaliacao;
@@ -33,7 +33,7 @@ public class AvaliacaoService {
 	private AlunoAvaliacaoService alunoAvaliacaoService;
 
 	@Autowired
-	private EncryptorHelper helper;
+	private TokenHelper helper;
 
 	public List<Avaliacao> listar() {
 		return avaliacaoDao.findAll();

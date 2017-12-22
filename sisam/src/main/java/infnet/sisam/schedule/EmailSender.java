@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import infnet.sisam.dao.AvaliacaoDao;
 import infnet.sisam.dto.HashAvaliacaoRespostaDTO;
 import infnet.sisam.helper.Constantes;
-import infnet.sisam.helper.EncryptorHelper;
+import infnet.sisam.helper.TokenHelper;
 import infnet.sisam.model.Aluno;
 import infnet.sisam.model.Avaliacao;
 import infnet.sisam.model.Convite;
@@ -36,11 +36,11 @@ public class EmailSender {
 	@Autowired
 	private PermissaoService permissaoService;
 	@Autowired
-	private EncryptorHelper helper;
+	private TokenHelper helper;
 	@Autowired
 	private MailSender sender;
 
-//	@Scheduled(cron = "0 0/5 * * * ?", zone = "America/Sao_Paulo")
+	@Scheduled(cron = "0 0/5 * * * ?", zone = "America/Sao_Paulo")
 	public void init() {
 		System.out.println("Scheduler acionado às : ".concat(mvcConversionService.convert(Calendar.getInstance(), String.class)));
 		List<Avaliacao> avaliacoes = avaliacaoService.buscaAvaliacaoPendente(Calendar.getInstance());
