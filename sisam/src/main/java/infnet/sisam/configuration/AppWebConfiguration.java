@@ -115,7 +115,7 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
+	
 	@Bean
 	public MailSender mailSender() {
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();

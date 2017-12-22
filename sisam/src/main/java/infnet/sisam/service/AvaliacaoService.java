@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import infnet.sisam.dao.AvaliacaoDao;
 import infnet.sisam.dto.HashAvaliacaoRespostaDTO;
-import infnet.sisam.helper.HashHelper;
+import infnet.sisam.helper.EncryptorHelper;
 import infnet.sisam.model.Aluno;
 import infnet.sisam.model.AlunoAvaliacao;
 import infnet.sisam.model.Avaliacao;
@@ -33,7 +33,7 @@ public class AvaliacaoService {
 	private AlunoAvaliacaoService alunoAvaliacaoService;
 
 	@Autowired
-	private HashHelper helper;
+	private EncryptorHelper helper;
 
 	public List<Avaliacao> listar() {
 		return avaliacaoDao.findAll();
@@ -74,7 +74,7 @@ public class AvaliacaoService {
 	}
 
 	public AlunoAvaliacao verificaAcessoAvaliacaoAluno(String hashAvaliacaoId) {
-		HashAvaliacaoRespostaDTO dto = helper.decodificaBase64(hashAvaliacaoId);
+		HashAvaliacaoRespostaDTO dto = helper.getClearText(hashAvaliacaoId);
 		Aluno aluno = alunoService.buscar(dto.getAlunoId());
 		Avaliacao avaliacao = avaliacaoDao.buscar(dto.getAvaliacaoId());
 		AlunoAvaliacao alunoAvaliacao = new AlunoAvaliacao();

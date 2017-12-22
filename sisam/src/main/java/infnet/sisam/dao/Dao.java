@@ -6,10 +6,8 @@ public interface Dao<T> {
 
 	void atualizar(T entity);
 
-//	T buscar(T entity);
 	T buscar(Integer id);
-	
-	void excluir(T entity);
 
+	void excluir(T entity);
 
 }
