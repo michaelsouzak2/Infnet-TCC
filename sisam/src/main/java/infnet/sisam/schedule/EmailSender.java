@@ -15,6 +15,7 @@ import infnet.sisam.dao.AvaliacaoDao;
 import infnet.sisam.dto.HashAvaliacaoRespostaDTO;
 import infnet.sisam.helper.Constantes;
 import infnet.sisam.helper.TokenHelper;
+import infnet.sisam.helper.UrlProvider;
 import infnet.sisam.model.Aluno;
 import infnet.sisam.model.Avaliacao;
 import infnet.sisam.model.Convite;
@@ -39,9 +40,12 @@ public class EmailSender {
 	private TokenHelper helper;
 	@Autowired
 	private MailSender sender;
+	@Autowired
+	private UrlProvider provider;
 
 	@Scheduled(cron = "0 0/5 * * * ?", zone = "America/Sao_Paulo")
 	public void init() {
+		provider.getUrl();
 		System.out.println("Scheduler acionado às : ".concat(mvcConversionService.convert(Calendar.getInstance(), String.class)));
 		List<Avaliacao> avaliacoes = avaliacaoService.buscaAvaliacaoPendente(Calendar.getInstance());
 		if (!avaliacoes.isEmpty()) {
@@ -68,7 +72,7 @@ public class EmailSender {
 		dto.setAlunoId(aluno.getId());
 		dto.setAvaliacaoId(idAvaliacao);
 		String hashId = helper.encrypt(dto);
-		String linkAvaliacao = Constantes.URI_SERVER_DEV.concat(Constantes.PATH_FORM_AV).concat(hashId);
+		String linkAvaliacao = provider.getUrl().concat(Constantes.PATH_FORM_AV).concat(hashId);
 		System.out.println(linkAvaliacao);
 		String tratamentoAluno = aluno.getSexo().equals("M") ? "Prezado " : "Prezada ";
 		try {

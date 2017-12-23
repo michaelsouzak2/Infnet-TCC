@@ -1,4 +1,4 @@
-package infnet.sisam.configuration;
+package infnet.sisam.configuration.datasource;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -11,6 +11,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+import infnet.sisam.helper.Constantes;
+import infnet.sisam.helper.UrlProvider;
 
 @Profile("prod")
 public class JPAProductionConfiguration {
@@ -38,6 +41,13 @@ public class JPAProductionConfiguration {
 		dataSource.setUsername(dbUrl.getUserInfo().split(":")[0]);
 		dataSource.setPassword(dbUrl.getUserInfo().split(":")[1]);
 		return dataSource;
+	}
+
+	@Bean
+	public UrlProvider urlProvider() {
+		UrlProvider provider = new UrlProvider();
+		provider.setUrl(Constantes.URI_SERVER_PROD);
+		return provider;
 	}
 
 }

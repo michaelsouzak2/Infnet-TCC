@@ -8,12 +8,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import infnet.sisam.configuration.JPAConfiguration;
+import infnet.sisam.configuration.datasource.JPAConfiguration;
+import infnet.sisam.configuration.datasource.JPADevelopmentConfiguration;
 import infnet.sisam.dao.AvaliacaoDao;
 import infnet.sisam.model.Avaliacao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { JPAConfiguration.class, AvaliacaoDao.class})
+@ContextConfiguration(classes = { JPAConfiguration.class, JPADevelopmentConfiguration.class, AvaliacaoDao.class})
 @ActiveProfiles("dev")
 public class BuscaAvaliacaoTest {
 

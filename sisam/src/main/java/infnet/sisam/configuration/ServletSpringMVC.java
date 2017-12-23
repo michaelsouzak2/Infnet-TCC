@@ -8,14 +8,17 @@ import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import infnet.sisam.configuration.datasource.JPAConfiguration;
+import infnet.sisam.configuration.datasource.JPADevelopmentConfiguration;
+import infnet.sisam.configuration.datasource.JPAProductionConfiguration;
 import infnet.sisam.helper.Constantes;
 
 public class ServletSpringMVC extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class[] { SecurityConfiguration.class, AppWebConfiguration.class, JPAConfiguration.class,
-				JPAProductionConfiguration.class };
+		return new Class[] { SecurityConfiguration.class, AppWebConfiguration.class, 
+							 JPAConfiguration.class, JPADevelopmentConfiguration.class, JPAProductionConfiguration.class };
 	}
 
 	@Override
@@ -36,8 +39,8 @@ public class ServletSpringMVC extends AbstractAnnotationConfigDispatcherServletI
 	}
 
 	/**
-	 * DESENVOLVIMENTO: Constantes.DEVELOPEMENT_NAME PRODUÇÃO:
-	 * Constantes.PRODUCTION_NAME
+	 * DESENVOLVIMENTO: Constantes.DEVELOPEMENT_NAME 
+	 * PRODUÇÃO: Constantes.PRODUCTION_NAME
 	 */
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
