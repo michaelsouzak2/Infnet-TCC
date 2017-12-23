@@ -36,6 +36,7 @@
 		<script src="${contextPath}resources/js/jquery-ui.min.js"></script>
 		<script src="${contextPath}resources/js/datepicker-pt-BR.js"></script>
 	    <script src="${contextPath}resources/js/jquery.mask.min.js"></script>
+	    <script src="${contextPath}resources/js/app/sisam.js"></script>
 
 		<jsp:invoke fragment="extraScripts" />
 

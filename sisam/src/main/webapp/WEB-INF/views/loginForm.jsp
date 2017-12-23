@@ -10,10 +10,12 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-4 col-sm-offset-4">
-			
+				<div class="logo-login-infnet">
+					<img src="${contextPath}resources/images/logo_infnet.png">
+				</div>
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<strong>Login</strong>
+						<strong>Sistema de avaliação de módulo</strong>
 					</div>
 					<div class="panel-body">
 						<form:form servletRelativeAction="/login" method="POST">
