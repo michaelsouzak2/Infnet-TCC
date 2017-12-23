@@ -1,6 +1,6 @@
 package infnet.sisam.dto;
 
-public class HashAvaliacaoRespostaDTO {
+public class TokenDTO {
 	Integer alunoId;
 	Integer avaliacaoId;
 

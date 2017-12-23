@@ -30,9 +30,17 @@ public class AlunoAvaliacao {
 
 	@Column(name = "avaliacao_respondida")
 	private Boolean avaliacaoRespondida;
-	
+
 	@Transient
 	private List<Questao> questoesRespondidas;
+
+	public AlunoAvaliacao() {
+	}
+
+	public AlunoAvaliacao(Aluno aluno, Avaliacao avaliacao) {
+		this.aluno = aluno;
+		this.avaliacao = avaliacao;
+	}
 
 	public Integer getId() {
 		return id;

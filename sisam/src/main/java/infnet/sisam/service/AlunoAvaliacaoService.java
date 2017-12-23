@@ -7,9 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import infnet.sisam.dao.AlunoAvaliacaoDao;
-import infnet.sisam.dao.UsuarioDao;
 import infnet.sisam.model.AlunoAvaliacao;
-import infnet.sisam.model.Usuario;
 
 @Service
 @Transactional

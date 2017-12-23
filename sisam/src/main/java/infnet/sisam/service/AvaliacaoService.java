@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import infnet.sisam.dao.AvaliacaoDao;
-import infnet.sisam.dto.HashAvaliacaoRespostaDTO;
+import infnet.sisam.dto.TokenDTO;
 import infnet.sisam.helper.TokenHelper;
 import infnet.sisam.model.Aluno;
 import infnet.sisam.model.AlunoAvaliacao;
@@ -74,7 +74,7 @@ public class AvaliacaoService {
 	}
 
 	public AlunoAvaliacao verificaAcessoAvaliacaoAluno(String hashAvaliacaoId) {
-		HashAvaliacaoRespostaDTO dto = helper.getClearText(hashAvaliacaoId);
+		TokenDTO dto = helper.getClearText(hashAvaliacaoId);
 		Aluno aluno = alunoService.buscar(dto.getAlunoId());
 		Avaliacao avaliacao = avaliacaoDao.buscar(dto.getAvaliacaoId());
 		AlunoAvaliacao alunoAvaliacao = new AlunoAvaliacao();
