@@ -1,5 +1,5 @@
 /**
- * JavaScript referente ao formulário de avaliação
+ * JavaScript referente ao formulário de pesquisa
  */
 $(document).ready(function(){
 	

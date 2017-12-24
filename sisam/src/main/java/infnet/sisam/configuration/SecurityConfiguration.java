@@ -24,8 +24,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http
 			.authorizeRequests()
 				.antMatchers("/resources/**").permitAll()
-//				.antMatchers("/turmas/rest").permitAll()//TODO FAZER PARA EXPOR AVALIAÇÕES, POR EXEMPLO.
-//				.antMatchers("/avaliacoes/responder/**").hasRole(PermissaoEnum.ROLE_ALUNO.getDescricao())
 				.antMatchers("/pesquisa/**").permitAll()
 				.antMatchers("/relatorio/**").hasRole(PermissaoEnum.ROLE_SECRETARIA.getDescricao())
 				.antMatchers("/**").hasRole(PermissaoEnum.ROLE_ADMINISTRADOR.getDescricao())

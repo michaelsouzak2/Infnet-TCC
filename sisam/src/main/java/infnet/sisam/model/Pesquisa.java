@@ -12,11 +12,13 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-@NamedQuery(name = "AlunoAvaliacao.buscaAlunoAvaliacao", query = "SELECT aa FROM AlunoAvaliacao aa "
-		+ "WHERE  aa.avaliacao.id=:idAvaliacao AND aa.aluno.id=:idAluno")
+import infnet.sisam.dto.TokenDTO;
+
+@NamedQuery(name = "Pesquisa.verificaPesquisaRespondida", 
+			query = "SELECT p.avaliacaoRespondida FROM Pesquisa p WHERE p.avaliacao.id=:avaliacaoId AND p.aluno.id=:alunoId")
 @Entity
 @Table(name = "aluno_avaliacao")
-public class AlunoAvaliacao {
+public class Pesquisa {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,12 +36,17 @@ public class AlunoAvaliacao {
 	@Transient
 	private List<Questao> questoesRespondidas;
 
-	public AlunoAvaliacao() {
+	public Pesquisa() {
 	}
 
-	public AlunoAvaliacao(Aluno aluno, Avaliacao avaliacao) {
+	public Pesquisa(Aluno aluno, Avaliacao avaliacao) {
 		this.aluno = aluno;
 		this.avaliacao = avaliacao;
+	}
+
+	public Pesquisa(TokenDTO tokenDTO) {
+		this.aluno = new Aluno(tokenDTO.getAlunoId());
+		this.avaliacao = new Avaliacao(tokenDTO.getAvaliacaoId());
 	}
 
 	public Integer getId() {

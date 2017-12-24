@@ -6,5 +6,5 @@ $(document).ready(function(){
 });
 
 function focusFirstInput(){
-	$(':input').not('disabled').not('readonly').first().focus();
+	$(':input:not(disabled, readonly, :hidden, button)').first().focus();
 }

@@ -1,6 +1,5 @@
 package infnet.sisam.dao;
 
-import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -14,10 +13,9 @@ public class AvaliacaoDao extends JpaDao<Avaliacao> {
 		super(Avaliacao.class);
 	}
 
-	public List<Avaliacao> buscaAvaliacaoPendente(Calendar hoje) {
+	public List<Avaliacao> buscaAvaliacaoPendente() {
 		return getEm()
 				.createNamedQuery("Avaliacao.buscaAvaliacaoPendente", Avaliacao.class)
-				.setParameter("dataHoje", hoje)
 				.getResultList();
 	}
 }

@@ -3,11 +3,11 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="page"%>
 
-<page:template titulo="Questionários">
+<page:template titulo="Pesquisa">
 	
 	<jsp:attribute name="extraScripts">
 		<c:url value="/" var="contextPath" />
-	 	<script type="text/javascript" src="${contextPath}resources/js/app/resposta.js"></script>
+	 	<script type="text/javascript" src="${contextPath}resources/js/app/pesquisa.js"></script>
 	</jsp:attribute>
 	
 	<jsp:body>
@@ -16,17 +16,21 @@
 				<div class="col-md-12">
 					
 					<div class="page-header">
-						<h3>${questionario.descricao}</h3>
+						<h3>
+							<img src="<c:url value='/resources/images/favicon.png' />" style="width: 50px;" />
+							<strong>Avaliação - ${questionario.descricao}</strong><br />
+							<small><s:message code="mensagem.importante.pesquisa" /></small>
+							</h3>
 					</div>
 					
-					<form:form id="form-resposta" action="${s:mvcUrl('AC#finalizar').build()}" method="POST" class="form-group row">
+					<form:form id="form-resposta" action="${s:mvcUrl('PC#salvarRespostas').build()}" method="POST" class="form-group row">
 						
-						<input type="hidden" name="aluno.id" value="${alunoAvaliacao.aluno.id}" /> 
-						<input type="hidden" name="avaliacao.id" value="${alunoAvaliacao.avaliacao.id}" /> 		
-						<input type="hidden" name="id" value="${alunoAvaliacao.id}" /> 		
+						<input type="hidden" name="aluno.id" value="${pesquisa.aluno.id}" /> 
+						<input type="hidden" name="avaliacao.id" value="${pesquisa.avaliacao.id}" /> 		
+						<input type="hidden" name="id" value="${pesquisa.id}" /> 		
 						
 						<div class="form-group">
-							<table class="table">
+							<table class="table table-hover">
 								<thead>
 									<tr>
 										<th colspan="2">#</th>
@@ -68,7 +72,7 @@
 							</table>
 						</div>
 	
-						<button type="submit" class="btn btn-primary">Finalizar</button>
+						<button type="submit" class="btn btn-primary">Enviar</button>
 					</form:form>
 					
 				</div>

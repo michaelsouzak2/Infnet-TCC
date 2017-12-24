@@ -4,11 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-@NamedQuery(name = "Aluno.verificaAcessoAvaliacao", query = "SELECT a FROM Aluno a "
-		+ "JOIN FETCH a.turma t JOIN FETCH t.avaliacao av " + "WHERE  a.id=:idAluno")
 @Entity
 @Table(name = "aluno")
 public class Aluno {

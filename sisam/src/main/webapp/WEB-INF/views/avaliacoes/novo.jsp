@@ -51,7 +51,10 @@
 							<select id="turmas" class="form-control">
 								<option value="0">Selecione</option>
 								<c:forEach items="${turmas}" var="turma">
-									<option value="${turma.id}">${turma.descricao}</option>
+								
+<!-- 									new Turma().getModulo().getBloco().getCurso().getTipoCurso() -->
+								
+									<option value="${turma.id}">${turma.modulo.bloco.curso.nome} - ${turma.modulo.nome} - ${turma.descricao}</option>
 								</c:forEach>
 							</select>
 						</div>

@@ -21,13 +21,14 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 //					"WHERE av.dataInicio = CURRENT_DATE")
-
-@NamedQuery(name = "Avaliacao.buscaAvaliacaoPendente", query = "SELECT av FROM Avaliacao av "
-		+ "JOIN FETCH av.questionario q " + "JOIN FETCH av.turmas t " + "LEFT JOIN t.alunos a "
-		+ "WHERE av.dataInicio <= :dataHoje AND (av.dataFim IS NULL OR av.dataFim >= :dataHoje)")
+//"WHERE av.dataInicio <= :dataHoje AND (av.dataFim IS NULL OR av.dataFim >= :dataHoje)")
+@NamedQuery(name = "Avaliacao.buscaAvaliacaoPendente", 
+			query = "SELECT av FROM Avaliacao av " + 
+					"JOIN FETCH av.questionario q " + 
+					"JOIN FETCH av.turmas t " + 
+					"LEFT JOIN t.alunos a " + 
+					"WHERE av.dataInicio = CURRENT_DATE")
 @Entity
 @Table(name = "avaliacao")
 public class Avaliacao {
@@ -37,7 +38,6 @@ public class Avaliacao {
 	private Integer id;
 
 	@OneToMany(mappedBy = "avaliacao")
-	@JsonIgnore
 	private List<Turma> turmas;
 
 	@ManyToOne

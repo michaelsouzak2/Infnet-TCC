@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.support.FormattingConversionService;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import infnet.sisam.dao.AvaliacaoDao;
@@ -17,7 +16,7 @@ import infnet.sisam.helper.Constantes;
 import infnet.sisam.helper.TokenHelper;
 import infnet.sisam.helper.UrlProvider;
 import infnet.sisam.model.Aluno;
-import infnet.sisam.model.AlunoAvaliacao;
+import infnet.sisam.model.Pesquisa;
 import infnet.sisam.model.Avaliacao;
 import infnet.sisam.model.Convite;
 import infnet.sisam.model.Turma;
@@ -41,10 +40,10 @@ public class EmailSchedule {
 	
 	private static final Logger LOGGER = Logger.getLogger(EmailSchedule.class);
 
-	@Scheduled(cron = "0 0/5 * * * ?", zone = "America/Sao_Paulo")
+//	@Scheduled(cron = "0 0/5 * * * ?", zone = "America/Sao_Paulo")
 	public void init() {
 		LOGGER.info("Scheduler acionado às : ".concat(conversionService.convert(Calendar.getInstance(), String.class)));
-		List<Avaliacao> avaliacoes = avaliacaoService.buscaAvaliacaoPendente(Calendar.getInstance());
+		List<Avaliacao> avaliacoes = avaliacaoService.buscaAvaliacaoPendente();
 		if (!avaliacoes.isEmpty()) {
 			checkStudentsToBeNotified(avaliacoes);
 		}
@@ -55,20 +54,20 @@ public class EmailSchedule {
 			if (!avaliacao.getTurmas().isEmpty()) {
 				for (Turma turma : avaliacao.getTurmas()) {
 					for (Aluno aluno : turma.getAlunos()) {
-						sendMail(new AlunoAvaliacao(aluno, avaliacao));
+						sendMail(new Pesquisa(aluno, avaliacao));
 					}
 				}
 			}
 		}
 	}
 	
-	private void sendMail(AlunoAvaliacao alunoAvaliacao) {
+	private void sendMail(Pesquisa alunoAvaliacao) {
 		TokenDTO dto = new TokenDTO();
 		dto.setAlunoId(alunoAvaliacao.getAluno().getId());
 		dto.setAvaliacaoId(alunoAvaliacao.getAvaliacao().getId());
 		
 		String token = tokenHelper.encrypt(dto);
-		String linkAvaliacao = provider.getUrl().concat(Constantes.PATH_FORM_AV).concat(token);
+		String linkAvaliacao = provider.getUrl().concat(Constantes.PATH_PESQUISA).concat(token);
 		String genero = alunoAvaliacao.getAluno().getSexo().equals("M") ? "Prezado " : "Prezada ";
 		
 		Aluno aluno = alunoAvaliacao.getAluno();

@@ -6,15 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import infnet.sisam.model.AlunoAvaliacao;
+import infnet.sisam.dto.TokenDTO;
+import infnet.sisam.helper.TokenHelper;
 import infnet.sisam.model.Avaliacao;
 import infnet.sisam.model.Likert;
+import infnet.sisam.model.Pesquisa;
 import infnet.sisam.model.Questionario;
 import infnet.sisam.model.RespostaQuestao;
-import infnet.sisam.service.AlunoAvaliacaoService;
 import infnet.sisam.service.AvaliacaoService;
+import infnet.sisam.service.PesquisaService;
 import infnet.sisam.service.RespostaQuestaoService;
 
 @Controller
@@ -22,42 +26,62 @@ import infnet.sisam.service.RespostaQuestaoService;
 public class PesquisaController {
 
 	@Autowired
-	private AlunoAvaliacaoService alunoAvaliacaoService;
-	@Autowired
 	private RespostaQuestaoService respostaService;
 	@Autowired
 	private AvaliacaoService avaliacaoService;
+	@Autowired
+	private PesquisaService pesquisaService;
+	@Autowired
+	private TokenHelper tokenHelper;
 	
-	// verificar se avaliação ainda está ativa
-	// verificar antes se o aluno pode responder a avaliação ou se j á respondeu
-	@RequestMapping("/responder/{hashAvaliacaoId}")
-	public ModelAndView responderAvaliacao(@PathVariable String hashAvaliacaoId) {
-
+	@RequestMapping("/{token}")
+	public ModelAndView abrirFormulario(@PathVariable String token, RedirectAttributes redirectAttributes) {
 		ModelAndView modelAndView = new ModelAndView();
-		AlunoAvaliacao alunoAvaliacao = avaliacaoService.verificaAcessoAvaliacaoAluno(hashAvaliacaoId);
-		boolean temPermissao = !alunoAvaliacao.getAvaliacaoRespondida();
 		
-		Avaliacao avaliacao = avaliacaoService.buscar(alunoAvaliacao.getAvaliacao().getId());
+		TokenDTO tokenDTO = tokenHelper.getClearText(token);
+		Pesquisa pesquisa = new Pesquisa(tokenDTO);
+		Avaliacao avaliacao = avaliacaoService.buscar(pesquisa.getAvaliacao().getId());
+		Boolean temPermissao = verificaPermissoes(avaliacao, pesquisa, redirectAttributes);
 		
-		if(avaliacao.getDataFim().before(Calendar.getInstance())) {
-			temPermissao = false;
-		}
-
 		if (temPermissao) {
+			pesquisaService.salvar(pesquisa);
 			Questionario questionario = avaliacao.getQuestionario();
-			modelAndView.addObject("questionario", questionario).addObject("opcoes", Likert.values())
-					.addObject("idAvaliacao", alunoAvaliacao.getAvaliacao().getId())
-					.addObject("idAluno", alunoAvaliacao.getAluno().getId()).addObject("alunoAvaliacao", alunoAvaliacao)
-					.setViewName("respostas/lista");
+			modelAndView.addObject("questionario", questionario)
+						.addObject("opcoes", Likert.values())
+						.addObject("idAvaliacao", pesquisa.getAvaliacao().getId())
+						.addObject("idAluno", pesquisa.getAluno().getId())
+						.addObject("pesquisa", pesquisa)
+						.setViewName("pesquisa/formulario");
 		} else {
 			modelAndView.setViewName("accessDenied");
 		}
 
 		return modelAndView;
 	}
+	
+	private Boolean verificaPermissoes(Avaliacao avaliacao, Pesquisa pesquisa, RedirectAttributes redirectAttributes) {
+		return verificaPrazo(avaliacao, redirectAttributes) && 
+				verificaPesquisaRespondida(pesquisa, redirectAttributes);
+	}
+	
+	private Boolean verificaPrazo(Avaliacao avaliacao, RedirectAttributes redirectAttributes) {
+		if(avaliacao.getDataFim().before(Calendar.getInstance())) {
+			redirectAttributes.addFlashAttribute("message", "Pesquisa fora do prazo.");
+			return false;
+		}
+		return true;
+	}
 
-	@RequestMapping("/responder/finalizar")
-	public ModelAndView finalizar(AlunoAvaliacao alunoAvaliacao) {
+	private Boolean verificaPesquisaRespondida(Pesquisa pesquisa, RedirectAttributes redirectAttributes) {
+		if(pesquisaService.verificaPesquisaRespondida(pesquisa)) {
+			redirectAttributes.addFlashAttribute("message", "Esta pesquisa já foi respondida.");
+			return false;
+		}
+		return true;
+	}
+	
+	@RequestMapping(method=RequestMethod.POST)
+	public ModelAndView salvarRespostas(Pesquisa alunoAvaliacao) {
 		
 		alunoAvaliacao.getQuestoesRespondidas().forEach(questao->{
 			RespostaQuestao respostaQuestao = new RespostaQuestao();
@@ -67,13 +91,13 @@ public class PesquisaController {
 			respostaQuestao.setResposta(questao.getOpcao());
 			respostaService.salvar(respostaQuestao);
 		});
-		alunoAvaliacaoService.finalizarAlunoAvaliacao(alunoAvaliacao);
-		return new ModelAndView("redirect:/avaliacoes/responder/finalizado");
+		pesquisaService.salvarRespostas(alunoAvaliacao);
+		return new ModelAndView("redirect:/pesquisa/respondida");
 	}
 	
-	@RequestMapping("/responder/finalizado")
-	public String finalizado() {
-		return "respostas/resumo";
+	@RequestMapping("/respondida")
+	public String pesquisaRespondida() {
+		return "pesquisa/ok";
 	}
 	
 }

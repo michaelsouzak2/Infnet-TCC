@@ -1,19 +1,13 @@
 package infnet.sisam.service;
 
-import java.util.Calendar;
 import java.util.List;
-
-import javax.persistence.NoResultException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import infnet.sisam.dao.AvaliacaoDao;
-import infnet.sisam.dto.TokenDTO;
-import infnet.sisam.helper.TokenHelper;
 import infnet.sisam.model.Aluno;
-import infnet.sisam.model.AlunoAvaliacao;
 import infnet.sisam.model.Avaliacao;
 
 @Service
@@ -29,12 +23,6 @@ public class AvaliacaoService {
 	@Autowired
 	private AlunoService alunoService;
 
-	@Autowired
-	private AlunoAvaliacaoService alunoAvaliacaoService;
-
-	@Autowired
-	private TokenHelper helper;
-
 	public List<Avaliacao> listar() {
 		return avaliacaoDao.findAll();
 	}
@@ -44,7 +32,7 @@ public class AvaliacaoService {
 		avaliacaoDao.salvar(avaliacao);
 
 		avaliacao.getTurmas().forEach(turma -> {
-			turma = turmaService.buscar(turma.getId());// obtém turma com alunos
+			turma = turmaService.buscar(turma.getId());
 			turma.setAvaliacao(avaliacao);
 			turmaService.salvar(turma);
 
@@ -68,56 +56,9 @@ public class AvaliacaoService {
 	public void remover(Integer id) {
 		avaliacaoDao.excluir(avaliacaoDao.buscar(id));
 	}
-	
-	public List<Avaliacao> buscaAvaliacaoPendente(Calendar hoje) {
-		return avaliacaoDao.buscaAvaliacaoPendente(hoje);
+
+	public List<Avaliacao> buscaAvaliacaoPendente() {
+		return avaliacaoDao.buscaAvaliacaoPendente();
 	}
 
-	public AlunoAvaliacao verificaAcessoAvaliacaoAluno(String hashAvaliacaoId) {
-		TokenDTO dto = helper.getClearText(hashAvaliacaoId);
-		Aluno aluno = alunoService.buscar(dto.getAlunoId());
-		Avaliacao avaliacao = avaliacaoDao.buscar(dto.getAvaliacaoId());
-		AlunoAvaliacao alunoAvaliacao = new AlunoAvaliacao();
-		if (verificaAcessoAluno(aluno, avaliacao, alunoAvaliacao)) {
-			alunoAvaliacao = verificaAvaliacaoRespondida(aluno, avaliacao);
-		}
-		return alunoAvaliacao;
-	}
-
-	@SuppressWarnings("unchecked")
-	private boolean verificaAcessoAluno(Aluno aluno, Avaliacao avaliacao, AlunoAvaliacao alunoAvaliacao) {
-		List<Aluno> alunoPermitido = alunoService.getAlunoDao().getEm()
-				.createNamedQuery("Aluno.verificaAcessoAvaliacao").setParameter("idAluno", aluno.getId())
-				.getResultList();
-		if (alunoPermitido.isEmpty()) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-	private AlunoAvaliacao verificaAvaliacaoRespondida(Aluno aluno, Avaliacao avaliacao) {
-		AlunoAvaliacao alunoAvaliacao = obterAlunoAvaliacao(aluno.getId(), avaliacao.getId());
-		if (alunoAvaliacao != null) {
-			return alunoAvaliacao;
-		} else {
-			alunoAvaliacao = new AlunoAvaliacao();
-			alunoAvaliacao.setAluno(aluno);
-			alunoAvaliacao.setAvaliacao(avaliacao);
-			alunoAvaliacao.setAvaliacaoRespondida(false);
-			alunoAvaliacaoService.salvar(alunoAvaliacao);
-			return alunoAvaliacao;
-		}
-	}
-
-	private AlunoAvaliacao obterAlunoAvaliacao(Integer idAluno, Integer idAvaliacao) {
-		try {
-			AlunoAvaliacao alunoAvaliacao = (AlunoAvaliacao) alunoAvaliacaoService.getAlunoAvaliacaoDao().getEm()
-					.createNamedQuery("AlunoAvaliacao.buscaAlunoAvaliacao").setParameter("idAluno", idAluno)
-					.setParameter("idAvaliacao", idAvaliacao).getSingleResult();
-			return alunoAvaliacao;
-		} catch (NoResultException nre) {
-			return null;
-		}
-	}
 }

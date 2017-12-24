@@ -71,7 +71,9 @@ public class AvaliacaoController {
 	}
 
 	@RequestMapping("/atualizar")
-	public ModelAndView atualizar(Avaliacao avaliacao, RedirectAttributes redirectAttributes) {
+	public ModelAndView atualizar(@AuthenticationPrincipal Usuario usuario, Avaliacao avaliacao, 
+			RedirectAttributes redirectAttributes) {
+		avaliacao.setAdministrador(usuario);
 		avaliacaoService.atualizar(avaliacao);
 		redirectAttributes.addFlashAttribute("sucesso", "Avaliação atualizada com sucesso.");
 		return new ModelAndView("redirect:/avaliacoes");

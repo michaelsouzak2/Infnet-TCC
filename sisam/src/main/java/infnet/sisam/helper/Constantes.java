@@ -11,7 +11,7 @@ public interface Constantes {
 	
 	public String URI_SERVER_DEV = "http://localhost:8080/sisam/";
 	public String URI_SERVER_PROD = "https://sisam-infnet.herokuapp.com/";
-	public String PATH_FORM_AV = "avaliacoes/responder/";
+	public String PATH_PESQUISA = "pesquisa/";
 	
 	//PROFILES
 	public static final String PRODUCTION_NAME = "prod";
