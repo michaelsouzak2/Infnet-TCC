@@ -40,6 +40,7 @@ public class PesquisaService {
 	public Boolean verificaPesquisaRespondida(Pesquisa pesquisa) {
 		Pesquisa p = pesquisaDao.verificaPesquisaRespondida(pesquisa);
 		if(p != null) {
+			pesquisa.setId(p.getId());
 			return p.getAvaliacaoRespondida();
 		}
 		salvar(pesquisa);
