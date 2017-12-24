@@ -15,7 +15,7 @@ import javax.persistence.Transient;
 import infnet.sisam.dto.TokenDTO;
 
 @NamedQuery(name = "Pesquisa.verificaPesquisaRespondida", 
-			query = "SELECT p.avaliacaoRespondida FROM Pesquisa p WHERE p.avaliacao.id=:avaliacaoId AND p.aluno.id=:alunoId")
+			query = "SELECT p FROM Pesquisa p WHERE p.avaliacao.id=:avaliacaoId AND p.aluno.id=:alunoId")
 @Entity
 @Table(name = "aluno_avaliacao")
 public class Pesquisa {

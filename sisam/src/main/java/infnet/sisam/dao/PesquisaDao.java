@@ -1,5 +1,7 @@
 package infnet.sisam.dao;
 
+import javax.persistence.NoResultException;
+
 import org.springframework.stereotype.Repository;
 
 import infnet.sisam.model.Pesquisa;
@@ -11,11 +13,17 @@ public class PesquisaDao extends JpaDao<Pesquisa>{
 		super(Pesquisa.class);
 	}
 	
-	public Boolean verificaPesquisaRespondida(Pesquisa pesquisa) {
-		return getEm()
-			.createNamedQuery("Pesquisa.verificaPesquisaRespondida", Boolean.class)
-			.setParameter("avaliacaoId", pesquisa.getAvaliacao().getId()).setParameter("alunoId", pesquisa.getAluno().getId())
-			.getSingleResult();
+	public Pesquisa verificaPesquisaRespondida(Pesquisa pesquisa) {
+		try {
+			return getEm()
+					.createNamedQuery("Pesquisa.verificaPesquisaRespondida", Pesquisa.class)
+					.setParameter("avaliacaoId", pesquisa.getAvaliacao().getId()).setParameter("alunoId", pesquisa.getAluno().getId())
+					.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+		
+		
 	}
 	
 	

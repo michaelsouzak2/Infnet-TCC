@@ -22,7 +22,7 @@ public class TokenHelper {
 			dto.setAvaliacaoId(Integer.parseInt(msgDecodificada.substring(0, index)));
 			dto.setAlunoId(Integer.parseInt(msgDecodificada.substring(index + 1, msgDecodificada.length())));
 			return dto;
-		} catch (NumberFormatException e) {
+		} catch (Exception e) {
 			return null;
 		}
 	}

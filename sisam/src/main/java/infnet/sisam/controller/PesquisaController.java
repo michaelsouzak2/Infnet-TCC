@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import infnet.sisam.dto.TokenDTO;
 import infnet.sisam.helper.TokenHelper;
@@ -35,16 +34,20 @@ public class PesquisaController {
 	private TokenHelper tokenHelper;
 	
 	@RequestMapping("/{token}")
-	public ModelAndView abrirFormulario(@PathVariable String token, RedirectAttributes redirectAttributes) {
+	public ModelAndView abrirFormulario(@PathVariable String token) {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		TokenDTO tokenDTO = tokenHelper.getClearText(token);
+		if(tokenDTO == null) {//Houve modificação da URL
+			modelAndView.setViewName("accessDenied");
+			return modelAndView;
+		}
+		
 		Pesquisa pesquisa = new Pesquisa(tokenDTO);
 		Avaliacao avaliacao = avaliacaoService.buscar(pesquisa.getAvaliacao().getId());
-		Boolean temPermissao = verificaPermissoes(avaliacao, pesquisa, redirectAttributes);
+		Boolean temPermissao = verificaPermissoes(avaliacao, pesquisa);
 		
 		if (temPermissao) {
-			pesquisaService.salvar(pesquisa);
 			Questionario questionario = avaliacao.getQuestionario();
 			modelAndView.addObject("questionario", questionario)
 						.addObject("opcoes", Likert.values())
@@ -59,25 +62,16 @@ public class PesquisaController {
 		return modelAndView;
 	}
 	
-	private Boolean verificaPermissoes(Avaliacao avaliacao, Pesquisa pesquisa, RedirectAttributes redirectAttributes) {
-		return verificaPrazo(avaliacao, redirectAttributes) && 
-				verificaPesquisaRespondida(pesquisa, redirectAttributes);
+	private Boolean verificaPermissoes(Avaliacao avaliacao, Pesquisa pesquisa) {
+		return verificaPrazo(avaliacao) && verificaPesquisaRespondida(pesquisa);
 	}
 	
-	private Boolean verificaPrazo(Avaliacao avaliacao, RedirectAttributes redirectAttributes) {
-		if(avaliacao.getDataFim().before(Calendar.getInstance())) {
-			redirectAttributes.addFlashAttribute("message", "Pesquisa fora do prazo.");
-			return false;
-		}
-		return true;
+	private Boolean verificaPrazo(Avaliacao avaliacao) {
+		return !avaliacao.getDataFim().before(Calendar.getInstance());
 	}
 
-	private Boolean verificaPesquisaRespondida(Pesquisa pesquisa, RedirectAttributes redirectAttributes) {
-		if(pesquisaService.verificaPesquisaRespondida(pesquisa)) {
-			redirectAttributes.addFlashAttribute("message", "Esta pesquisa já foi respondida.");
-			return false;
-		}
-		return true;
+	private Boolean verificaPesquisaRespondida(Pesquisa pesquisa) {
+		return !pesquisaService.verificaPesquisaRespondida(pesquisa);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)

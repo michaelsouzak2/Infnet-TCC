@@ -38,7 +38,12 @@ public class PesquisaService {
 	}
 
 	public Boolean verificaPesquisaRespondida(Pesquisa pesquisa) {
-		return pesquisaDao.verificaPesquisaRespondida(pesquisa);
+		Pesquisa p = pesquisaDao.verificaPesquisaRespondida(pesquisa);
+		if(p != null) {
+			return p.getAvaliacaoRespondida();
+		}
+		salvar(pesquisa);
+		return false;
 	}
 
 	public void salvarRespostas(Pesquisa pesquisa) {

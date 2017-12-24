@@ -25,7 +25,6 @@
 					<div class="access-denied">
 						<h3>Acesso negado!</h3><br />
 						<i class="fa fa-ban fa-5x" aria-hidden="true"></i>
-						${message}
 					</div>
 				</div>
 			</div>

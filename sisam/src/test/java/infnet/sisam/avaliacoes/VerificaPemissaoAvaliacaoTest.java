@@ -28,7 +28,7 @@ public class VerificaPemissaoAvaliacaoTest {
 	@Test
 	@Transactional
 	public void verificaPesquisaRespondida() {
-		Boolean verificaPesquisaRespondida = dao.verificaPesquisaRespondida(new Pesquisa(new Aluno(3), new Avaliacao(1)));
-		Assert.assertFalse(verificaPesquisaRespondida);
+		Pesquisa p = dao.verificaPesquisaRespondida(new Pesquisa(new Aluno(3), new Avaliacao(1)));
+		Assert.assertFalse(p.getAvaliacaoRespondida());
 	}
 }
