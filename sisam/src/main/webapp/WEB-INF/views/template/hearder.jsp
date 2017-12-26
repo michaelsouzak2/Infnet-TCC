@@ -39,7 +39,7 @@
 						</security:authorize>
 						<security:authorize access="isAuthenticated()">
 							<li>
-								<a href="#">Relatório</a>
+								<a href="${s:mvcUrl('RC#novo').build()}">Relatório</a>
 							</li>
 						</security:authorize>
 					</ul>

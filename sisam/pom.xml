@@ -258,6 +258,19 @@
 			<version>4.1.0.RELEASE</version>
 		</dependency>
 		
+		<!-- Apache POI - Manipulação de arquivos do Office -->
+		<dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.17</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.17</version>
+        </dependency>
+		
 	</dependencies>
 
 	<!-- Repositório selecionado do Spring para obter o Spring Security -->

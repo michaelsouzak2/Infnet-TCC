@@ -16,7 +16,8 @@ public class RespostaQuestaoDao extends JpaDao<RespostaQuestao> {
 	
 	public List<RespostaQuestao> findByAvaliacao(Avaliacao avaliacao) {
 		return getEm()
-				.createQuery("select rq from RepostaQuestao rq where rq.avaliacao = :avaliacao", RespostaQuestao.class)
+				.createQuery("select rq from RespostaQuestao rq where rq.avaliacao.id = :avaliacaoId", RespostaQuestao.class)
+				.setParameter("avaliacaoId", avaliacao.getId())
 				.getResultList();
 	}
 	

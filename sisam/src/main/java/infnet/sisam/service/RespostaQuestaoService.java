@@ -33,12 +33,4 @@ public class RespostaQuestaoService {
 		return respostaQuestaoDao.buscar(id);
 	}
 
-	/*public void salvaRespostas(RespostaQuestao respostaQuestao) {
-		RespostaQuestao resp = new RespostaQuestao();
-		resp.setAluno(alunoAvaliacao.getAluno());
-		resp.setAvaliacao(alunoAvaliacao.getAvaliacao());
-		// resp.setQuestao(questao);
-		resp.setResposta(null);
-	}*/
-
 }
