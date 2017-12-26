@@ -4,7 +4,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,7 +23,8 @@ public class Questao {
 	@Enumerated(EnumType.STRING)
 	private Likert opcao;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+//	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private GrupoQuestoes grupoQuestoes;
 	
 	public Questao() {

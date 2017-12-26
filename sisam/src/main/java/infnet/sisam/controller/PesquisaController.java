@@ -85,7 +85,7 @@ public class PesquisaController {
 			respostaQuestao.setResposta(questao.getOpcao());
 			respostaService.salvar(respostaQuestao);
 		});
-		pesquisaService.salvarRespostas(alunoAvaliacao);
+//		pesquisaService.salvarRespostas(alunoAvaliacao);
 		return new ModelAndView("redirect:/pesquisa/respondida");
 	}
 	
