@@ -238,7 +238,7 @@ public class ReportService {
 							sheet.getRow(i).createCell(6).setCellValue("1");
 						}else {
 							sheet.getRow(i).getCell(6).setCellValue(
-									String.valueOf(Integer.valueOf(sheet.getRow(6).getCell(6).getStringCellValue()) + 1));
+									String.valueOf(Integer.valueOf(sheet.getRow(i).getCell(6).getStringCellValue()) + 1));
 						}
 						break;
 		
