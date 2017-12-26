@@ -20,7 +20,7 @@ public class GrupoQuestoes {
 	private Integer id;
 	private String descricao;
 
-	@OneToMany(mappedBy = "grupoQuestoes", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "grupoQuestoes")
 	private List<Questao> questoes = new ArrayList<Questao>();
 
 	public Integer getId() {
