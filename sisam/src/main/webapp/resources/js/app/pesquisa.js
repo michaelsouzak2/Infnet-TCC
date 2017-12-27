@@ -9,19 +9,24 @@ $(document).ready(function(){
 	});
 	
 	
-	$('#form-resposta').submit(function(e){
-		$('tbody').find('[data-tr-likert]').each(function(){
-			if(!$(this).find(':radio:checked').length){
-				var $tr = $(this);
-				$tr.css('background-color', '#a94442')
-					.find(':radio').on('change', function(){
-						$tr.css('background-color', '');
-					});
-				
-				e.preventdefault();
-			}
-		});
+	$('#form-resposta').submit(function(event){
+		if(!validaPesquisa()) event.preventDefault();
 	});
 	
 });
+
+function validaPesquisa(){
+	var validado = true;
+	$('tbody').find('[data-tr-likert]').each(function(){
+		if(!$(this).find(':radio:checked').length){
+			var $tr = $(this);
+			$tr.addClass('alert-danger').find(':radio')
+				.on('change', function(){
+				   $tr.removeClass('alert-danger');
+				});
+			validado = false;
+		}
+	});
+	return validado;
+}
 
