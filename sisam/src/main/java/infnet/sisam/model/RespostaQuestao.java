@@ -19,12 +19,15 @@ public class RespostaQuestao {
 	private Integer id;
 	
 	@OneToOne(fetch = FetchType.EAGER)
+//	@OneToOne
 	private Avaliacao avaliacao;
 	
 	@OneToOne(fetch = FetchType.EAGER)
+//	@OneToOne
 	private Questao questao;
 	
 	@OneToOne(fetch = FetchType.EAGER)
+//	@OneToOne
 	private Aluno aluno;
 	
 	@Enumerated(EnumType.STRING)

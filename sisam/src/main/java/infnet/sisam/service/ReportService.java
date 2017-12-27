@@ -12,24 +12,24 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import infnet.sisam.dao.RespostaQuestaoDao;
 import infnet.sisam.model.Avaliacao;
 import infnet.sisam.model.GrupoQuestoes;
 import infnet.sisam.model.Likert;
 import infnet.sisam.model.Questao;
 import infnet.sisam.model.Questionario;
 import infnet.sisam.model.RespostaQuestao;
+import infnet.sisam.model.Turma;
 
 @Service
-@Transactional
 public class ReportService {
 	
 	@Autowired
-	private RespostaQuestaoDao respotaQuestaoDao;
+	private RespostaQuestaoService respotaQuestaoService;
 	@Autowired
-	private QuestionarioService questionarioService;
+	private AvaliacaoService avaliacaoService;
+	@Autowired
+	private TurmaService turmaService;
 	
 	private static final Logger LOGGER = Logger.getLogger(ReportService.class);
 	
@@ -39,87 +39,20 @@ public class ReportService {
 		Workbook workbook = new XSSFWorkbook();
 		Sheet sheet = workbook.createSheet("Planilha avaliação");
 		
-		List<RespostaQuestao> respostas = respotaQuestaoDao.findByAvaliacao(avaliacao);
-		Avaliacao av = respostas.get(0).getAvaliacao();
+		List<RespostaQuestao> respostas = respotaQuestaoService.findByAvaliacao(avaliacao);
 		
-		Questionario questionario = questionarioService.buscar(respostas.get(0).getAvaliacao().getQuestionario().getId());
+		Avaliacao av = avaliacaoService.buscar(respostas.get(0).getAvaliacao().getId());
+		
+		List<Turma> turmas = turmaService.buscarPelaAvaliacao(av);
+		
+		av.setTurmas(turmas);
+		
+		Questionario questionario = av.getQuestionario();
 			
 		criarCabecalho(sheet, av);
 		criarColunasPrincipais(sheet);
 		popularComPerguntas(sheet, questionario);
 		popularComRespostas(sheet, respostas);
-		
-		/*int rowbody = rownum - 2;
-		
-		for (int i = 2; i < sheet.getLastRowNum() + 2; ) {
-			if(sheet.getRow(i) != null && 
-					sheet.getRow(i).getCell(0).getStringCellValue().equalsIgnoreCase(respostas.get(rowbody).getQuestao().getPergunta())) {
-				
-				switch (respostas.get(rowbody).getResposta()) {
-				case CONCORDO_TOTALMENTE:
-					if(sheet.getRow(i).getCell(1).getStringCellValue() == null) {
-						sheet.getRow(i).getCell(1).setCellValue("1");
-					}else {
-						sheet.getRow(i).getCell(1).setCellValue(
-								String.valueOf(Integer.valueOf(sheet.getRow(i).getCell(1).getStringCellValue()) + 1));
-					}
-					break;
-				case CONCORDO:
-					if(sheet.getRow(i).getCell(2).getStringCellValue() == null) {
-						sheet.getRow(i).getCell(2).setCellValue("1");
-					}else {
-						sheet.getRow(i).getCell(2).setCellValue(
-								String.valueOf(Integer.valueOf(sheet.getRow(i).getCell(2).getStringCellValue()) + 1));
-					}
-					break;
-				case NAO_CONCORDO_NEM_DISCORDO:
-					if(sheet.getRow(i).getCell(3).getStringCellValue() == null) {
-						sheet.getRow(i).getCell(3).setCellValue("1");
-					}else {
-						sheet.getRow(i).getCell(3).setCellValue(
-								String.valueOf(Integer.valueOf(sheet.getRow(i).getCell(3).getStringCellValue()) + 1));
-					}
-					break;
-				case DISCORDO:
-					if(sheet.getRow(i).getCell(4).getStringCellValue() == null) {
-						sheet.getRow(i).getCell(4).setCellValue("1");
-					}else {
-						sheet.getRow(i).getCell(4).setCellValue(
-								String.valueOf(Integer.valueOf(sheet.getRow(i).getCell(4).getStringCellValue()) + 1));
-					}
-					break;
-				case DISCORDO_TOTALMENTE:
-					if(sheet.getRow(i).getCell(5).getStringCellValue() == null) {
-						sheet.getRow(i).getCell(5).setCellValue("1");
-					}else {
-						sheet.getRow(i).getCell(5).setCellValue(
-								String.valueOf(Integer.valueOf(sheet.getRow(i).getCell(5).getStringCellValue()) + 1));
-					}
-					break;
-				case NAO_SEI_AVALIAR:
-					if(sheet.getRow(i).getCell(6).getStringCellValue() == null) {
-						sheet.getRow(i).getCell(6).setCellValue("1");
-					}else {
-						sheet.getRow(i).getCell(6).setCellValue(
-								String.valueOf(Integer.valueOf(sheet.getRow(6).getCell(1).getStringCellValue()) + 1));
-					}
-					break;
-
-				default:
-					break;
-				}
-					
-			}
-			i++;
-			if(i == sheet.getLastRowNum() + 2){
-				Row row = sheet.createRow(rowbody);
-				int cellnum = 0;
-				Cell cellPergunta = row.createCell(cellnum++);
-				cellPergunta.setCellValue(respostas.get(rowbody).getQuestao().getPergunta());
-			}
-		}*/
-				
-			
 		
 		try {
 			ByteArrayOutputStream bos = new ByteArrayOutputStream();

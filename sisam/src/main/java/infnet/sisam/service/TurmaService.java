@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import infnet.sisam.dao.TurmaDao;
+import infnet.sisam.model.Avaliacao;
 import infnet.sisam.model.Turma;
 
 import static infnet.sisam.helper.Constantes.*;
@@ -43,6 +44,10 @@ public class TurmaService {
 
 	public void remover(Integer id) {
 		turmaDao.excluir(turmaDao.buscar(id));
+	}
+
+	public List<Turma> buscarPelaAvaliacao(Avaliacao av) {
+		return turmaDao.buscarPelaAvaliacao(av);
 	}
 
 }
