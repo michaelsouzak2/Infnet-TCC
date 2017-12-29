@@ -8,7 +8,7 @@
 <page:template titulo="Relatório da pesquisa">
 	
 	<c:url value="/" var="contextPath" />
-		
+	
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
@@ -17,7 +17,7 @@
 					<h3>Relatório da pesquisa</h3>
 				</div>
 				
-<%-- 				<form:form action="${s:mvcUrl('RC#downloadExcel').build()}" method="POST"> --%>
+<%-- 				<form:form action="${s:mvcUrl('RC#downloadExcel').build()}" cssClass="form-inline" method="POST"> --%>
 				<form:form action="${contextPath}report" cssClass="form-inline" method="POST">
 					<div class="form-group">
 						<label>Selecione a avaliação:</label>

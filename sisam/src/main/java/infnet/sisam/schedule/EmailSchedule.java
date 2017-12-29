@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.support.FormattingConversionService;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import infnet.sisam.dao.AvaliacaoDao;
@@ -40,7 +41,7 @@ public class EmailSchedule {
 	
 	private static final Logger LOGGER = Logger.getLogger(EmailSchedule.class);
 
-//	@Scheduled(cron = "0 0/5 * * * ?", zone = "America/Sao_Paulo")
+	@Scheduled(cron = "0 0/5 * * * ?", zone = "America/Sao_Paulo")
 	public void init() {
 		LOGGER.info("Scheduler acionado às : ".concat(conversionService.convert(Calendar.getInstance(), String.class)));
 		List<Avaliacao> avaliacoes = avaliacaoService.buscaAvaliacaoPendente();

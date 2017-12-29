@@ -41,7 +41,7 @@
 						</div>
 						
 						<div class="form-group">
-							<label for="sigla">Sigla:</label>
+							<label for="sigla">Identificador:</label>
 							<input type="text"  id="sigla" class="form-control" name="sigla" value="${questionario.sigla}"  />
 						</div>
 												

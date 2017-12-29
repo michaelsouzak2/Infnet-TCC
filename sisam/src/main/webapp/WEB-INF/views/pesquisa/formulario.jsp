@@ -44,26 +44,22 @@
 									<c:forEach items="${questionario.gruposQuestoes}" var="grupo" varStatus="statusGrupo">
 										<c:forEach items="${grupo.questoes}" var="questao" varStatus="status">
 											
-											<c:choose>
-												<c:when test="${status.index == 0}">
-													<tr>
-														<td colspan="8" class="form-av-grupoquest-desc">${grupo.descricao}</td>
-													</tr>
-												</c:when>
-												<c:otherwise>
-													<tr data-tr-likert>
-														<td colspan="2">${questao.pergunta}</td>
-														<c:forEach items="${opcoes}" var="opcao">
-															<td class="text-center"	>
-																<label class="form-check-label">
-																	<input type="hidden" value="${questao.id}" />
-																	<input type="radio" class="form-check-input cursor-pointer" value="${opcao}" />
-																</label>
-															</td>
-														</c:forEach>
-													</tr>											
-												</c:otherwise>
-											</c:choose>
+											<c:if test="${status.index == 0}">
+												<tr>
+													<td colspan="8" class="form-av-grupoquest-desc">${grupo.descricao}</td>
+												</tr>
+											</c:if>
+											<tr data-tr-likert>
+												<td colspan="2">${questao.pergunta}</td>
+												<c:forEach items="${opcoes}" var="opcao">
+													<td class="text-center"	>
+														<label class="form-check-label">
+															<input type="hidden" value="${questao.id}" />
+															<input type="radio" class="form-check-input cursor-pointer" value="${opcao}" />
+														</label>
+													</td>
+												</c:forEach>
+											</tr>											
 											
 										</c:forEach>
 									</c:forEach>

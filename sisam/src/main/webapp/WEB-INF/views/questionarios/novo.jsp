@@ -34,7 +34,7 @@
 						</div>
 						
 						<div class="form-group">
-							<label for="descricao">Sigla:</label>
+							<label for="descricao">Identificador:</label>
 							<input type="text" name="sigla" id="sigla" class="form-control" />
 						</div>
 												
