@@ -38,11 +38,6 @@ public class CargaBancoDadosController {
 		roleSec.setNome(PermissaoEnum.ROLE_SECRETARIA);
 		permissaoService.salvar(roleSec);
 		
-		Permissao roleAluno = new Permissao();
-		roleAluno.setId(3);
-		roleAluno.setNome(PermissaoEnum.ROLE_ALUNO);
-		permissaoService.salvar(roleAluno);
-		
 		
 		Usuario usuario = new Usuario();
 		usuario.setEmail("adm@infnet.edu.br");

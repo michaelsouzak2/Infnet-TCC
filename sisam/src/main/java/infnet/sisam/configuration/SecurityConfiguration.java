@@ -1,6 +1,7 @@
 package infnet.sisam.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -26,8 +27,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/resources/**").permitAll()
 				.antMatchers("/pesquisa/**").permitAll()
 				.antMatchers("/executarcargainicial").permitAll()
-				.antMatchers("/relatorio/**").hasRole(PermissaoEnum.ROLE_SECRETARIA.getDescricao())
-				.antMatchers("/**").hasRole(PermissaoEnum.ROLE_ADMINISTRADOR.getDescricao())
+				.antMatchers("/avaliacoes/**", "/grupoQuestoes/**", "/questoes/**", "/questionarios/**", "/usuarios/**")
+					.hasRole(PermissaoEnum.ROLE_ADMINISTRADOR.getDescricao())
+				.antMatchers("/report/**").hasRole(PermissaoEnum.ROLE_SECRETARIA.getDescricao())
 				.anyRequest()
 				.authenticated()
 			.and()
