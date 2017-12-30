@@ -45,6 +45,13 @@ public class CargaBancoDadosController {
 		usuario.setSenha("123456");
 		usuario.setPermissao(roleAdmin);
 		usuarioService.salvar(usuario);
+
+		Usuario sec = new Usuario();
+		sec.setEmail("maria@infnet.edu.br");
+		sec.setNome("Maria");
+		sec.setSenha("123456");
+		sec.setPermissao(roleSec);
+		usuarioService.salvar(sec);
 		
 		return "Carga inicial realizada com sucesso.";
 		

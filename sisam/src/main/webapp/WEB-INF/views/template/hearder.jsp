@@ -37,7 +37,7 @@
 								<a href="${s:mvcUrl('UC#listar').build()} ">Usuários</a>
 							</li>
 						</security:authorize>
-						<security:authorize access="isAuthenticated()">
+						<security:authorize access="hasRole('ROLE_SECRETARIA')">
 							<li>
 								<a href="${s:mvcUrl('RC#novo').build()}">Relatório</a>
 							</li>
